@@ -1,6 +1,8 @@
 import React from 'react';
+import PurchaseContainer from '../Components/PurchaseContainer'
 
 class IndexPage extends React.Component {
+
   componentDidMount() {
     fetch('http://localhost:3000/profile', {
       headers: {
@@ -11,8 +13,13 @@ class IndexPage extends React.Component {
   }
 
   render() {
-    return "Hello from IndexPage"
-  }
+    console.log('IndexPage props', this.props);
+    return (
+    <div>
+      Hello {this.props.user.username} from IndexPage <br/>
+      <PurchaseContainer />
+    </div>
+  )}
 }
 
 export default IndexPage;
