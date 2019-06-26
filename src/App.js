@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import LoginPage from './Pages/LoginPage'
 import SignupPage from './Pages/SignupPage'
+import ProfilePage from './Pages/ProfilePage'
 import IndexPage from './Pages/IndexPage'
 import NoMatch from './Pages/NoMatchPage'
 import { Switch, Route } from 'react-router-dom'

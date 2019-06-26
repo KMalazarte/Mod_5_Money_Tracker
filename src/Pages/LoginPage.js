@@ -35,8 +35,6 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    console.log('login page props', this.props);
-
     return (
       <form onSubmit={this.handleLogin}>
         <input type="text" name="username" onChange={this.handleChange} />
