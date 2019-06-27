@@ -4,11 +4,11 @@ import { Card, Image } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 
 // props: { user: { avatar: 'url', username: 'Chandler Bing', bio: 'bio' } }
-const Profile = ({ avatar, username, bio }) => (
+const Profile = ({ username }) => (
   <Card>
-    <Image src={} />
+    <Image src={"aiushd"} />
     <Card.Content>
-      <Card.Header>{username}</Card.Header>
+      <Card.Header>{localStorage.username}</Card.Header>
 
       <Card.Description>{}</Card.Description>
     </Card.Content>
@@ -23,8 +23,8 @@ const Profile = ({ avatar, username, bio }) => (
 //   }
 // }
 
-const mapStateToProps = ({ usersReducer: { user: { username } } }) => ({
-  username
+const mapStateToProps = ({ usersReducer: { user } }) => ({
+  user
 })
 
 // const connectedToReduxHOC = connect(mapStateToProps)

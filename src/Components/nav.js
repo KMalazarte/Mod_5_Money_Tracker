@@ -3,7 +3,13 @@ import { connect } from 'react-redux'
 import { NavLink, withRouter } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
 
+
 const Nav = ({ user: { loggedIn }, location: { pathname } }) => {
+
+  const handleLogout = (e) => {
+    localStorage.clear()
+  }
+
   return (
     <Menu pointing secondary>
       {loggedIn ? (
@@ -11,7 +17,7 @@ const Nav = ({ user: { loggedIn }, location: { pathname } }) => {
           <Menu.Item as={NavLink} to="/profile" name="Profile" active={pathname === '/profile'} />
           <Menu.Menu position="right">
             {/* TODO: logout */}
-            {/* <Menu.Item to="/logout" name="Logout" onClick={logout} /> */}
+           <Menu.Item as={NavLink} to="/logout" name="Logout" onClick={handleLogout} />
           </Menu.Menu>
         </Fragment>
       ) : (

@@ -33,6 +33,7 @@ export const /*FUNCTION*/ loginUser = (username, password) => {
       .then(JSONResponse => {
         console.log('%c INSIDE YE OLDE .THEN', 'color: navy')
         localStorage.setItem('jwt', JSONResponse.jwt)
+        localStorage.setItem('username', JSONResponse.user.username)
         dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
         // dispatch(setCurrentUser(JSONResponse.user))
       })

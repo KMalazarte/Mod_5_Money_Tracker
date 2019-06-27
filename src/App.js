@@ -4,7 +4,7 @@ import Profile from './components/profile'
 import LoginForm from './components/loginForm'
 import Nav from './components/nav'
 import NotFound from './components/notFound'
-import SignupForm from './components/SignupForm'
+import SignupForm from './components/signupForm'
 
 import './App.css'
 
