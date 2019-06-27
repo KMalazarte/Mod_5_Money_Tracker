@@ -1,18 +1,22 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Card, Image } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
+import PurchaseContainer from './purchaseContainer'
 
 // props: { user: { avatar: 'url', username: 'Chandler Bing', bio: 'bio' } }
 const Profile = ({ username }) => (
-  <Card>
-    <Image src={"aiushd"} />
-    <Card.Content>
-      <Card.Header>{localStorage.username}</Card.Header>
+  <Fragment>
+      <Card>
+        <Image src={"https://stickerpop-prd.s3.us-west-2.amazonaws.com/stickers/PKHwOUXxj0KgZ7Safr5fdeBIVlfqnD8KGN8WVoOS.gif"} />
+        <Card.Content>
+          <Card.Header>{localStorage.username}</Card.Header>
 
-      <Card.Description>{}</Card.Description>
-    </Card.Content>
-  </Card>
+          <Card.Description>{}</Card.Description>
+        </Card.Content>
+      </Card>
+    <PurchaseContainer />
+  </Fragment>
 )
 
 // const mapStateToProps = (reduxStoreState) => {

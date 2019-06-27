@@ -8,6 +8,7 @@ const Nav = ({ user: { loggedIn }, location: { pathname } }) => {
 
   const handleLogout = (e) => {
     localStorage.clear()
+    window.location.replace('http://localhost:3001/login')
   }
 
   return (

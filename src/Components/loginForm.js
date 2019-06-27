@@ -57,6 +57,7 @@ class LoginForm extends React.Component {
           </Form.Group>
           <Button type="submit">Login</Button>
         </Form>
+        
       </Segment>
     )
   }
