@@ -1,62 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import LoginPage from './Pages/LoginPage'
-import SignupPage from './Pages/SignupPage'
-import IndexPage from './Pages/IndexPage'
-import NoMatch from './Pages/NoMatchPage'
-import { Switch, Route } from 'react-router-dom'
+import React, { Fragment } from 'react'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import Profile from './components/profile'
+import LoginForm from './components/loginForm'
+import Nav from './components/nav'
+import NotFound from './components/notFound'
+import SignupForm from './components/SignupForm'
 
+import './App.css'
 
-class App extends React.Component {
-
-  state = {
-    user: {}
-  }
-
-  // redirect = (page) => {
-  //   this.setState({
-  //     page: page
-  //   })
-  // }
-  componentDidMount() {
-    if (!!localStorage.token) {
-      fetch("http://localhost:3000/profile", {
-        headers: {
-          "Authorization": localStorage.getItem("token")
-        },
-      }).then(resp => resp.json())
-        .then(user => {
-          this.setState({ user })
-        })
-    }
-  }
-
-
-
-  render() {
-    // console.log(this.state);
-    return (
+const App = props => {
+  console.log('%c APP Props: ', 'color: firebrick', props)
+  return (
+    <Fragment>
+      <Nav />
       <Switch>
-        <Route exact path= "/"
-          render={({ location, history, match }) => <IndexPage user={this.state.user}/>}
-        />
-        <Route path="/login" component={LoginPage}/>
-        <Route path="/signup" component={SignupPage}/>
-        <Route component={NoMatch} />
-      </Switch>
-    )}
+        <Route exact path="/" render={() => <Redirect to="/profile" />} />
 
+        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/login" component={LoginForm} />
+        <Route exact path='/signup' component={SignupForm} />
+        <Route component={NotFound} />
+      </Switch>
+    </Fragment>
+  )
 }
 
-
-export default App;
-
-
-// if (this.state.page === "index") {
-  //   return <IndexPage />
-  // } else if (this.state.page === "signup") {
-    //   return <SignupPage redirect={this.redirect} />
-    // } else if (this.state.page === "login") {
-      //   return <LoginPage redirect={this.redirect} />
-      // }
+export default withRouter(App) //withRouter is a Higher Order Component (HOC) that returns a COPY of App with React router props injected
