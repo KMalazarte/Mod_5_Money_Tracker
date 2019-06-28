@@ -47,6 +47,7 @@ class SignupForm extends React.Component {
       <Redirect to="/profile" />
     ) : (
       <Segment>
+        <h1>Sign Up Below</h1>
         <Form
           onSubmit={this.handleSignupSubmit}
           size="mini"
@@ -54,7 +55,6 @@ class SignupForm extends React.Component {
           loading={this.props.authenticatingUser}
           error={this.props.failedLogin}
         >
-          <Message error header={this.props.failedLogin ? this.props.error : null} />
           <Form.Group widths="equal">
             <Form.Input
               label="username"

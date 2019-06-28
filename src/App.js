@@ -5,8 +5,23 @@ import LoginForm from './components/loginForm'
 import Nav from './components/nav'
 import NotFound from './components/notFound'
 import SignupForm from './components/signupForm'
-
 import './App.css'
+
+// state = {
+//   purchases: []
+// }
+
+// componentDidMount() {
+//   fetch("http://localhost:3000/purchases")
+//   .then(response => response.json())
+//   .then(purchasesArr =>  {
+//     console.log(moviesArr.movies);
+//     this.setState({
+//     purchases: purchasesArr
+//     })
+//   })
+// }
+
 
 const App = props => {
   console.log('%c APP Props: ', 'color: firebrick', props)
