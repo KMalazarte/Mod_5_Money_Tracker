@@ -30,18 +30,17 @@ handleSubmit = (e) => {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+        // "Accept": "application/json",
+        // Authorization: `Bearer ${localStorage.getItem('jwt')}`
       },
       body: JSON.stringify({
         date: this.state.date,
         name: this.state.name,
         category: this.state.category,
-        placeOfPurchase: this.state.placeOfPurchase,
-        outOfPocket: this.state.outOfPocket,
-        actualPaid: this.state.actualPaid,
-        paymentMethod: this.state.paymentMethod,
-        currentPurchases: this.state.currentPurchases,
+        place_of_purchase: this.state.placeOfPurchase,
+        out_of_pocket: this.state.outOfPocket,
+        actual_paid: this.state.actualPaid,
+        payment_method: this.state.paymentMethod,
         user_id: 1
       })
     })
