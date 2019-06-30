@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react'
 import { Button, Divider, Form } from 'semantic-ui-react'
+// import DatePicker from "react-datepicker";
+
+// import "react-datepicker/dist/react-datepicker.css";
 
 const sizes = ['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']
 
@@ -26,6 +29,17 @@ handleSubmit = (e) => {
   console.log("submitted");
   e.preventDefault()
 
+  let form = e.target
+  let revObj= { date: this.state.date,
+                name: this.state.name,
+                category: this.state.category,
+                place_of_purchase: this.state.placeOfPurchase,
+                out_of_pocket: this.state.outOfPocket,
+                actual_paid: this.state.actualPaid,
+                payment_method: this.state.paymentMethod,
+                user_id: localStorage.user_id
+  }
+
     fetch(`http://localhost:3000/purchases`, {
       method: 'POST',
       headers: {
@@ -41,9 +55,10 @@ handleSubmit = (e) => {
         out_of_pocket: this.state.outOfPocket,
         actual_paid: this.state.actualPaid,
         payment_method: this.state.paymentMethod,
-        user_id: 1
+        user_id: localStorage.user_id
       })
     })
+  form.reset()
 }
 
 
@@ -53,6 +68,7 @@ handleSubmit = (e) => {
         <Fragment>
               <Form onSubmit={this.handleSubmit} size={"small"} key={"small"}>
                 <Form.Group widths='equal'>
+
                   <Form.Field required name='date' control='input' placeholder='Date' onChange={this.handleChange} />
                   <Form.Field required name='name' control='input' placeholder='Purchase' onChange={this.handleChange} />
                   <Form.Field required name='category' control='input' placeholder='Category' onChange={this.handleChange} />

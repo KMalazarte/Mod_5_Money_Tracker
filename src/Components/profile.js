@@ -11,7 +11,6 @@ const Profile = ({ username, avatar, id }) => (
         <Image src={localStorage.avatar} />
         <Card.Content>
           <Card.Header>{localStorage.username}</Card.Header>
-
           <Card.Description>User #{localStorage.user_id}</Card.Description>
         </Card.Content>
       </Card>
