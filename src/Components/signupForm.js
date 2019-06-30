@@ -43,7 +43,7 @@ class SignupForm extends React.Component {
 
   render() {
     // console.log('%c LOGIN FORM PROPS: ', 'color: red', this.props)
-    return localStorage.token ? (
+    return localStorage.jwt ? (
       <Redirect to="/profile" />
     ) : (
       <Segment>

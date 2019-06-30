@@ -5,19 +5,25 @@ import withAuth from '../hocs/withAuth'
 import PurchaseContainer from './purchaseContainer'
 
 // props: { user: { avatar: 'url', username: 'Chandler Bing', bio: 'bio' } }
-const Profile = ({ username }) => (
+const Profile = ({ username, avatar, id }) => (
   <Fragment>
       <Card>
-        <Image src={"https://stickerpop-prd.s3.us-west-2.amazonaws.com/stickers/PKHwOUXxj0KgZ7Safr5fdeBIVlfqnD8KGN8WVoOS.gif"} />
+        <Image src={localStorage.avatar} />
         <Card.Content>
           <Card.Header>{localStorage.username}</Card.Header>
 
-          <Card.Description>{}</Card.Description>
+          <Card.Description>User #{localStorage.user_id}</Card.Description>
         </Card.Content>
       </Card>
     <PurchaseContainer />
   </Fragment>
 )
+
+// const mapStateToProps = ({ usersReducer: { user: { avatar, username, id } } }) => ({
+//   avatar,
+//   username,
+//   id
+// })
 
 // const mapStateToProps = (reduxStoreState) => {
 //   return {
@@ -30,6 +36,7 @@ const Profile = ({ username }) => (
 const mapStateToProps = ({ usersReducer: { user } }) => ({
   user
 })
+
 
 // const connectedToReduxHOC = connect(mapStateToProps)
 // const connectedProfile = connectedToReduxHOC(Profile)
