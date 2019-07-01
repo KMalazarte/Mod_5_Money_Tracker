@@ -49,7 +49,15 @@ state={
                }
 
    this.setState({
-      purchases: [...this.state.purchases, revObj]
+      purchases: [...this.state.purchases, revObj],
+      date:"",
+      name:"",
+      category:"",
+      placeOfPurchase:"",
+      outOfPocket:"",
+      actualPaid:"",
+      paymentMethod:"",
+      selected: ""
     })
 
      fetch(`http://localhost:3000/purchases`, {
@@ -68,20 +76,35 @@ state={
          user_id: localStorage.user_id
        })
      })
-   form.reset()
  }
 
  editHandler = (e) => {
+   console.log(e.currentTarget.id);
    let clicked = this.state.purchases.find((purchase) => {
      return parseInt(e.currentTarget.id) === purchase.id
    })
    let notClicked = this.state.purchases.filter((purchase) => {
      return parseInt(e.currentTarget.id) !== purchase.id
    })
+   fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
+     method: 'DELETE'
+   }).then(() => {
+      console.log('removed');
+   }).catch(err => {
+     console.error(err)
+   })
      this.setState({
-       selected: clicked,
+       date:clicked.date,
+       name:clicked.name,
+       category:clicked.category,
+       placeOfPurchase:clicked.place_of_purchase,
+       outOfPocket:clicked.out_of_pocket,
+       actualPaid:clicked.actual_paid,
+       paymentMethod:clicked.payment_method,
+       selected:clicked.selected,
        purchases: notClicked
      })
+
  }
 
  deleteHandler = (e) => {
@@ -112,6 +135,13 @@ state={
           handleChange = {this.handleChange}
           handleSubmit = {this.handleSubmit}
           selected = {this.state.selected}
+          date={this.state.date}
+          name={this.state.name}
+          category={this.state.category}
+          placeOfPurchase={this.state.placeOfPurchase}
+          outOfPocket={this.state.outOfPocket}
+          actualPaid={this.state.actualPaid}
+          paymentMethod={this.state.paymentMethod}
            />
           <PurchaseTable
           purchases = {this.state.purchases}
