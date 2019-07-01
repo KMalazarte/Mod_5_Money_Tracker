@@ -29,10 +29,13 @@ state={
  }
 
  handleChange = (e) => {
+   console.log(e.currentTarget.value);
    this.setState({
      [e.target.name]: e.target.value
    })
  }
+
+ // handleSelectChange=(e,{value})=>this.setState({paymentMethod:value})
 
  handleSubmit = (e) => {
    e.preventDefault()
