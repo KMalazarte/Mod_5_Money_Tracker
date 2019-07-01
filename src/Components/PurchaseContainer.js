@@ -3,6 +3,9 @@ import PurchaseForm from "./purchaseForm"
 import PurchaseTable from "./purchaseTable"
 import { connect } from 'react-redux'
 import withAuth from '../hocs/withAuth'
+// import DatePicker from "react-datepicker";
+//
+// import "react-datepicker/dist/react-datepicker.css";
 
 class PurchaseContainer extends React.Component {
 
@@ -29,9 +32,20 @@ state={
  }
 
  handleChange = (e) => {
-   console.log(e.currentTarget.value);
    this.setState({
      [e.target.name]: e.target.value
+   })
+ }
+
+ handlePaymentChange = (e) => {
+   this.setState({
+      paymentMethod: e.currentTarget.innerText
+   })
+ }
+
+ handleCategoryChange = (e) => {
+   this.setState({
+      category: e.currentTarget.innerText
    })
  }
 
@@ -40,7 +54,6 @@ state={
  handleSubmit = (e) => {
    e.preventDefault()
 
-   let form = e.target
    let revObj= { date: this.state.date,
                  name: this.state.name,
                  category: this.state.category,
@@ -89,13 +102,6 @@ state={
    let notClicked = this.state.purchases.filter((purchase) => {
      return parseInt(e.currentTarget.id) !== purchase.id
    })
-   fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
-     method: 'DELETE'
-   }).then(() => {
-      console.log('removed');
-   }).catch(err => {
-     console.error(err)
-   })
      this.setState({
        date:clicked.date,
        name:clicked.name,
@@ -106,6 +112,13 @@ state={
        paymentMethod:clicked.payment_method,
        selected:clicked.selected,
        purchases: notClicked
+     })
+     fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
+       method: 'DELETE'
+     }).then(() => {
+       console.log('removed');
+     }).catch(err => {
+       console.error(err)
      })
 
  }
@@ -137,6 +150,8 @@ state={
           <PurchaseForm
           handleChange = {this.handleChange}
           handleSubmit = {this.handleSubmit}
+          handlePaymentChange = {this.handlePaymentChange}
+          handleCategoryChange = {this.handleCategoryChange}
           selected = {this.state.selected}
           date={this.state.date}
           name={this.state.name}

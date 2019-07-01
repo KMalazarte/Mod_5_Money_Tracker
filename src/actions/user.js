@@ -37,6 +37,7 @@ export const /*FUNCTION*/ loginUser = (username, password) => {
         localStorage.setItem('username', JSONResponse.user.username)
         localStorage.setItem('user_id', JSONResponse.user.id)
         localStorage.setItem('avatar', JSONResponse.user.avatar)
+        localStorage.setItem('monthly_take_home', JSONResponse.user.monthly_take_home)
         dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
         // dispatch(setCurrentUser(JSONResponse.user))
       })

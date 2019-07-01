@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 import { Button, Form, Dropdown } from 'semantic-ui-react'
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 
 
 const sizes = ['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']
@@ -19,6 +21,11 @@ const paymentOptions = [
     key: 'Venmo to',
     text: 'Venmo to',
     value: 'Venmo to',
+  },
+  {
+    key: 'Venmo from',
+    text: 'Venmo from',
+    value: 'Venmo from',
   },
 ]
 
@@ -73,11 +80,11 @@ class PurchaseForm extends React.Component {
                 <Form.Group widths='equal'>
                   <Form.Field required name='date' control='input' placeholder='Date' onChange={this.props.handleChange} value={this.props.date}/>
                   <Form.Field required name='name' control='input' placeholder='Purchase' onChange={this.props.handleChange} value={this.props.name}/>
-                  <Form.Field required name='category' control='input' placeholder='Category' onChange={this.props.handleChange} options={categories} selection value={this.props.category}/>
+                  <Form.Field required fluid name='category' control={Dropdown} placeholder='Select a Category' onChange={this.props.handleCategoryChange} options={categories} selection value={this.props.category}/>
                   <Form.Field required name='placeOfPurchase' control='input' placeholder='Place of Purchase' onChange={this.props.handleChange} value={this.props.placeOfPurchase}/>
                   <Form.Field required name='outOfPocket' control='input' placeholder='Out of Pocket' onChange={this.props.handleChange} value={this.props.outOfPocket}/>
                   <Form.Field required name='actualPaid' control='input' placeholder='Actual Paid' onChange={this.props.handleChange} value={this.props.actualPaid}/>
-                  <Form.Field required name='paymentMethod' control='input' placeholder='Payment Method' options={paymentOptions} onChange={this.props.handleChange} selection value={this.props.paymentMethod}/>
+                  <Form.Field required fluid name='paymentMethod' control={Dropdown} placeholder='Select a Payment Method' selection options={paymentOptions} onChange={this.props.handlePaymentChange} selection value={this.props.paymentMethod}/>
                   <Button type='submit'>Submit</Button>
                 </Form.Group>
               </Form>
@@ -89,6 +96,3 @@ class PurchaseForm extends React.Component {
 }
 
 export default PurchaseForm
-
-// TOP GET DROPDOWNS BACK CHANGE CONTROL TO "Dropdown"
-// <Dropdown required fluid name='paymentMethod' placeholder='Choose a Payment Method' control='input' selection options={paymentOptions} onChange={this.props.handleChange} value={value}/>

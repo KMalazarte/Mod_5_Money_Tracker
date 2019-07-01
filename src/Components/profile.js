@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { Card, Image } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 import PurchaseContainer from './purchaseContainer'
+import UserStats from './userStats'
 
 // props: { user: { avatar: 'url', username: 'Chandler Bing', bio: 'bio' } }
 const Profile = ({ username, avatar, id }) => (
   <Fragment>
+      <UserStats />
       <Card>
         <Image src={localStorage.avatar} />
         <Card.Content>
