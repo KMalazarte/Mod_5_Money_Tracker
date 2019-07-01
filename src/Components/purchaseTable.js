@@ -4,7 +4,6 @@ import { Table } from 'semantic-ui-react'
 class PurchaseTable extends React.Component {
 
   render() {
-  console.log(this.props.purchases)
   const purchaseRows = this.props.purchases.map(purchase =>
     <Table.Row key={purchase.id}>
       <Table.Cell>{purchase.date}</Table.Cell>
