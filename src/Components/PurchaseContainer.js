@@ -14,7 +14,8 @@ state={
   placeOfPurchase:"",
   outOfPocket:"",
   actualPaid:"",
-  paymentMethod:""
+  paymentMethod:"",
+  selected: ""
 }
 
   componentDidMount() {
@@ -34,7 +35,6 @@ state={
  }
 
  handleSubmit = (e) => {
-   console.log("submitted");
    e.preventDefault()
 
    let form = e.target
@@ -46,7 +46,7 @@ state={
                  actual_paid: this.state.actualPaid,
                  payment_method: this.state.paymentMethod,
                  user_id: localStorage.user_id
-   }
+               }
 
    this.setState({
       purchases: [...this.state.purchases, revObj]
@@ -71,16 +71,52 @@ state={
    form.reset()
  }
 
+ editHandler = (e) => {
+   let clicked = this.state.purchases.find((purchase) => {
+     return parseInt(e.currentTarget.id) === purchase.id
+   })
+   let notClicked = this.state.purchases.filter((purchase) => {
+     return parseInt(e.currentTarget.id) !== purchase.id
+   })
+     this.setState({
+       selected: clicked,
+       purchases: notClicked
+     })
+ }
+
+ deleteHandler = (e) => {
+   console.log(localStorage.user_id);
+
+   let notClicked = this.state.purchases.filter((purchase) => {
+     return parseInt(e.currentTarget.dataset.id) !== purchase.id
+   })
+     this.setState({
+       purchases: notClicked
+     })
+    fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.dataset.id}`, {
+      method: 'DELETE'
+    }).then(() => {
+       console.log('removed');
+    }).catch(err => {
+      console.error(err)
+    });
+    alert('Purchase deleted')
+ }
+
 
   render() {
+
       return(
         <Fragment>
           <PurchaseForm
           handleChange = {this.handleChange}
           handleSubmit = {this.handleSubmit}
+          selected = {this.state.selected}
            />
           <PurchaseTable
           purchases = {this.state.purchases}
+          editHandler = {this.editHandler}
+          deleteHandler = {this.deleteHandler}
           />
         </Fragment>
       )

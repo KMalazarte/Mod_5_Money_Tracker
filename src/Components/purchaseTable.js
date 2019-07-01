@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Table } from 'semantic-ui-react'
+import { Table, Button, Icon } from 'semantic-ui-react'
 
 class PurchaseTable extends React.Component {
 
@@ -13,6 +13,21 @@ class PurchaseTable extends React.Component {
       <Table.Cell>${purchase.out_of_pocket}</Table.Cell>
       <Table.Cell>${purchase.actual_paid}</Table.Cell>
       <Table.Cell>{purchase.payment_method}</Table.Cell>
+      <Button.Group>
+        <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated>
+          <Button.Content visible>Edit</Button.Content>
+          <Button.Content hidden>
+            <Icon name='pencil square'/>
+          </Button.Content>
+         </Button>
+         <Button key="delete" data-id={purchase.id} onClick={this.props.deleteHandler} animated>
+           <Button.Content visible>Delete</Button.Content>
+           <Button.Content hidden>
+            <Icon name='delete'/>
+           </Button.Content>
+          </Button>
+      </Button.Group>
+
     </Table.Row>
   )
       return(
