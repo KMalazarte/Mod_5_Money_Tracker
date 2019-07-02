@@ -6,7 +6,7 @@ const NotFound = () => (
     <Header size="huge" inverted color="purple">
       Page Not Found lol
     </Header>
-    <Image src="https://thumbs.dreamstime.com/z/senior-man-shrugging-his-shoulders-8775727.jpg" />
+    <Image src="https://i.kym-cdn.com/entries/icons/mobile/000/018/489/nick-young-confused-face-300x256-nqlyaa.jpg" />
   </Fragment>
 )
 

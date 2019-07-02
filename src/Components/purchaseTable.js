@@ -1,17 +1,57 @@
 import React, { Fragment } from 'react'
 import { Table, Button, Icon } from 'semantic-ui-react'
+import moment from 'moment'
+
+const colors = [
+  'red',
+  'orange',
+  'yellow',
+  'olive',
+  'green',
+  'teal',
+  'blue',
+  'violet',
+  'purple',
+  'pink',
+  'brown',
+  'grey',
+  'black',
+]
+
+// let categoryColor = switch ( purchase.category ) {
+//   case 'Gifts':
+//   color = 'pink'
+//   break
+//   case 'Food':
+//   color = 'blue'
+//   break
+//   case 'Entertainment':
+//   color = 'green'
+//   break
+//   case 'Clothes/Accessories':
+//   color = 'orange'
+//   break
+//   case 'Booze/Night Out':
+//   color = 'yellow'
+//   break
+//   case 'Transportation/ Gas/ Hotels':
+//   color = 'purple'
+//   break
+//   case 'Misc.':
+//   color = 'grey'
+//   break
+// }
 
 class PurchaseTable extends React.Component {
-
   render() {
   const purchaseRows = this.props.purchases.map(purchase =>
-    <Table.Row key={purchase.id}>
-      <Table.Cell>{purchase.date}</Table.Cell>
+    <Table.Row key={purchase.id} priority>
+      <Table.Cell>{moment(purchase.date).format("MM-DD-YYYY")}</Table.Cell>
       <Table.Cell>{purchase.name}</Table.Cell>
       <Table.Cell>{purchase.category}</Table.Cell>
       <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
-      <Table.Cell>${purchase.out_of_pocket}</Table.Cell>
-      <Table.Cell>${purchase.actual_paid}</Table.Cell>
+      <Table.Cell>${parseFloat(purchase.out_of_pocket).toFixed(2)}</Table.Cell>
+      <Table.Cell>${parseFloat(purchase.actual_paid).toFixed(2)}</Table.Cell>
       <Table.Cell>{purchase.payment_method}</Table.Cell>
       <Button.Group>
         <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated>

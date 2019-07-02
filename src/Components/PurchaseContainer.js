@@ -18,18 +18,26 @@ state={
   outOfPocket:"",
   actualPaid:"",
   paymentMethod:"",
-  selected: ""
+  selected: "",
+  spent: 0
 }
 
   componentDidMount() {
     fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
     .then(resp => resp.json())
     .then(purchaseArr => {
+    let spend = []
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
+    let total = spend.reduce(reducer)
+    console.log(total);
      this.setState({
-     purchases: purchaseArr.purchase
+     purchases: purchaseArr.purchase,
+     spent: total
      })
    })
  }
+
 
  handleChange = (e) => {
    this.setState({
@@ -141,7 +149,6 @@ state={
     });
     alert('Purchase deleted')
  }
-
 
   render() {
 
