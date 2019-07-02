@@ -1,22 +1,23 @@
 import React, { Fragment } from 'react'
 import { Table, Button, Icon } from 'semantic-ui-react'
 import moment from 'moment'
+import _ from 'lodash'
 
-const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'olive',
-  'green',
-  'teal',
-  'blue',
-  'violet',
-  'purple',
-  'pink',
-  'brown',
-  'grey',
-  'black',
-]
+// const colors = [
+//   'red',
+//   'orange',
+//   'yellow',
+//   'olive',
+//   'green',
+//   'teal',
+//   'blue',
+//   'violet',
+//   'purple',
+//   'pink',
+//   'brown',
+//   'grey',
+//   'black',
+// ]
 
 // let categoryColor = switch ( purchase.category ) {
 //   case 'Gifts':
@@ -43,8 +44,49 @@ const colors = [
 // }
 
 class PurchaseTable extends React.Component {
+
+  constructor(props) {
+  super(props);
+  this.state = {
+      column: null,
+      data: [],
+      direction: null,
+    }
+  }
+
+  componentDidUpdate(){
+    if (this.state.data.length < this.props.purchases.length ) {
+      this.setState(
+        {
+        data: this.props.purchases
+        }
+      )}
+  }
+
+  handleSort = clickedColumn => () => {
+    const { column, data, direction } = this.state
+
+    if (column !== clickedColumn) {
+       this.setState({
+         column: clickedColumn,
+         data: _.sortBy(data, [clickedColumn]),
+         direction: 'ascending',
+       })
+
+     return
+    }
+
+     this.setState({
+       data: data.reverse(),
+       direction: direction === 'ascending' ? 'descending' : 'ascending',
+     })
+   }
+
   render() {
-  const purchaseRows = this.props.purchases.map(purchase =>
+    console.log("Props purchases", this.props.purchases);
+    console.log("State data", this.state.data);
+  const { column, data, direction } = this.state
+  const purchaseRows = this.state.data.map(purchase =>
     <Table.Row key={purchase.id} priority>
       <Table.Cell>{moment(purchase.date).format("MM-DD-YYYY")}</Table.Cell>
       <Table.Cell>{purchase.name}</Table.Cell>
@@ -72,16 +114,51 @@ class PurchaseTable extends React.Component {
   )
       return(
         <Fragment>
-          <Table selectable>
+          <Table selectable sortable fixed color="blue" inverted>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Date</Table.HeaderCell>
-                <Table.HeaderCell>Purchase</Table.HeaderCell>
-                <Table.HeaderCell>Category</Table.HeaderCell>
-                <Table.HeaderCell>Place of Purchase</Table.HeaderCell>
-                <Table.HeaderCell>Out of Pocket</Table.HeaderCell>
-                <Table.HeaderCell>Actual Paid</Table.HeaderCell>
-                <Table.HeaderCell>Payment Method</Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'date' ? direction : null}
+                  onClick={this.handleSort('date')}
+                >
+                  Date
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'name' ? direction : null}
+                  onClick={this.handleSort('name')}
+                >
+                  Purchase
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'category' ? direction : null}
+                  onClick={this.handleSort('category')}
+                >
+                  Category
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'place_of_purchase' ? direction : null}
+                  onClick={this.handleSort('place_of_purchase')}
+                >
+                Place of Purchase
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'out_of_pocket' ? direction : null}
+                  onClick={this.handleSort('out_of_pocket')}
+                >
+                  Out of Pocket
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'actual_paid' ? direction : null}
+                  onClick={this.handleSort('actual_paid')}
+                >
+                  Actual Paid
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'payment_method' ? direction : null}
+                  onClick={this.handleSort('payment_method')}
+                >
+                  Payment Method
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
