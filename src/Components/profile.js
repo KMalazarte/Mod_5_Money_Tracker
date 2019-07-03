@@ -5,19 +5,21 @@ import withAuth from '../hocs/withAuth'
 import PurchaseContainer from './purchaseContainer'
 import UserStats from './userStats'
 
-// props: { user: { avatar: 'url', username: 'Chandler Bing', bio: 'bio' } }
 class Profile extends React.Component {
 
-  constructor(props) {
-  super(props);
-  // this.state = {
-  //   }
-  }
+  // constructor(props) {
+  // super(props);
+  // // this.state = {
+  // //   }
+  // }
 
   render() {
+    console.log("Profile props", this.props);
     return (
     <Fragment>
-        <UserStats props={this.props}/>
+        <UserStats
+          spent={this.props.spent}
+        />
         <Card>
           <Image src={localStorage.avatar} />
           <Card.Content>
@@ -26,13 +28,21 @@ class Profile extends React.Component {
           </Card.Content>
         </Card>
       <PurchaseContainer
-        props={this.props}
-        handleChange={this.props.handleChange}
-        handlePaymentChange={this.props.handlePaymentChange}
-        handleCategoryChange={this.props.handleCategoryChange}
-        handleSubmit={this.props.handleSubmit}
-        editHandler={this.props.editHandler}
-        deleteHandler={this.props.deleteHandler}
+      editHandler = {this.props.editHandler}
+      deleteHandler = {this.props.deleteHandler}
+      handleChange = {this.props.handleChange}
+      handleSubmit = {this.props.handleSubmit}
+      handlePaymentChange = {this.props.handlePaymentChange}
+      handleCategoryChange = {this.props.handleCategoryChange}
+      selected = {this.props.selected}
+      date={this.props.date}
+      name={this.props.name}
+      category={this.props.category}
+      placeOfPurchase={this.props.placeOfPurchase}
+      outOfPocket={this.props.outOfPocket}
+      actualPaid={this.props.actualPaid}
+      paymentMethod={this.props.paymentMethod}
+      purchases={this.props.purchases}
       />
     </Fragment>
   )

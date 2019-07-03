@@ -5,8 +5,7 @@ import LoginForm from './components/loginForm'
 import Nav from './components/nav'
 import NotFound from './components/notFound'
 import SignupForm from './components/signupForm'
-import PurchasePage from './components/purchasePage'
-import PurchaseTable from './components/purchaseTable'
+import withAuth from './hocs/withAuth'
 import './App.css'
 
 class App extends React.Component {
@@ -21,8 +20,10 @@ state={
   actualPaid:"",
   paymentMethod:"",
   selected: "",
-  spent: 0
+  clickedRowId: "",
+  spent: 0.0
 }
+
 
   componentDidMount() {
     fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
@@ -31,7 +32,7 @@ state={
     let spend = []
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
-    let total = spend.reduce(reducer)
+    let total = parseFloat(spend.reduce(reducer)).toFixed(2)
     console.log(total);
      this.setState({
      purchases: purchaseArr.purchase,
@@ -63,7 +64,7 @@ state={
  handleSubmit = (e) => {
    e.preventDefault()
 
-   let revObj= { date: this.state.date,
+   let purObj= { date: this.state.date,
                  name: this.state.name,
                  category: this.state.category,
                  place_of_purchase: this.state.placeOfPurchase,
@@ -74,7 +75,7 @@ state={
                }
 
    this.setState({
-      purchases: [...this.state.purchases, revObj],
+      purchases: [...this.state.purchases, purObj],
       date:"",
       name:"",
       category:"",
@@ -158,7 +159,6 @@ state={
         <Route exact path="/profile"
           render= {
             (props) => <Profile
-                {...props}
                 {...this.state}
                 handleChange={this.handleChange}
                 handlePaymentChange={this.handlePaymentChange}
@@ -171,8 +171,6 @@ state={
         />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path='/signup' component={SignupForm} />
-        <Route exact path="/purchase" render={(props)=><PurchaseTable {...props}/>} />
-        <Route exact path="/:user/purchase/:purchase_id" render={() => <PurchasePage />} />
         <Route component={NotFound} />
       </Switch>
     </Fragment>
@@ -182,3 +180,7 @@ state={
 
 // <Route path="/purchase" render={(props) => <PurchasePage {...props}/>} />
 export default withRouter(App) //withRouter is a Higher Order Component (HOC) that returns a COPY of App with React router props injected
+
+
+// <Route exact path="/purchase" render={(props)=><PurchasePage {...props}/>} />
+// <Route exact path="/:user_id/purchase/:purchase_id" render={(props)=><PurchasePage {...props}/>} />

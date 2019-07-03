@@ -9,13 +9,8 @@ import withAuth from '../hocs/withAuth'
 
 class PurchaseContainer extends React.Component {
 
-  constructor(props) {
-  super(props);
-  this.state = {
-    }
-  }
-
   render() {
+    console.log("container props", this.props);
       return(
         <Fragment>
           <PurchaseForm
@@ -33,7 +28,6 @@ class PurchaseContainer extends React.Component {
           paymentMethod={this.props.paymentMethod}
            />
           <PurchaseTable
-          props = {this.props}
           purchases = {this.props.purchases}
           editHandler = {this.props.editHandler}
           deleteHandler = {this.props.deleteHandler}
