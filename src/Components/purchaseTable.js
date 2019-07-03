@@ -2,46 +2,9 @@ import React, { Fragment } from 'react'
 import { Table, Button, Icon } from 'semantic-ui-react'
 import moment from 'moment'
 import _ from 'lodash'
+import { Redirect, withRouter, Link  } from 'react-router-dom'
+import PurchasePage from './purchasePage'
 
-// const colors = [
-//   'red',
-//   'orange',
-//   'yellow',
-//   'olive',
-//   'green',
-//   'teal',
-//   'blue',
-//   'violet',
-//   'purple',
-//   'pink',
-//   'brown',
-//   'grey',
-//   'black',
-// ]
-
-// let categoryColor = switch ( purchase.category ) {
-//   case 'Gifts':
-//   color = 'pink'
-//   break
-//   case 'Food':
-//   color = 'blue'
-//   break
-//   case 'Entertainment':
-//   color = 'green'
-//   break
-//   case 'Clothes/Accessories':
-//   color = 'orange'
-//   break
-//   case 'Booze/Night Out':
-//   color = 'yellow'
-//   break
-//   case 'Transportation/ Gas/ Hotels':
-//   color = 'purple'
-//   break
-//   case 'Misc.':
-//   color = 'grey'
-//   break
-// }
 
 class PurchaseTable extends React.Component {
 
@@ -51,11 +14,12 @@ class PurchaseTable extends React.Component {
       column: null,
       data: [],
       direction: null,
+      redirect: false
     }
   }
 
   componentDidUpdate(){
-    if (this.state.data.length < this.props.purchases.length ) {
+    if (this.state.data.length !== this.props.purchases.length) {
       this.setState(
         {
         data: this.props.purchases
@@ -82,13 +46,28 @@ class PurchaseTable extends React.Component {
      })
    }
 
+   setRedirect = (purchase) => {
+     console.log("Row clicked");
+      let userId = localStorage.user_id
+      let purchId = purchase.id
+      // <Redirect to="/1/purchases/2"} />
+    //  this.setState({
+    //  redirect: true
+    // })
+   }
+
+  //  renderRedirect = () => {
+  //    debugger
+  //   if (this.state.redirect) {
+  //     return <Redirect to='/purchase' />
+  //   }
+  // }
+
   render() {
-    console.log("Props purchases", this.props.purchases);
-    console.log("State data", this.state.data);
   const { column, data, direction } = this.state
   const purchaseRows = this.state.data.map(purchase =>
-    <Table.Row key={purchase.id} priority>
-      <Table.Cell>{moment(purchase.date).format("MM-DD-YYYY")}</Table.Cell>
+    <Table.Row id={purchase.id} onClick={this.setRedirect} key={purchase.id} priority>
+      <Table.Cell>{moment(purchase.date).format("MM-DD-YY")}</Table.Cell>
       <Table.Cell>{purchase.name}</Table.Cell>
       <Table.Cell>{purchase.category}</Table.Cell>
       <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
@@ -111,6 +90,7 @@ class PurchaseTable extends React.Component {
       </Button.Group>
 
     </Table.Row>
+
   )
       return(
         <Fragment>
@@ -159,6 +139,7 @@ class PurchaseTable extends React.Component {
                 >
                   Payment Method
                 </Table.HeaderCell>
+                <Table.HeaderCell> Edit / Delete </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -169,7 +150,33 @@ class PurchaseTable extends React.Component {
       )
   }
 
+  // {this.renderRedirect()}
 
 }
 
-export default PurchaseTable
+export default withRouter(PurchaseTable)
+
+
+// let categoryColor = switch ( purchase.category ) {
+  //   case 'Gifts':
+  //   color = 'pink'
+  //   break
+  //   case 'Food':
+  //   color = 'blue'
+  //   break
+  //   case 'Entertainment':
+  //   color = 'green'
+  //   break
+  //   case 'Clothes/Accessories':
+  //   color = 'orange'
+  //   break
+  //   case 'Booze/Night Out':
+  //   color = 'yellow'
+  //   break
+  //   case 'Transportation/ Gas/ Hotels':
+  //   color = 'purple'
+  //   break
+  //   case 'Misc.':
+  //   color = 'grey'
+  //   break
+  // }

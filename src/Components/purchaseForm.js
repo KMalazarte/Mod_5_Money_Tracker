@@ -4,7 +4,7 @@ import { Button, Form, Dropdown } from 'semantic-ui-react'
 // import "react-datepicker/dist/react-datepicker.css";
 
 
-const sizes = ['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']
+// const sizes = ['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']
 
 const paymentOptions = [
   {
