@@ -16,27 +16,27 @@ class PurchaseContainer extends React.Component {
   }
 
   render() {
-    console.log("purchase container", this.props);
       return(
         <Fragment>
           <PurchaseForm
-          handleChange = {this.handleChange}
-          handleSubmit = {this.handleSubmit}
-          handlePaymentChange = {this.handlePaymentChange}
-          handleCategoryChange = {this.handleCategoryChange}
-          selected = {this.state.selected}
-          date={this.state.date}
-          name={this.state.name}
-          category={this.state.category}
-          placeOfPurchase={this.state.placeOfPurchase}
-          outOfPocket={this.state.outOfPocket}
-          actualPaid={this.state.actualPaid}
-          paymentMethod={this.state.paymentMethod}
+          handleChange = {this.props.handleChange}
+          handleSubmit = {this.props.handleSubmit}
+          handlePaymentChange = {this.props.handlePaymentChange}
+          handleCategoryChange = {this.props.handleCategoryChange}
+          selected = {this.props.selected}
+          date={this.props.date}
+          name={this.props.name}
+          category={this.props.category}
+          placeOfPurchase={this.props.placeOfPurchase}
+          outOfPocket={this.props.outOfPocket}
+          actualPaid={this.props.actualPaid}
+          paymentMethod={this.props.paymentMethod}
            />
           <PurchaseTable
-          purchases = {this.state.purchases}
-          editHandler = {this.editHandler}
-          deleteHandler = {this.deleteHandler}
+          props = {this.props}
+          purchases = {this.props.purchases}
+          editHandler = {this.props.editHandler}
+          deleteHandler = {this.props.deleteHandler}
           />
         </Fragment>
       )

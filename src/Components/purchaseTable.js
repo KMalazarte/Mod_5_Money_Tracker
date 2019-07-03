@@ -19,10 +19,10 @@ class PurchaseTable extends React.Component {
   }
 
   componentDidUpdate(){
-    if (this.state.data.length !== this.props.purchases.length) {
+    if (this.state.data.length !== this.props.props.props.purchases.length) {
       this.setState(
         {
-        data: this.props.purchases
+        data: this.props.props.props.purchases
         }
       )}
   }
@@ -66,7 +66,7 @@ class PurchaseTable extends React.Component {
   render() {
   const { column, data, direction } = this.state
   const purchaseRows = this.state.data.map(purchase =>
-    <Table.Row id={purchase.id} onClick={this.setRedirect} key={purchase.id} priority>
+    <Table.Row id={purchase.id} onClick={this.setRedirect} key={purchase.id}>
       <Table.Cell>{moment(purchase.date).format("MM-DD-YY")}</Table.Cell>
       <Table.Cell>{purchase.name}</Table.Cell>
       <Table.Cell>{purchase.category}</Table.Cell>

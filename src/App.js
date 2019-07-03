@@ -132,8 +132,6 @@ state={
  }
 
  deleteHandler = (e) => {
-   console.log(localStorage.user_id);
-
    let notClicked = this.state.purchases.filter((purchase) => {
      return parseInt(e.currentTarget.dataset.id) !== purchase.id
    })
@@ -151,7 +149,7 @@ state={
  }
 
   render() {
-  console.log('%c APP State: ', 'color: firebrick', this.handleChange)
+  console.log('%c APP State: ', 'color: firebrick', )
     return (
     <Fragment>
       <Nav />
