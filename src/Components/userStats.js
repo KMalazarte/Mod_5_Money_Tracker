@@ -5,7 +5,6 @@ import { Header } from 'semantic-ui-react'
 class UserStats extends React.Component {
 
   render() {
-    console.log("userStats", this.props);
     let spent = () => {
       return (parseInt(this.props.spent))
     }
@@ -23,7 +22,6 @@ class UserStats extends React.Component {
       <p>Started this month w/: ${localStorage.monthly_take_home} </p>
       <p>Spent This Month: ${spent()}</p>
       <p>Left This Month: ${amtLeft()} </p>
-
     </Fragment>
     )
   }

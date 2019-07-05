@@ -31,14 +31,14 @@ const paymentOptions = [
 
 const categories = [
   {
-    key: 'Gifts',
-    text: 'Gifts',
-    value: 'Gifts',
+    key: 'Eating Out',
+    text: 'Eating Out',
+    value: 'Eating Out',
   },
   {
-    key: 'Food',
-    text: 'Food',
-    value: 'Food',
+    key: 'Groceries',
+    text: 'Groceries',
+    value: 'Groceries',
   },
   {
     key: 'Entertainment',
@@ -56,14 +56,24 @@ const categories = [
     value: 'Booze/Night Out',
   },
   {
-    key: 'Transportation/ Gas/ Hotels',
-    text: 'Transportation/ Gas/ Hotels',
-    value: 'Transportation/ Gas/ Hotels',
+    key: 'Transportation/ Gas',
+    text: 'Transportation/ Gas',
+    value: 'Transportation/ Gas',
+  },
+  {
+    key: 'Flights/ Hotels',
+    text: 'Flights/ Hotels',
+    value: 'Flights/ Hotels',
   },
   {
     key: 'Misc.',
     text: 'Misc.',
     value: 'Misc.',
+  },
+  {
+    key: 'Gifts',
+    text: 'Gifts',
+    value: 'Gifts',
   },
 ]
 

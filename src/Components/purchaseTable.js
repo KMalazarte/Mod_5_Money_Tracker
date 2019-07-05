@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Table, Button, Icon, Header, Image, Modal } from 'semantic-ui-react'
+import { Table, Button, Icon, Header, Image, Modal, Grid } from 'semantic-ui-react'
 import moment from 'moment'
 import _ from 'lodash'
 import { Redirect, withRouter, Link  } from 'react-router-dom'
@@ -54,48 +54,50 @@ class PurchaseTable extends React.Component {
 
 
   render() {
-    console.log("PURCHASE TABLE props", this.props);
+    // console.log("PURCHASE TABLE props", this.props);
   const { column, data, direction } = this.state
   const purchaseRows = this.state.data.map(purchase =>
 
-      <Table.Row id={purchase.id} onClick={this.openModal} key={purchase.id}>
-        <Table.Cell>{moment(purchase.date).format("DD-MM-YY")}</Table.Cell>
-        <Table.Cell>{purchase.name}</Table.Cell>
-        <Table.Cell>{purchase.category}</Table.Cell>
-        <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
-        <Table.Cell>${parseFloat(purchase.out_of_pocket).toFixed(2)}</Table.Cell>
-        <Table.Cell>${parseFloat(purchase.actual_paid).toFixed(2)}
-          <PurchaseModal
-            date = {moment(purchase.date).format("MM-DD-YY")}
-            name = {purchase.name}
-            category = {purchase.category}
-            place_of_purchase = {purchase.place_of_purchase}
-            out_of_pocket = {parseFloat(purchase.out_of_pocket).toFixed(2)}
-            actual_paid = {parseFloat(purchase.actual_paid).toFixed(2)}
-            payment_method = {purchase.payment_method}
-          />
-        </Table.Cell>
-        <Table.Cell>{purchase.payment_method}</Table.Cell>
-        <Button.Group>
-          <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated>
-            <Button.Content visible>Edit</Button.Content>
-            <Button.Content hidden>
-              <Icon name='pencil square'/>
-            </Button.Content>
-           </Button>
-           <Button.Or />
-           <Button key="delete" data-id={purchase.id} onClick={this.props.deleteHandler} animated>
-             <Button.Content visible>Delete</Button.Content>
-             <Button.Content hidden>
-              <Icon name='delete'/>
-             </Button.Content>
-            </Button>
-        </Button.Group>
+        <Table.Row id={purchase.id} onClick={this.openModal} key={purchase.id}>
+          <Table.Cell>{moment(purchase.date).format("DD-MM-YY")}</Table.Cell>
+          <Table.Cell>{purchase.name}</Table.Cell>
+          <Table.Cell>{purchase.category}</Table.Cell>
+          <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
+          <Table.Cell>${parseFloat(purchase.out_of_pocket).toFixed(2)}</Table.Cell>
+          <Table.Cell>${parseFloat(purchase.actual_paid).toFixed(2)}
+            <PurchaseModal
+              date = {moment(purchase.date).format("DD-MM-YY")}
+              name = {purchase.name}
+              category = {purchase.category}
+              place_of_purchase = {purchase.place_of_purchase}
+              out_of_pocket = {parseFloat(purchase.out_of_pocket).toFixed(2)}
+              actual_paid = {parseFloat(purchase.actual_paid).toFixed(2)}
+              payment_method = {purchase.payment_method}
+            />
+          </Table.Cell>
+          <Table.Cell>{purchase.payment_method}</Table.Cell>
+          <Button.Group>
+            <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated>
+              <Button.Content visible>Edit</Button.Content>
+              <Button.Content hidden>
+                <Icon name='pencil square'/>
+              </Button.Content>
+             </Button>
+             <Button.Or />
+             <Button key="delete" data-id={purchase.id} onClick={this.props.deleteHandler} animated>
+               <Button.Content visible>Delete</Button.Content>
+               <Button.Content hidden>
+                <Icon name='delete'/>
+               </Button.Content>
+              </Button>
+          </Button.Group>
 
-      </Table.Row>
+        </Table.Row>
+
 
   )
       return(
+        <Grid>
         <Fragment>
           <Table selectable sortable fixed color="blue" inverted>
             <Table.Header>
@@ -145,11 +147,12 @@ class PurchaseTable extends React.Component {
                 <Table.HeaderCell> Edit / Delete </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
-            <Table.Body>
-              {purchaseRows}
-            </Table.Body>
-          </Table>
+                <Table.Body>
+                    {purchaseRows}
+                </Table.Body>
+              </Table>
         </Fragment>
+        </Grid>
       )
   }
 

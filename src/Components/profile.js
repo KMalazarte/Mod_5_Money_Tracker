@@ -4,6 +4,7 @@ import { Card, Image, Grid } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 import PurchaseContainer from './purchaseContainer'
 import UserStats from './userStats'
+import SpendStats from './spendStats'
 
 class Profile extends React.Component {
 
@@ -14,7 +15,6 @@ class Profile extends React.Component {
   // }
 
   render() {
-    console.log("Profile props", this.props);
     return (
     <Fragment>
       <Grid padded>
@@ -28,9 +28,16 @@ class Profile extends React.Component {
               </Card.Content>
             </Card>
           </Grid.Column>
-          <Grid.Column width={12}>
+          <Grid.Column width={4}>
             <UserStats
             spent={this.props.spent}
+            purchases={this.props.purchases}
+            />
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <SpendStats
+            spent={this.props.spent}
+            purchases={this.props.purchases}
             />
           </Grid.Column>
         </Grid.Row>
