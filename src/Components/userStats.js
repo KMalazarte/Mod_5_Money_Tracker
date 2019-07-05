@@ -7,7 +7,7 @@ class UserStats extends React.Component {
   render() {
     console.log("userStats", this.props);
     let spent = () => {
-      return (parseInt(localStorage.monthly_take_home))
+      return (parseInt(this.props.spent))
     }
 
     let amtLeft = () => {
@@ -19,9 +19,10 @@ class UserStats extends React.Component {
       <Header size="huge" inverted color="purple">
         Hello from UserStats Page
       </Header>
-      <p>Most Spent Category: {this.props.spend}</p>
-      <p>$ Spent This Month:  {spent()}</p>
-      <p>$ Left This Month: {amtLeft()} </p>
+      <p>Most Spent Category: PLACEHOLDER</p>
+      <p>Started this month w/: ${localStorage.monthly_take_home} </p>
+      <p>Spent This Month: ${spent()}</p>
+      <p>Left This Month: ${amtLeft()} </p>
 
     </Fragment>
     )

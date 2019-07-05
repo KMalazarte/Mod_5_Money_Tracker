@@ -59,7 +59,7 @@ class PurchaseTable extends React.Component {
   const purchaseRows = this.state.data.map(purchase =>
 
       <Table.Row id={purchase.id} onClick={this.openModal} key={purchase.id}>
-        <Table.Cell>{moment(purchase.date).format("MM-DD-YY")}</Table.Cell>
+        <Table.Cell>{moment(purchase.date).format("DD-MM-YY")}</Table.Cell>
         <Table.Cell>{purchase.name}</Table.Cell>
         <Table.Cell>{purchase.category}</Table.Cell>
         <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
@@ -83,6 +83,7 @@ class PurchaseTable extends React.Component {
               <Icon name='pencil square'/>
             </Button.Content>
            </Button>
+           <Button.Or />
            <Button key="delete" data-id={purchase.id} onClick={this.props.deleteHandler} animated>
              <Button.Content visible>Delete</Button.Content>
              <Button.Content hidden>

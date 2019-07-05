@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Card, Image } from 'semantic-ui-react'
+import { Card, Image, Grid } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 import PurchaseContainer from './purchaseContainer'
 import UserStats from './userStats'
@@ -17,33 +17,43 @@ class Profile extends React.Component {
     console.log("Profile props", this.props);
     return (
     <Fragment>
-        <UserStats
-          spent={this.props.spent}
-        />
-        <Card>
-          <Image src={localStorage.avatar} />
-          <Card.Content>
-            <Card.Header>{localStorage.username}</Card.Header>
-            <Card.Description>User #{localStorage.user_id}</Card.Description>
-          </Card.Content>
-        </Card>
-      <PurchaseContainer
-      editHandler = {this.props.editHandler}
-      deleteHandler = {this.props.deleteHandler}
-      handleChange = {this.props.handleChange}
-      handleSubmit = {this.props.handleSubmit}
-      handlePaymentChange = {this.props.handlePaymentChange}
-      handleCategoryChange = {this.props.handleCategoryChange}
-      selected = {this.props.selected}
-      date={this.props.date}
-      name={this.props.name}
-      category={this.props.category}
-      placeOfPurchase={this.props.placeOfPurchase}
-      outOfPocket={this.props.outOfPocket}
-      actualPaid={this.props.actualPaid}
-      paymentMethod={this.props.paymentMethod}
-      purchases={this.props.purchases}
-      />
+      <Grid padded>
+       <Grid.Row columns={2}>
+          <Grid.Column textAlign='center' width={4}>
+            <Card>
+              <Image src={localStorage.avatar} />
+              <Card.Content>
+                <Card.Header>{localStorage.username}</Card.Header>
+                <Card.Description>User #{localStorage.user_id}</Card.Description>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={12}>
+            <UserStats
+            spent={this.props.spent}
+            />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row columns={1}>
+          <PurchaseContainer
+          editHandler = {this.props.editHandler}
+          deleteHandler = {this.props.deleteHandler}
+          handleChange = {this.props.handleChange}
+          handleSubmit = {this.props.handleSubmit}
+          handlePaymentChange = {this.props.handlePaymentChange}
+          handleCategoryChange = {this.props.handleCategoryChange}
+          selected = {this.props.selected}
+          date={this.props.date}
+          name={this.props.name}
+          category={this.props.category}
+          placeOfPurchase={this.props.placeOfPurchase}
+          outOfPocket={this.props.outOfPocket}
+          actualPaid={this.props.actualPaid}
+          paymentMethod={this.props.paymentMethod}
+          purchases={this.props.purchases}
+          />
+        </Grid.Row>
+      </Grid>
     </Fragment>
   )
   }
