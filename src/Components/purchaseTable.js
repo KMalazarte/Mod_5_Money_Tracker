@@ -59,14 +59,14 @@ class PurchaseTable extends React.Component {
   const purchaseRows = this.state.data.map(purchase =>
 
         <Table.Row id={purchase.id} onClick={this.openModal} key={purchase.id}>
-          <Table.Cell>{moment(purchase.date).format("DD-MM-YY")}</Table.Cell>
+          <Table.Cell>{moment(purchase.date).format("DD-MMMM-YY")}</Table.Cell>
           <Table.Cell>{purchase.name}</Table.Cell>
           <Table.Cell>{purchase.category}</Table.Cell>
           <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
           <Table.Cell>${parseFloat(purchase.out_of_pocket).toFixed(2)}</Table.Cell>
           <Table.Cell>${parseFloat(purchase.actual_paid).toFixed(2)}
             <PurchaseModal
-              date = {moment(purchase.date).format("DD-MM-YY")}
+              date = {moment(purchase.date).format("DD-MMMM-YY")}
               name = {purchase.name}
               category = {purchase.category}
               place_of_purchase = {purchase.place_of_purchase}

@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react'
-import { Header } from 'semantic-ui-react'
+import { Header, Grid, Card } from 'semantic-ui-react'
+import PieChart, { label }  from 'react-minimal-pie-chart';
+
 
 
 class SpendStats extends React.Component {
 
 
   render() {
+
     const reducer = (accumulator, currentValue) => accumulator + currentValue
 
     let eatingOutAdd = () => {
@@ -63,21 +66,56 @@ class SpendStats extends React.Component {
       return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
     }
 
+    console.log("spend stats", eatingOutAdd())
 
     return(
     <Fragment>
-      <Header size="huge" inverted color="orange">
-        Hello from SpendStats Page
-      </Header>
-      <p>Eating Out: ${eatingOutAdd()} </p>
-      <p>Groceries: ${groceriesAdd()} </p>
-      <p>Entertainment: ${entertainmentAdd()} </p>
-      <p>Clothes/Accessories: ${clothesAdd()} </p>
-      <p>Booze/Night Out: ${boozeAdd()} </p>
-      <p>Transportation/ Gas: ${transportAdd()} </p>
-      <p>Flights/ Hotels: ${travelAdd()} </p>
-      <p>Misc: ${miscAdd()} </p>
-      <p>Gifts: ${giftsAdd()} </p>
+        <Card>
+          <Grid textAlign='center' >
+            <Grid.Row color="blue">
+              <p>Eating Out: ${eatingOutAdd()} / {(parseFloat(eatingOutAdd())/this.props.spent).toFixed(4)*100}% </p>
+            </Grid.Row>
+            <Grid.Row color="teal">
+              <p>Groceries: ${groceriesAdd()} / {(parseFloat(groceriesAdd())/this.props.spent).toFixed(4)*100}%  </p>
+            </Grid.Row>
+            <Grid.Row color="green">
+              <p>Entertainment: ${entertainmentAdd()} / {(parseFloat(entertainmentAdd())/this.props.spent).toFixed(4)*100}% </p>
+            </Grid.Row>
+            <Grid.Row color="red">
+              <p>Clothes/Accessories: ${clothesAdd()} / {(parseFloat(clothesAdd())/this.props.spent).toFixed(4)*100}%</p>
+            </Grid.Row>
+            <Grid.Row color="yellow">
+              <p>Booze/Night Out: ${boozeAdd()} / {(parseFloat(boozeAdd())/this.props.spent).toFixed(4)*100}%</p>
+            </Grid.Row>
+            <Grid.Row color="purple">
+              <p>Transportation/ Gas: ${transportAdd()} / {(parseFloat(transportAdd())/this.props.spent).toFixed(4)*100}%</p>
+            </Grid.Row>
+            <Grid.Row color="orange">
+              <p>Flights/ Hotels: ${travelAdd()} / {(parseFloat(travelAdd())/this.props.spent).toFixed(4)*100}% </p>
+            </Grid.Row>
+            <Grid.Row color="brown">
+              <p>Misc: ${miscAdd()} / {(parseFloat(miscAdd())/this.props.spent).toFixed(4)*100}%</p>
+            </Grid.Row>
+            <Grid.Row color="pink">
+              <p>Gifts: ${giftsAdd()} / {(parseFloat(giftsAdd())/this.props.spent).toFixed(4)*100}%</p>
+            </Grid.Row>
+          </Grid>
+        </Card>
+        <PieChart
+          data={[
+            { label:'Eating Out', title: 'Eating Out', value: parseInt(eatingOutAdd()), color: 'blue' },
+            { label: 'Groceries', title: 'Groceries', value: parseInt(groceriesAdd()), color: 'teal' },
+            { label: 'Entertainment', title: 'Entertainment', value: parseInt(entertainmentAdd()), color: 'green' },
+            { label: 'Clothes/Accessories', title: 'Clothes/Accessories', value: parseInt(clothesAdd()), color: 'red' },
+            { label: 'Booze/Night Out', title: 'Booze/Night Out', value: parseInt(boozeAdd()), color: 'yellow' },
+            { label: 'Transportation/ Gas', title: 'Transportation/ Gas', value: parseInt(transportAdd()), color: 'purple' },
+            { label: 'Flights/ Hotels', title: 'Flights/ Hotels', value: parseInt(travelAdd()), color: 'orange'},
+            { label: 'Misc', title: 'Misc', value: parseInt(miscAdd()), color: 'brown' },
+            { label: 'Gifts', title: 'Gifts', value: parseInt(giftsAdd()), color: 'pink' },
+          ]}
+          animate
+          style={{height: '300px'}}
+        />
     </Fragment>
     )
   }

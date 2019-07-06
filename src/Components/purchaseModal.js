@@ -3,7 +3,6 @@ import { Header, Image, Button, Modal } from 'semantic-ui-react'
 
 class PurchaseModal extends React.Component {
   render() {
-    console.log(this.props);
     return(
   <Modal trigger={<Button>Details</Button>}>
     <Modal.Header>{this.props.date} / {this.props.name}</Modal.Header>
