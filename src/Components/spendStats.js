@@ -35,7 +35,6 @@ class SpendStats extends React.Component {
     let entertainmentAdd = () => {
       const entertainmentFilter = this.props.purchases.filter(purchase => purchase.category === "Entertainment")
       const entertainmentMap = entertainmentFilter.map(purchase => parseFloat(purchase.actual_paid))
-      console.log("userStats", entertainmentMap )
       return parseFloat(entertainmentMap.reduce(reducer, 0)).toFixed(2)
     }
 
@@ -75,39 +74,40 @@ class SpendStats extends React.Component {
       return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
     }
 
-    let clicked = this.state.clicked
 
+    let clicked = this.state.clicked
+    console.log("spend Stats",      parseFloat((parseFloat(groceriesAdd())/(parseFloat(this.props.spent)))*100).toFixed(4)   )
     return(
     <Fragment>
       {clicked ? (
         <Card onClick={this.cardClicker}>
           <Grid textAlign='center' >
             <Grid.Row color="blue">
-              <p>Eating Out: ${eatingOutAdd()} / {(parseFloat(eatingOutAdd())/this.props.spent).toFixed(4)*100}% </p>
+              <p>Eating Out: ${eatingOutAdd()} / {parseFloat((parseFloat(eatingOutAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="teal">
-              <p>Groceries: ${groceriesAdd()} / {(parseFloat(groceriesAdd())/this.props.spent).toFixed(4)*100}%  </p>
+              <p>Groceries: ${groceriesAdd()} / {parseFloat((parseFloat(groceriesAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}%  </p>
             </Grid.Row>
             <Grid.Row color="green">
-              <p>Entertainment: ${entertainmentAdd()} / {(parseFloat(entertainmentAdd())/this.props.spent).toFixed(4)*100}% </p>
+              <p>Entertainment: ${entertainmentAdd()} / {parseFloat((parseFloat(entertainmentAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="red">
-              <p>Clothes/Accessories: ${clothesAdd()} / {(parseFloat(clothesAdd())/this.props.spent).toFixed(4)*100}%</p>
+              <p>Clothes/Accessories: ${clothesAdd()} / {parseFloat((parseFloat(clothesAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="yellow">
-              <p>Booze/Night Out: ${boozeAdd()} / {(parseFloat(boozeAdd())/this.props.spent).toFixed(4)*100}%</p>
+              <p>Booze/Night Out: ${boozeAdd()} / {parseFloat((parseFloat(boozeAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="purple">
-              <p>Transportation/ Gas: ${transportAdd()} / {(parseFloat(transportAdd())/this.props.spent).toFixed(4)*100}%</p>
+              <p>Transportation/ Gas: ${transportAdd()} / {parseFloat((parseFloat(transportAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="orange">
-              <p>Flights/ Hotels: ${travelAdd()} / {(parseFloat(travelAdd())/this.props.spent).toFixed(4)*100}% </p>
+              <p>Flights/ Hotels: ${travelAdd()} / {parseFloat((parseFloat(travelAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="brown">
-              <p>Misc: ${miscAdd()} / {(parseFloat(miscAdd())/this.props.spent).toFixed(4)*100}%</p>
+              <p>Misc: ${miscAdd()} / {parseFloat((parseFloat(miscAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="pink">
-              <p>Gifts: ${giftsAdd()} / {(parseFloat(giftsAdd())/this.props.spent).toFixed(4)*100}%</p>
+              <p>Gifts: ${giftsAdd()} / {parseFloat((parseFloat(giftsAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}%</p>
             </Grid.Row>
           </Grid>
         </Card>
