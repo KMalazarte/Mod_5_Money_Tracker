@@ -6,6 +6,15 @@ import PieChart, { label }  from 'react-minimal-pie-chart';
 
 class SpendStats extends React.Component {
 
+  state={
+    clicked: true
+  }
+
+  cardClicker = (e) => {
+    this.setState({
+      clicked: !this.state.clicked
+    })
+  }
 
   render() {
 
@@ -66,11 +75,12 @@ class SpendStats extends React.Component {
       return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
     }
 
-    console.log("spend stats", eatingOutAdd())
+    let clicked = this.state.clicked
 
     return(
     <Fragment>
-        <Card>
+      {clicked ? (
+        <Card onClick={this.cardClicker}>
           <Grid textAlign='center' >
             <Grid.Row color="blue">
               <p>Eating Out: ${eatingOutAdd()} / {(parseFloat(eatingOutAdd())/this.props.spent).toFixed(4)*100}% </p>
@@ -101,24 +111,39 @@ class SpendStats extends React.Component {
             </Grid.Row>
           </Grid>
         </Card>
-        <PieChart
-          data={[
-            { label:'Eating Out', title: 'Eating Out', value: parseInt(eatingOutAdd()), color: 'blue' },
-            { label: 'Groceries', title: 'Groceries', value: parseInt(groceriesAdd()), color: 'teal' },
-            { label: 'Entertainment', title: 'Entertainment', value: parseInt(entertainmentAdd()), color: 'green' },
-            { label: 'Clothes/Accessories', title: 'Clothes/Accessories', value: parseInt(clothesAdd()), color: 'red' },
-            { label: 'Booze/Night Out', title: 'Booze/Night Out', value: parseInt(boozeAdd()), color: 'yellow' },
-            { label: 'Transportation/ Gas', title: 'Transportation/ Gas', value: parseInt(transportAdd()), color: 'purple' },
-            { label: 'Flights/ Hotels', title: 'Flights/ Hotels', value: parseInt(travelAdd()), color: 'orange'},
-            { label: 'Misc', title: 'Misc', value: parseInt(miscAdd()), color: 'brown' },
-            { label: 'Gifts', title: 'Gifts', value: parseInt(giftsAdd()), color: 'pink' },
-          ]}
-          animate
-          style={{height: '300px'}}
-        />
+      ) : (
+        <Card>
+          <PieChart
+          onClick={this.cardClicker}
+            data={[
+              { title: 'Eating Out', value: parseFloat(eatingOutAdd()), color:"#2185d0" },
+              { title: 'Groceries', value: parseFloat(groceriesAdd()), color: "#00b5ad" },
+              { title: 'Entertainment', value: parseFloat(entertainmentAdd()), color: '#21ba45' },
+              { title: 'Clothes/Accessories', value: parseFloat(clothesAdd()), color: '#db2828' },
+              { title: 'Booze/Night Out', value: parseFloat(boozeAdd()), color: '#fbbd08' },
+              { title: 'Transportation/ Gas', value: parseFloat(transportAdd()), color: '#a333c8' },
+              { title: 'Flights/ Hotels', value: parseFloat(travelAdd()), color: '#f2711c'},
+              { title: 'Misc', value: parseFloat(miscAdd()), color: '#a5673f' },
+              { title: 'Gifts', value: parseFloat(giftsAdd()), color: '#e03997' },
+            ]}
+            label={({ data, dataIndex }) =>
+              Math.round(data[dataIndex].percentage) + '%'
+            }
+            animate
+            labelStyle={{
+              fontSize: '5px',
+              fontFamily: 'sans-serif',
+              fill: '#fff'
+            }}
+            style={{height: '350px'}}
+          />
+        </Card>
+      )}
     </Fragment>
-    )
-  }
+  )
 }
+}
+
+
 
 export default SpendStats
