@@ -1,21 +1,45 @@
 import React, { Fragment } from 'react'
-import { Header } from 'semantic-ui-react'
+import { Header, Table } from 'semantic-ui-react'
 
 
 class UserStats extends React.Component {
 
-//
-// parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
+  // renderMonthlies = () => {
+  //   if (this.props.monthlies) {
+  //     return this.props.monthlies.map(monthly => {
+  //       return <>
+  //         <Table.Row >
+  //           <Table.Cell>{monthly.name}</Table.Cell>
+  //           <Table.Cell>${parseFloat(monthly.amount).toFixed(2)}</Table.Cell>
+  //         </Table.Row>
+  //       </>
+  //     })
+  //   }
+  // }
+
+  renderMonthlies = () => {
+    if (this.props.monthlies) {
+      let monthliesArr = []
+      const reducer = (accumulator, currentValue) => accumulator + currentValue
+      this.props.monthlies.map(monthly => {
+        monthliesArr.push(parseFloat(monthly.amount)).toFixed(2)
+      })
+        console.log("user Stats, monthlies", monthliesArr)
+        return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
+      }
+    }
+
 
   render() {
-    console.log(this.props)
+    console.log("user Stats", typeof(this.renderMonthlies()))
+
 
     let spent = () => {
       return (parseFloat(this.props.spent).toFixed(2))
     }
 
     let amtLeft = () => {
-      return parseFloat((localStorage.monthly_take_home) - this.props.spent).toFixed(2)
+      return parseFloat((localStorage.monthly_take_home) - (parseFloat(this.renderMonthlies()) + parseFloat(this.props.spent))).toFixed(2)
     }
     return(
 
@@ -23,13 +47,44 @@ class UserStats extends React.Component {
       <Header size="huge" inverted color="purple">
         Hello from UserStats Page
       </Header>
-      <p>Started this month w/: ${localStorage.monthly_take_home} </p>
-      <p>Spent This Month: ${spent()}</p>
-      <p>Left This Month: ${amtLeft()} </p>
-      <p>Recurring Monthly $'s: </p>
+      <Table >
+         <Table.Header>
+           <Table.Row>
+             <Table.HeaderCell>Stat</Table.HeaderCell>
+             <Table.HeaderCell>Amount</Table.HeaderCell>
+           </Table.Row>
+         </Table.Header>
+
+         <Table.Body>
+           <Table.Row>
+             <Table.Cell>Monthly Take Home (After Taxes):</Table.Cell>
+             <Table.Cell>${parseFloat(localStorage.monthly_take_home).toFixed(2)}</Table.Cell>
+           </Table.Row>
+           <Table.Row negative>
+             <Table.Cell>Recurring Monthly Payments:</Table.Cell>
+             <Table.Cell>-${this.renderMonthlies()}</Table.Cell>
+           </Table.Row>
+           <Table.Row negative>
+             <Table.Cell>Spent This Month (Below):</Table.Cell>
+             <Table.Cell>
+               -${spent()}
+             </Table.Cell>
+           </Table.Row>
+           <Table.Row positive>
+             <Table.Cell>Left This Month:</Table.Cell>
+             <Table.Cell>${amtLeft()}</Table.Cell>
+           </Table.Row>
+         </Table.Body>
+       </Table>
     </Fragment>
     )
   }
 }
 
 export default UserStats
+
+// </Table>
+// <p>Monthly Take Home (After Taxes): ${parseFloat(localStorage.monthly_take_home).toFixed(2)}</p>
+// <p>Spent This Month (Below): ${spent()}</p>
+// <p>Recurring Monthly payments: ${this.renderMonthlies()} </p>
+// <p>Left This Month: ${amtLeft()} </p>

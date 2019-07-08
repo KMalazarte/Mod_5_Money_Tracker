@@ -76,11 +76,11 @@ class SpendStats extends React.Component {
 
 
     let clicked = this.state.clicked
-    console.log("spend Stats", parseFloat((parseFloat(groceriesAdd())/(parseFloat(this.props.spent)))*100).toFixed(4)   )
+    // console.log("spend Stats", parseFloat((parseFloat(groceriesAdd())/(parseFloat(this.props.spent)))*100).toFixed(4)   )
     return(
     <Fragment>
       {clicked ? (
-        <Card onClick={this.cardClicker}>
+        <Card centered onClick={this.cardClicker}>
           <Grid textAlign='center' >
             <Grid.Row color="blue">
               <p>Eating Out: ${eatingOutAdd()} / {parseFloat((parseFloat(eatingOutAdd())/(parseFloat(this.props.spent)))*100).toFixed(2)}% </p>
@@ -112,7 +112,7 @@ class SpendStats extends React.Component {
           </Grid>
         </Card>
       ) : (
-        <Card>
+        <Card centered >
           <PieChart
           onClick={this.cardClicker}
             data={[

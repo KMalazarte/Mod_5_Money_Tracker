@@ -9,7 +9,7 @@ class monthlyContainer extends React.Component {
         return <>
           <Table.Row >
             <Table.Cell>{monthly.name}</Table.Cell>
-            <Table.Cell>{parseFloat(monthly.amount).toFixed(2)}</Table.Cell>
+            <Table.Cell>${parseFloat(monthly.amount).toFixed(2)}</Table.Cell>
           </Table.Row>
         </>
       })
@@ -17,15 +17,13 @@ class monthlyContainer extends React.Component {
   }
 
   render() {
-
-
-    console.log("monthly container", this.props.monthlies)
+    // console.log("monthly container", this.props.monthlies)
     return(
     <Fragment>
-      <Header size="huge" inverted color="purple">
+      <Header textAlign="center" size="huge" inverted color="orange">
         MONTHLY CONTAINER
       </Header>
-      <Table selectable color="violet" inverted>
+      <Table selectable color="orange" >
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Name</Table.HeaderCell>

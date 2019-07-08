@@ -12,7 +12,7 @@ class Profile extends React.Component {
   state={
     purchases:[],
     monthlies: [],
-    date:"",
+    date: new Date(),
     name:"",
     category:"",
     placeOfPurchase:"",
@@ -62,6 +62,12 @@ class Profile extends React.Component {
    handleCategoryChange = (e) => {
      this.setState({
         category: e.currentTarget.innerText
+     })
+   }
+
+   handleDateChange = (e) => {
+     this.setState({
+        date: e
      })
    }
 
@@ -167,9 +173,9 @@ class Profile extends React.Component {
     return (
     <Fragment>
       <Grid padded>
-       <Grid.Row columns={2}>
+       <Grid.Row columns={4}>
           <Grid.Column textAlign='center' width={4}>
-            <Card>
+            <Card centered>
               <Image src={localStorage.avatar} />
               <Card.Content>
                 <Card.Header>{localStorage.username}</Card.Header>
@@ -177,10 +183,11 @@ class Profile extends React.Component {
               </Card.Content>
             </Card>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column centered width={4}>
             <UserStats
             spent={this.state.spent}
             purchases={this.state.purchases}
+            monthlies={this.state.monthlies.monthly}
             />
           </Grid.Column>
           <Grid.Column width={4}>
@@ -199,6 +206,7 @@ class Profile extends React.Component {
             <PurchaseContainer
               editHandler = {this.editHandler}
               deleteHandler = {this.deleteHandler}
+              dateHandler = {this.handleDateChange}
               handleChange = {this.handleChange}
               handleSubmit = {this.handleSubmit}
               handlePaymentChange = {this.handlePaymentChange}

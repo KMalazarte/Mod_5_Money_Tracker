@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Button, Form, Dropdown } from 'semantic-ui-react'
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 // const sizes = ['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']
@@ -81,14 +81,22 @@ class PurchaseForm extends React.Component {
 
   constructor(props) {
     super(props)
-    }
+  }
 
   render(){
+    console.log("Purchase Form", this.props);
       return(
-        <Fragment>
+        <Fragment >
               <Form onSubmit={this.props.handleSubmit} size={"small"} key={"small"}>
                 <Form.Group widths='equal'>
-                  <Form.Field required name='date' control='input' placeholder='Date' onChange={this.props.handleChange} value={this.props.date}/>
+                  <Form.Field>
+                    <DatePicker
+                      selected={this.props.date}
+                      onChange={this.props.dateHandler}
+                      dateFormat="dd-MMMM-yy"
+                      placeholderText="Date"
+                    />
+                  </Form.Field>
                   <Form.Field required name='name' control='input' placeholder='Purchase' onChange={this.props.handleChange} value={this.props.name}/>
                   <Form.Field required fluid name='category' control={Dropdown} placeholder='Select a Category' onChange={this.props.handleCategoryChange} options={categories} selection value={this.props.category}/>
                   <Form.Field required name='placeOfPurchase' control='input' placeholder='Place of Purchase' onChange={this.props.handleChange} value={this.props.placeOfPurchase}/>
@@ -106,3 +114,8 @@ class PurchaseForm extends React.Component {
 }
 
 export default PurchaseForm
+
+
+
+
+// <Form.Field required name='date' control='input' placeholder='Date' onChange={this.props.handleChange} value={this.props.date}/>

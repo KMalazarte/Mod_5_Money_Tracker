@@ -52,21 +52,50 @@ class PurchaseTable extends React.Component {
 
    }
 
+   renderColors = (purchase) => {
+     let color = ""
+     switch (purchase.category) {
+      case 'Eating Out':
+       return color = "#2185d0"
+       break
+      case 'Groceries':
+        return color = "#00b5ad"
+        break
+      case 'Entertainment':
+        return color = "#21ba45"
+        break
+      case 'Clothes/Accessories':
+        return color = '#db2828'
+        break
+      case 'Booze/Night Out':
+        return color = '#fbbd08'
+        break
+      case 'Transportation/ Gas':
+        return color = '#a333c8'
+        break
+      case 'Flights/ Hotels':
+        return color = '#f2711c'
+        break
+      case 'Misc':
+        return color = '#a5673f'
+        break
+      case 'Gifts':
+        return color = '#e03997'
+        break
+     }
+   }
 
 
   render() {
 
-    // const renderColors = () => {
-    //   if (purchase.category === 'Eating Out') {
-    //     color = "#2185d0"
-    //   }
-    // }
 
   const { column, data, direction } = this.state
 
-  const purchaseRows = this.state.data.map(purchase =>
+  const purchaseRows = () => {
 
-        <Table.Row id={purchase.id} onClick={this.openModal} key={purchase.id}>
+    return this.state.data.map(purchase =>
+
+        <Table.Row style={{backgroundColor:this.renderColors(purchase)}} id={purchase.id} onClick={this.openModal} key={purchase.id}>
           <Table.Cell>{moment(purchase.date).format("DD-MMMM-YY")}</Table.Cell>
           <Table.Cell>{purchase.name}</Table.Cell>
           <Table.Cell>{purchase.category}</Table.Cell>
@@ -101,13 +130,12 @@ class PurchaseTable extends React.Component {
           </Button.Group>
 
         </Table.Row>
-
-
   )
+}
       return(
         <Grid>
         <Fragment>
-          <Table selectable sortable fixed color="blue" inverted>
+          <Table selectable sortable fixed color="blue">
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell
@@ -156,7 +184,7 @@ class PurchaseTable extends React.Component {
               </Table.Row>
             </Table.Header>
                 <Table.Body>
-                    {purchaseRows}
+                    {purchaseRows()}
                 </Table.Body>
               </Table>
         </Fragment>
