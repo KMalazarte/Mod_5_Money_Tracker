@@ -8,9 +8,9 @@ import SpendStats from './spendStats'
 
 class Profile extends React.Component {
 
-
   state={
     purchases:[],
+    monthlies: [],
     date:"",
     name:"",
     category:"",
@@ -22,7 +22,6 @@ class Profile extends React.Component {
     clickedRowId: "",
     spent: 0.0
   }
-
 
     componentDidMount() {
       fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
@@ -38,9 +37,17 @@ class Profile extends React.Component {
        spent: total
        })
      })
-   }
+     fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
+     .then(resp => resp.json())
+     .then(monthlyArr => {
+        this.setState({
+        monthlies: monthlyArr
+        })
+      })
+    }
 
    handleChange = (e) => {
+     console.log(e.target.value);
      this.setState({
        [e.target.name]: e.target.value
      })
@@ -104,6 +111,7 @@ class Profile extends React.Component {
    }
 
    editHandler = (e) => {
+     console.log("Edit clicked");
      let clicked = this.state.purchases.find((purchase) => {
        return parseInt(e.currentTarget.id) === purchase.id
      })
@@ -149,6 +157,7 @@ class Profile extends React.Component {
    }
 
   render() {
+    console.log("profile", this.state.monthlies);
     return (
     <Fragment>
       <Grid padded>
@@ -176,23 +185,23 @@ class Profile extends React.Component {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
-          <PurchaseContainer
-          editHandler = {this.state.editHandler}
-          deleteHandler = {this.state.deleteHandler}
-          handleChange = {this.state.handleChange}
-          handleSubmit = {this.state.handleSubmit}
-          handlePaymentChange = {this.state.handlePaymentChange}
-          handleCategoryChange = {this.state.handleCategoryChange}
-          selected = {this.state.selected}
-          date={this.state.date}
-          name={this.state.name}
-          category={this.state.category}
-          placeOfPurchase={this.state.placeOfPurchase}
-          outOfPocket={this.state.outOfPocket}
-          actualPaid={this.state.actualPaid}
-          paymentMethod={this.state.paymentMethod}
-          purchases={this.state.purchases}
-          />
+            <PurchaseContainer
+              editHandler = {this.editHandler}
+              deleteHandler = {this.deleteHandler}
+              handleChange = {this.handleChange}
+              handleSubmit = {this.handleSubmit}
+              handlePaymentChange = {this.handlePaymentChange}
+              handleCategoryChange = {this.handleCategoryChange}
+              selected = {this.state.selected}
+              date={this.state.date}
+              name={this.state.name}
+              category={this.state.category}
+              placeOfPurchase={this.state.placeOfPurchase}
+              outOfPocket={this.state.outOfPocket}
+              actualPaid={this.state.actualPaid}
+              paymentMethod={this.state.paymentMethod}
+              purchases={this.state.purchases}
+            />
         </Grid.Row>
       </Grid>
     </Fragment>

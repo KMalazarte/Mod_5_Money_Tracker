@@ -54,7 +54,6 @@ class PurchaseTable extends React.Component {
 
 
   render() {
-    // console.log("PURCHASE TABLE props", this.props);
   const { column, data, direction } = this.state
   const purchaseRows = this.state.data.map(purchase =>
 

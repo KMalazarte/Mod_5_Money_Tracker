@@ -156,19 +156,7 @@ class App extends React.Component {
       <Nav />
       <Switch>
         <Route exact path="/" render={() => <Redirect to="/profile" />} />
-        <Route exact path="/profile"
-          render= {
-            (props) => <Profile
-                {...this.state}
-                handleChange={this.handleChange}
-                handlePaymentChange={this.handlePaymentChange}
-                handleCategoryChange={this.handleCategoryChange}
-                handleSubmit={this.handleSubmit}
-                editHandler={this.editHandler}
-                deleteHandler={this.deleteHandler}
-              />
-          }
-        />
+        <Route exact path="/profile" component={Profile} />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path='/signup' component={SignupForm} />
         <Route component={NotFound} />
