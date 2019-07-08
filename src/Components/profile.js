@@ -117,7 +117,8 @@ class Profile extends React.Component {
    }
 
    editHandler = (e) => {
-     console.log("Edit clicked");
+     console.log("Edited");
+
      let clicked = this.state.purchases.find((purchase) => {
        return parseInt(e.currentTarget.id) === purchase.id
      })
@@ -125,7 +126,7 @@ class Profile extends React.Component {
        return parseInt(e.currentTarget.id) !== purchase.id
      })
        this.setState({
-         date:clicked.date,
+         // date:clicked.date,
          name:clicked.name,
          category:clicked.category,
          placeOfPurchase:clicked.place_of_purchase,
@@ -135,14 +136,13 @@ class Profile extends React.Component {
          selected:clicked.selected,
          purchases: notClicked
        })
-       fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
-         method: 'DELETE'
-       }).then(() => {
-         console.log('removed');
-       }).catch(err => {
-         console.error(err)
-       })
-
+         fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
+           method: 'DELETE'
+         }).then(() => {
+           console.log('removed');
+         }).catch(err => {
+           console.error(err)
+         })
    }
 
    deleteHandler = (e) => {

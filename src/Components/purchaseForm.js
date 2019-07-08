@@ -89,7 +89,7 @@ class PurchaseForm extends React.Component {
         <Fragment >
               <Form onSubmit={this.props.handleSubmit} size={"small"} key={"small"}>
                 <Form.Group widths='equal'>
-                  <Form.Field>
+                <Form.Field>
                     <DatePicker
                       selected={this.props.date}
                       onChange={this.props.dateHandler}
