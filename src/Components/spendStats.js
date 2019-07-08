@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
-import { Header, Grid, Card } from 'semantic-ui-react'
-import PieChart, { label }  from 'react-minimal-pie-chart';
+import { Grid, Card } from 'semantic-ui-react'
+import PieChart  from 'react-minimal-pie-chart';
 
 
 
@@ -76,7 +76,7 @@ class SpendStats extends React.Component {
 
 
     let clicked = this.state.clicked
-    console.log("spend Stats",      parseFloat((parseFloat(groceriesAdd())/(parseFloat(this.props.spent)))*100).toFixed(4)   )
+    console.log("spend Stats", parseFloat((parseFloat(groceriesAdd())/(parseFloat(this.props.spent)))*100).toFixed(4)   )
     return(
     <Fragment>
       {clicked ? (

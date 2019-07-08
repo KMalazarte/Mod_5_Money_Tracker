@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Card, Image, Grid } from 'semantic-ui-react'
+import { Table, Card, Image, Grid } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 import PurchaseContainer from './purchaseContainer'
 import UserStats from './userStats'
 import SpendStats from './spendStats'
+import MonthlyContainer from "./monthlyContainer"
 
 class Profile extends React.Component {
 
@@ -47,7 +48,6 @@ class Profile extends React.Component {
     }
 
    handleChange = (e) => {
-     console.log(e.target.value);
      this.setState({
        [e.target.name]: e.target.value
      })
@@ -157,7 +157,13 @@ class Profile extends React.Component {
    }
 
   render() {
-    console.log("profile", this.state.monthlies);
+    console.log("profile", this.state.monthlies.monthly);
+    // const monthlyRows = this.state.monthlies.monthly.map(monthly =>
+    //     <Table.Row>
+    //       <Table.Cell>{monthly.name}</Table.Cell>
+    //       <Table.Cell>{monthly.amount}</Table.Cell>
+    //     </Table.Row>
+    //   )
     return (
     <Fragment>
       <Grid padded>
@@ -177,10 +183,15 @@ class Profile extends React.Component {
             purchases={this.state.purchases}
             />
           </Grid.Column>
-          <Grid.Column width={8}>
+          <Grid.Column width={4}>
             <SpendStats
             spent={this.state.spent}
             purchases={this.state.purchases}
+            />
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <MonthlyContainer
+            monthlies={this.state.monthlies.monthly}
             />
           </Grid.Column>
         </Grid.Row>

@@ -53,8 +53,17 @@ class PurchaseTable extends React.Component {
    }
 
 
+
   render() {
+
+    // const renderColors = () => {
+    //   if (purchase.category === 'Eating Out') {
+    //     color = "#2185d0"
+    //   }
+    // }
+
   const { column, data, direction } = this.state
+
   const purchaseRows = this.state.data.map(purchase =>
 
         <Table.Row id={purchase.id} onClick={this.openModal} key={purchase.id}>
@@ -74,15 +83,15 @@ class PurchaseTable extends React.Component {
               payment_method = {purchase.payment_method}
             />
           </Table.Cell>
-          <Table.Cell>{purchase.payment_method}</Table.Cell>
-          <Button.Group>
-            <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated>
+          <Table.Cell>{purchase.payment_method} </Table.Cell>
+          <Button.Group size="small">
+            <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated >
               <Button.Content visible>Edit</Button.Content>
               <Button.Content hidden>
                 <Icon name='pencil square'/>
               </Button.Content>
              </Button>
-             <Button.Or />
+             <Button.Or/>
              <Button key="delete" data-id={purchase.id} onClick={this.props.deleteHandler} animated>
                <Button.Content visible>Delete</Button.Content>
                <Button.Content hidden>
