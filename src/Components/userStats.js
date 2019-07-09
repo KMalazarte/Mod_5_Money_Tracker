@@ -24,16 +24,13 @@ class UserStats extends React.Component {
       this.props.monthlies.map(monthly => {
         monthliesArr.push(parseFloat(monthly.amount)).toFixed(2)
       })
-        console.log("user Stats, monthlies", monthliesArr)
         return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
       }
     }
 
 
   render() {
-    console.log("user Stats", typeof(this.renderMonthlies()))
-
-
+  
     let spent = () => {
       return (parseFloat(this.props.spent).toFixed(2))
     }

@@ -7,10 +7,11 @@ import withAuth from '../hocs/withAuth'
 class PurchaseContainer extends React.Component {
 
   render() {
-    console.log("Purchase Container", this.props);
+    // console.log("Purchase Container", this.props);
       return(
         <Fragment>
           <PurchaseForm
+            editClicked = {this.props.editClicked}
             handleChange = {this.props.handleChange}
             handleSubmit = {this.props.handleSubmit}
             dateHandler = {this.props.dateHandler}

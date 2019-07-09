@@ -123,7 +123,7 @@ class SpendStats extends React.Component {
               { title: 'Booze/Night Out', value: parseFloat(boozeAdd()), color: '#fbbd08' },
               { title: 'Transportation/ Gas', value: parseFloat(transportAdd()), color: '#a333c8' },
               { title: 'Flights/ Hotels', value: parseFloat(travelAdd()), color: '#f2711c'},
-              { title: 'Misc', value: parseFloat(miscAdd()), color: '#a5673f' },
+              { title: 'Misc', value: parseFloat(miscAdd()), color: "#86512f" },
               { title: 'Gifts', value: parseFloat(giftsAdd()), color: '#e03997' },
             ]}
             label={({ data, dataIndex }) =>

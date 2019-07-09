@@ -15,8 +15,8 @@ class PurchaseModal extends React.Component {
         <p>Place of Purchase: {this.props.place_of_purchase}</p>
         <p>Payment Method: {this.props.payment_method}</p>
       </Modal.Description>
-      <Image size='medium' src='https://bellyfull.net/wp-content/uploads/2017/12/How-To-Make-Perfect-Hard-Boiled-Egg-blog.jpg' />
-      <Image size='medium' src='https://react.semantic-ui.com/images/avatar/large/rachel.png' />
+      <Image size='medium' src='https://support.checkout51.com/hc/en-us/article_attachments/200464383/receipt_examples_perfect_sm.jpg' />
+      <Image size='medium' src="" />
     </Modal.Content>
   </Modal>
     )

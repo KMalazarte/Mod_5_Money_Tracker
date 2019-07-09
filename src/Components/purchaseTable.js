@@ -77,7 +77,7 @@ class PurchaseTable extends React.Component {
         return color = '#f2711c'
         break
       case 'Misc':
-        return color = '#a5673f'
+        return color = "#86512f"
         break
       case 'Gifts':
         return color = '#e03997'
@@ -85,9 +85,7 @@ class PurchaseTable extends React.Component {
      }
    }
 
-
   render() {
-
 
   const { column, data, direction } = this.state
 

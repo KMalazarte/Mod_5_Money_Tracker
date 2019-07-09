@@ -6,6 +6,7 @@ import Nav from './components/nav'
 import NotFound from './components/notFound'
 import SignupForm from './components/signupForm'
 import withAuth from './hocs/withAuth'
+import Edit from './components/edit'
 import './App.css'
 
 class App extends React.Component {
@@ -159,6 +160,7 @@ class App extends React.Component {
         <Route exact path="/profile" component={Profile} />
         <Route exact path="/login" component={LoginForm} />
         <Route exact path='/signup' component={SignupForm} />
+        <Route exact path='/edit' component={Edit} />
         <Route component={NotFound} />
       </Switch>
     </Fragment>

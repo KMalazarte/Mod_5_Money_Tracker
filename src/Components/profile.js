@@ -21,9 +21,13 @@ class Profile extends React.Component {
     paymentMethod:"",
     selected: "",
     clickedRowId: "",
-    spent: 0.0
+    spent: 0.0,
+    monthlyName: "",
+    monthlyAmount: "",
+    PurchaseId:"",
+    editClicked:false
   }
-
+    // LIFECYCLE METHOD
     componentDidMount() {
       fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
       .then(resp => resp.json())
@@ -32,7 +36,7 @@ class Profile extends React.Component {
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
       let total = parseFloat(spend.reduce(reducer)).toFixed(2)
-      console.log(total);
+      // console.log(total);
        this.setState({
        purchases: purchaseArr.purchase,
        spent: total
@@ -40,14 +44,16 @@ class Profile extends React.Component {
      })
      fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
      .then(resp => resp.json())
-     .then(monthlyArr => {
+     .then(data => {
         this.setState({
-        monthlies: monthlyArr
+        monthlies: data.monthly
         })
       })
     }
 
+
    handleChange = (e) => {
+     console.log(e);
      this.setState({
        [e.target.name]: e.target.value
      })
@@ -71,9 +77,82 @@ class Profile extends React.Component {
      })
    }
 
-   // handleSelectChange=(e,{value})=>this.setState({paymentMethod:value})
+   editMonthlyHandler = (e) => {
+     // debugger
+     console.log("monthly edited");
+     let clicked = this.state.monthlies.find((monthly) => {
+       return parseInt(e.currentTarget.id) === monthly.id
+     })
+     let notClicked = this.state.monthlies.filter((monthly) => {
+       return parseInt(e.currentTarget.id) !== monthly.id
+     })
+     // debugger
+       this.setState({
+         monthlyName: clicked.name,
+         monthlyAmount: clicked.amount,
+         monthlies: notClicked
+       },()=>console.log("updating state", this.state))
+         fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.id}`, {
+           method: 'DELETE'
+         }).then(() => {
+           console.log('removed');
+         }).catch(err => {
+           console.error(err)
+         })
+   }
+
+   deleteMonthlyHandler = (e) => {
+     console.log(e.currentTarget.dataset.id);
+       let notClicked = this.state.monthlies.filter((monthly) => {
+         return parseInt(e.currentTarget.dataset.id) !== monthly.id
+       })
+         this.setState({
+           monthlies: notClicked
+         })
+        fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.dataset.id}`, {
+          method: 'DELETE'
+        }).then(() => {
+           console.log('removed');
+        }).catch(err => {
+          console.error(err)
+        });
+        alert('Monthly deleted')
+     }
+
+
+   handleMonthlySubmit = (e) => {
+     e.preventDefault()
+
+    let monthlyObj= {
+                  name: this.state.monthlyName,
+                  amount: this.state.monthlyAmount,
+                  user_id: localStorage.user_id
+                  }
+
+    this.setState({
+                monthlies: [...this.state.monthlies, monthlyObj],
+                monthlyName: "",
+                monthlyAmount: "",
+              })
+
+    fetch(`http://localhost:3000/monthlies`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: this.state.monthlyName,
+        amount: this.state.monthlyAmount,
+        user_id: localStorage.user_id
+      })
+
+  })//Fetch
+
+  } //handleMonthlySubmit
+
 
    handleSubmit = (e) => {
+      // debugger
      e.preventDefault()
 
      let purObj= { date: this.state.date,
@@ -86,18 +165,25 @@ class Profile extends React.Component {
                    user_id: localStorage.user_id
                  }
 
-     this.setState({
-        purchases: [...this.state.purchases, purObj],
-        date:"",
-        name:"",
-        category:"",
-        placeOfPurchase:"",
-        outOfPocket:"",
-        actualPaid:"",
-        paymentMethod:"",
-        selected: ""
-      })
+      if (this.state.editClicked) {
 
+      fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.PurchaseId}`, {
+        method: 'PATCH',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date: this.state.date,
+          name: this.state.name,
+          category: this.state.category,
+          place_of_purchase: this.state.placeOfPurchase,
+          out_of_pocket: this.state.outOfPocket,
+          actual_paid: this.state.actualPaid,
+          payment_method: this.state.paymentMethod,
+          user_id: localStorage.user_id
+        })
+      })
+    } else {
        fetch(`http://localhost:3000/purchases`, {
          method: 'POST',
          headers: {
@@ -114,6 +200,19 @@ class Profile extends React.Component {
            user_id: localStorage.user_id
          })
        })
+     }
+     this.setState({
+       purchases: [...this.state.purchases, purObj],
+       date:"",
+       name:"",
+       category:"",
+       placeOfPurchase:"",
+       outOfPocket:"",
+       actualPaid:"",
+       paymentMethod:"",
+       selected: "",
+       PurchaseId: ""
+     })
    }
 
    editHandler = (e) => {
@@ -134,16 +233,18 @@ class Profile extends React.Component {
          actualPaid:clicked.actual_paid,
          paymentMethod:clicked.payment_method,
          selected:clicked.selected,
-         purchases: notClicked
+         purchases: notClicked,
+         editClicked:true,
+         PurchaseId:clicked.id
        })
-         fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
-           method: 'DELETE'
-         }).then(() => {
-           console.log('removed');
-         }).catch(err => {
-           console.error(err)
-         })
-   }
+         // fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
+         //   method: 'DELETE'
+         // }).then(() => {
+         //   console.log('removed');
+         // }).catch(err => {
+         //   console.error(err)
+         // })
+   }//handleSubmit end
 
    deleteHandler = (e) => {
      let notClicked = this.state.purchases.filter((purchase) => {
@@ -163,8 +264,8 @@ class Profile extends React.Component {
    }
 
   render() {
-    console.log("profile", this.state.monthlies.monthly);
-    // const monthlyRows = this.state.monthlies.monthly.map(monthly =>
+    console.log("%c profile",'color: firebrick', this.state.monthlies);
+    // const monthlyRows = this.state.monthlies.map(monthly =>
     //     <Table.Row>
     //       <Table.Cell>{monthly.name}</Table.Cell>
     //       <Table.Cell>{monthly.amount}</Table.Cell>
@@ -187,7 +288,7 @@ class Profile extends React.Component {
             <UserStats
             spent={this.state.spent}
             purchases={this.state.purchases}
-            monthlies={this.state.monthlies.monthly}
+            monthlies={this.state.monthlies}
             />
           </Grid.Column>
           <Grid.Column width={4}>
@@ -198,12 +299,19 @@ class Profile extends React.Component {
           </Grid.Column>
           <Grid.Column width={4}>
             <MonthlyContainer
-            monthlies={this.state.monthlies.monthly}
+            handleMonthlySubmit = {this.handleMonthlySubmit}
+            monthlies={this.state.monthlies}
+            monthlyName = {this.state.monthlyName}
+            monthlyAmount = {this.state.monthlyAmount}
+            editMonthlyHandler = {this.editMonthlyHandler}
+            deleteMonthlyHandler = {this.deleteMonthlyHandler}
+            handleChange = {this.handleChange}
             />
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row columns={1}>
+        <Grid.Row>
             <PurchaseContainer
+              editClicked = {this.state.editClicked}
               editHandler = {this.editHandler}
               deleteHandler = {this.deleteHandler}
               dateHandler = {this.handleDateChange}

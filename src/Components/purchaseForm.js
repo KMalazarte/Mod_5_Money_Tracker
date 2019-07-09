@@ -4,8 +4,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-// const sizes = ['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive']
-
 const paymentOptions = [
   {
     key: 'Cash',
@@ -84,7 +82,7 @@ class PurchaseForm extends React.Component {
   }
 
   render(){
-    console.log("Purchase Form", this.props);
+    // console.log("Purchase Form", this.props);
       return(
         <Fragment >
               <Form onSubmit={this.props.handleSubmit} size={"small"} key={"small"}>
