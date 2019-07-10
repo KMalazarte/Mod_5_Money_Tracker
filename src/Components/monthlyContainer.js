@@ -5,47 +5,8 @@ import MonthlyForm from './monthlyForm'
 class monthlyContainer extends React.Component {
 
   state={
-    data:[],
     clicked:false,
-    monthlies: []
   }
-
-  // componentDidMount(){
-  //   if (this.state.data.length !== this.props.monthlies.length) {
-  //     this.setState(
-  //       {
-  //       data: this.props.monthlies
-  //       }
-  //     )}
-  // }
-
-  // getDerivedStateFromProps(nextProps, prevState) {
-  //     if (nextProps.monthlies !== prevState.monthlies){
-  //       return {
-  //         monthlies: nextProps.monthlies
-  //       }
-  //       // return null
-  //     }
-  //   }
-
-
-      // componentDidUpdate(prevProps, prevState) {
-      //   if (prevProps.monthlies !== prevState.monthlies){
-      //      return {
-      //        monthlies: prevProps.monthlies
-      //      }
-      //      // return null
-      //    }
-      // }
-
-      // componentWillReceiveProps(prevProps, newProps) {
-      //     if (prevProps.monthlies !== newProps.monthlies){
-      //        return {
-      //          monthlies: newProps.monthlies
-      //        }
-      //        // return null
-      //      }
-      // }
 
   renderMonthlies = () => {
     if (this.props.monthlies) {
@@ -94,7 +55,6 @@ class monthlyContainer extends React.Component {
   }
 
   render() {
-    console.log("monthly container", this.props.monthlies)
     return(
     <Fragment>
        { this.state.clicked ? (
@@ -108,7 +68,7 @@ class monthlyContainer extends React.Component {
             handleChange= {this.props.handleChange}
             handleMonthlySubmit = {this.props.handleMonthlySubmit}
           />
-          <Table selectable color="purple">
+          <Table selectable color="teal">
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Name</Table.HeaderCell>
@@ -126,7 +86,7 @@ class monthlyContainer extends React.Component {
     ) : (
         <>
           <Header textAlign="center" size="huge" inverted color="orange">
-            MONTHLY CONTAINER NORMAL
+            Recurring Monthly Expenses
           </Header>
           <Table selectable color="orange">
             <Table.Header>
@@ -140,7 +100,7 @@ class monthlyContainer extends React.Component {
             </Table.Body>
           </Table>
             <Button onClick={this.monthliesEdit} primary>
-              Edit
+              Add/Edit
             </Button>
         </>
     )}

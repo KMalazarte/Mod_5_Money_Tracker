@@ -24,8 +24,10 @@ class Profile extends React.Component {
     spent: 0.0,
     monthlyName: "",
     monthlyAmount: "",
-    PurchaseId:"",
-    editClicked:false
+    purchaseId:"",
+    monthlyId:"",
+    editClicked:false,
+    monthlyEditClicked: false
   }
     // LIFECYCLE METHOD
     componentDidMount() {
@@ -78,7 +80,6 @@ class Profile extends React.Component {
    }
 
    editMonthlyHandler = (e) => {
-     // debugger
      console.log("monthly edited");
      let clicked = this.state.monthlies.find((monthly) => {
        return parseInt(e.currentTarget.id) === monthly.id
@@ -86,19 +87,21 @@ class Profile extends React.Component {
      let notClicked = this.state.monthlies.filter((monthly) => {
        return parseInt(e.currentTarget.id) !== monthly.id
      })
-     // debugger
        this.setState({
          monthlyName: clicked.name,
          monthlyAmount: clicked.amount,
-         monthlies: notClicked
-       },()=>console.log("updating state", this.state))
-         fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.id}`, {
-           method: 'DELETE'
-         }).then(() => {
-           console.log('removed');
-         }).catch(err => {
-           console.error(err)
-         })
+         monthlies: notClicked,
+         monthlyEditClicked: true,
+         monthlyId: clicked.id
+       })
+       console.log("Look HERE, this.state.monthly");
+         // fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.id}`, {
+         //   method: 'DELETE'
+         // }).then(() => {
+         //   console.log('removed');
+         // }).catch(err => {
+         //   console.error(err)
+         // })
    }
 
    deleteMonthlyHandler = (e) => {
@@ -122,21 +125,16 @@ class Profile extends React.Component {
 
    handleMonthlySubmit = (e) => {
      e.preventDefault()
-
+     console.log("HEY YO", this.state.monthlyId);
     let monthlyObj= {
                   name: this.state.monthlyName,
                   amount: this.state.monthlyAmount,
                   user_id: localStorage.user_id
                   }
 
-    this.setState({
-                monthlies: [...this.state.monthlies, monthlyObj],
-                monthlyName: "",
-                monthlyAmount: "",
-              })
-
-    fetch(`http://localhost:3000/monthlies`, {
-      method: 'POST',
+    if (this.state.monthlyEditClicked) {
+    fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${this.state.monthlyId}`, {
+      method: 'PATCH',
       headers: {
         "Content-Type": "application/json",
       },
@@ -144,11 +142,30 @@ class Profile extends React.Component {
         name: this.state.monthlyName,
         amount: this.state.monthlyAmount,
         user_id: localStorage.user_id
+        })
+    })
+    } else {
+      fetch(`http://localhost:3000/monthlies`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: this.state.monthlyName,
+          amount: this.state.monthlyAmount,
+          user_id: localStorage.user_id
+        })
+      })//2nd Fetch
+    }
+      this.setState({
+        monthlies: [...this.state.monthlies, monthlyObj],
+        monthlyName: "",
+        monthlyAmount: "",
+        monthlyId: ""
       })
+    }//handleMonthlySubmit
 
-  })//Fetch
 
-  } //handleMonthlySubmit
 
 
    handleSubmit = (e) => {
@@ -167,7 +184,7 @@ class Profile extends React.Component {
 
       if (this.state.editClicked) {
 
-      fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.PurchaseId}`, {
+      fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.purchaseId}`, {
         method: 'PATCH',
         headers: {
           "Content-Type": "application/json",
@@ -211,7 +228,7 @@ class Profile extends React.Component {
        actualPaid:"",
        paymentMethod:"",
        selected: "",
-       PurchaseId: ""
+       purchaseId: ""
      })
    }
 
@@ -235,7 +252,7 @@ class Profile extends React.Component {
          selected:clicked.selected,
          purchases: notClicked,
          editClicked:true,
-         PurchaseId:clicked.id
+         purchaseId:clicked.id
        })
          // fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
          //   method: 'DELETE'
@@ -264,7 +281,7 @@ class Profile extends React.Component {
    }
 
   render() {
-    console.log("%c profile",'color: firebrick', this.state.monthlies);
+    // console.log("%c profile",'color: firebrick', this.state.monthlies);
     // const monthlyRows = this.state.monthlies.map(monthly =>
     //     <Table.Row>
     //       <Table.Cell>{monthly.name}</Table.Cell>
