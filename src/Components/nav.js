@@ -12,18 +12,22 @@ const Nav = ({ user: { loggedIn }, location: { pathname } }) => {
   }
 
   return (
-    <Menu pointing secondary>
+    <Menu pointing secondary >
       {loggedIn ? (
         <Fragment>
           <Menu.Item as={NavLink} to="/profile" name="Profile" active={pathname === '/profile'} />
-          <h1 className="logo-center">$pendy</h1>
+
+          <img src='https://fontmeme.com/permalink/190711/48d8f1861d6b77bc650e0612cf3abfdd.png' className="logo-center" alt='spendy-logo'/>
           <Menu.Menu >
             {/* TODO: logout */}
            <Menu.Item as={NavLink} to="/logout" name="Logout" onClick={handleLogout} />
           </Menu.Menu>
         </Fragment>
       ) : (
+        <Fragment>
         <Menu.Item as={NavLink} to="/login" name="Login" active={pathname === '/login'} />
+        <img src='https://fontmeme.com/permalink/190711/48d8f1861d6b77bc650e0612cf3abfdd.png' className="logo-center" alt='spendy-logo'/>
+        </Fragment>
       )}
     </Menu>
   )
