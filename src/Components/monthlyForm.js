@@ -2,10 +2,6 @@ import React, { Fragment } from 'react'
 import { Button, Form, Dropdown } from 'semantic-ui-react'
 
 class MonthlyForm extends React.Component {
-  
-  constructor(props) {
-    super(props)
-  }
 
   render(){
     console.log("Monthly Form", this.props);

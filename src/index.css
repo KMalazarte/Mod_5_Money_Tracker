@@ -3,3 +3,20 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.bg {
+background-image: url("https://img1.coastalliving.timeinc.net/sites/default/files/styles/square_1_1/public/1553193950/ocean-horizon-924454206.jpg");
+height: 100%;
+background-position: center;
+background-repeat: repeat-y;
+background-size: cover;
+}
+
+.logo-center {
+  width: 95px;
+  margin: 0 auto;
+}
+
+.right.menu {
+  margin-left: 0
+}

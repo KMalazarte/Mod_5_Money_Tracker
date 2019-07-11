@@ -7,6 +7,7 @@ import UserStats from './userStats'
 import SpendStats from './spendStats'
 import MonthlyContainer from "./monthlyContainer"
 
+
 class Profile extends React.Component {
 
   state={
@@ -26,8 +27,11 @@ class Profile extends React.Component {
     monthlyAmount: "",
     purchaseId:"",
     monthlyId:"",
+    takeHome:"",
     editClicked:false,
-    monthlyEditClicked: false
+    monthlyEditClicked: false,
+    userClicked:true,
+    currentTakeHome:localStorage.monthly_take_home
   }
     // LIFECYCLE METHOD
     componentDidMount() {
@@ -37,12 +41,13 @@ class Profile extends React.Component {
       let spend = []
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
+      if (purchaseArr.length > 0) {
       let total = parseFloat(spend.reduce(reducer)).toFixed(2)
-      // console.log(total);
        this.setState({
        purchases: purchaseArr.purchase,
        spent: total
        })
+     } else { console.log("Nothing to render") }
      })
      fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
      .then(resp => resp.json())
@@ -55,7 +60,7 @@ class Profile extends React.Component {
 
 
    handleChange = (e) => {
-     console.log(e);
+     // console.log(e.target.value);
      this.setState({
        [e.target.name]: e.target.value
      })
@@ -79,8 +84,44 @@ class Profile extends React.Component {
      })
    }
 
+   userClickToggle = (e) => {
+     this.setState({
+       userClicked:!this.state.userClicked
+       })
+   }
+
+   handleTakeHomeSubmit = (e) => {
+     e.preventDefault()
+     // let newTakeHome={
+     //   monthly_take_home: this.state.takeHome
+     // }
+     fetch(`http://localhost:3000/profile/${localStorage.user_id}`, {
+       method: 'PATCH',
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify({
+         monthly_take_home: this.state.takeHome,
+         })
+     })
+     .then(response => {
+       if (response.ok) {
+         return response.json()
+       } else {
+         throw response
+       }
+     })
+     .then(JSONResponse => {
+       console.log(JSONResponse);
+       localStorage.setItem('monthly_take_home', JSONResponse.monthly_take_home)
+     })
+     this.setState({
+       userClicked:!this.state.userClicked,
+       currentTakeHome:this.state.takeHome
+     })
+   }
+
    editMonthlyHandler = (e) => {
-     console.log("monthly edited");
      let clicked = this.state.monthlies.find((monthly) => {
        return parseInt(e.currentTarget.id) === monthly.id
      })
@@ -94,7 +135,6 @@ class Profile extends React.Component {
          monthlyEditClicked: true,
          monthlyId: clicked.id
        })
-       console.log("Look HERE, this.state.monthly");
          // fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.id}`, {
          //   method: 'DELETE'
          // }).then(() => {
@@ -125,7 +165,6 @@ class Profile extends React.Component {
 
    handleMonthlySubmit = (e) => {
      e.preventDefault()
-     console.log("HEY YO", this.state.monthlyId);
     let monthlyObj= {
                   name: this.state.monthlyName,
                   amount: this.state.monthlyAmount,
@@ -289,7 +328,7 @@ class Profile extends React.Component {
     //     </Table.Row>
     //   )
     return (
-    <Fragment>
+    <Fragment className="bg">
       <Grid padded>
        <Grid.Row columns={4}>
           <Grid.Column textAlign='center' width={4}>
@@ -303,9 +342,15 @@ class Profile extends React.Component {
           </Grid.Column>
           <Grid.Column centered width={4}>
             <UserStats
+            currentTakeHome={this.state.currentTakeHome}
+            userClickToggle={this.userClickToggle}
+            userClicked={this.state.userClicked}
             spent={this.state.spent}
             purchases={this.state.purchases}
             monthlies={this.state.monthlies}
+            handleChange = {this.handleChange}
+            handleTakeHomeSubmit = {this.handleTakeHomeSubmit}
+            takeHome = {this.state.takeHome}
             />
           </Grid.Column>
           <Grid.Column width={4}>

@@ -59,8 +59,8 @@ class monthlyContainer extends React.Component {
     <Fragment>
        { this.state.clicked ? (
         <>
-          <Header textAlign="center" size="huge" inverted color="purple">
-            MONTHLY CONTAINER EDIT
+          <Header textAlign="center" size="huge" inverted color="green">
+            Add or Edit Recurring Monthly Expenses Below
           </Header>
           <MonthlyForm
             monthlyName= {this.props.monthlyName}

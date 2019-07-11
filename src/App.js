@@ -6,6 +6,7 @@ import Nav from './components/nav'
 import NotFound from './components/notFound'
 import SignupForm from './components/signupForm'
 import withAuth from './hocs/withAuth'
+import './index.css'
 import './App.css'
 
 class App extends React.Component {
@@ -28,4 +29,4 @@ class App extends React.Component {
 }
 
 
-export default withRouter(App) 
+export default withRouter(App)
