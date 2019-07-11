@@ -119,6 +119,7 @@ class Profile extends React.Component {
        userClicked:!this.state.userClicked,
        currentTakeHome:this.state.takeHome
      })
+     alert('Monthly Take Home has been updated')
    }
 
    editMonthlyHandler = (e) => {
@@ -336,7 +337,6 @@ class Profile extends React.Component {
               <Image src={localStorage.avatar} />
               <Card.Content>
                 <Card.Header>{localStorage.username}</Card.Header>
-                <Card.Description>User #{localStorage.user_id}</Card.Description>
               </Card.Content>
             </Card>
           </Grid.Column>

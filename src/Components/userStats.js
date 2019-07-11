@@ -49,7 +49,7 @@ class UserStats extends React.Component {
 
            <Table.Body>
              <Table.Row>
-               <Table.Cell>Monthly Take Home (After Taxes):<Button onClick={this.props.userClickToggle} size="mini">Edit</Button></Table.Cell>
+               <Table.Cell>Monthly Take Home (After Taxes):<Button onClick={this.props.userClickToggle} size="mini">Update</Button></Table.Cell>
                <Table.Cell>${parseFloat(this.props.currentTakeHome).toFixed(2)}</Table.Cell>
              </Table.Row>
              <Table.Row negative>
@@ -72,7 +72,7 @@ class UserStats extends React.Component {
     ) : (
       <>
         <Header size="huge" inverted color="purple">
-          Edit User Take Home Below
+          Update User Take Home Below
         </Header>
           <UserForm
           handleTakeHomeSubmit={this.props.handleTakeHomeSubmit}
