@@ -79,7 +79,7 @@ class monthlyContainer extends React.Component {
               {this.renderMonthliesWEdit()}
             </Table.Body>
           </Table>
-            <Button onClick={this.monthliesEdit} primary>
+            <Button onClick={this.monthliesEdit}>
               Done
             </Button>
         </>
@@ -99,7 +99,7 @@ class monthlyContainer extends React.Component {
               {this.renderMonthlies()}
             </Table.Body>
           </Table>
-            <Button onClick={this.monthliesEdit} primary>
+            <Button onClick={this.monthliesEdit}>
               Add/Edit
             </Button>
         </>

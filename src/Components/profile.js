@@ -41,7 +41,7 @@ class Profile extends React.Component {
       let spend = []
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
-      if (purchaseArr.length > 0) {
+      if (spend.length > 0) {
       let total = parseFloat(spend.reduce(reducer)).toFixed(2)
        this.setState({
        purchases: purchaseArr.purchase,
@@ -329,8 +329,8 @@ class Profile extends React.Component {
     //   )
     return (
     <Fragment className="bg">
-      <Grid padded>
-       <Grid.Row columns={4}>
+      <Grid padded className='profile-background'>
+       <Grid.Row columns={4} className='profile-background'>
           <Grid.Column textAlign='center' width={4}>
             <Card centered>
               <Image src={localStorage.avatar} />

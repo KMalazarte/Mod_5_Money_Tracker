@@ -36,10 +36,10 @@ class UserStats extends React.Component {
     <Fragment>
     { this.props.userClicked ? (
       <>
-        <Header size="huge" inverted color="purple">
-          Hello from UserStats Page
+        <Header size="huge" inverted color="orange">
+          User Stats
         </Header>
-        <Table color="purple">
+        <Table color="orange">
            <Table.Header>
              <Table.Row>
                <Table.HeaderCell>Stat</Table.HeaderCell>
@@ -72,14 +72,14 @@ class UserStats extends React.Component {
     ) : (
       <>
         <Header size="huge" inverted color="purple">
-          EDIT USER STATS
+          Edit User Take Home Below
         </Header>
           <UserForm
           handleTakeHomeSubmit={this.props.handleTakeHomeSubmit}
           handleChange= {this.props.handleChange}
           takeHome = {this.props.takeHome}
           />
-        <Table >
+        <Table color="purple">
            <Table.Header>
              <Table.Row>
                <Table.HeaderCell>Stat</Table.HeaderCell>
