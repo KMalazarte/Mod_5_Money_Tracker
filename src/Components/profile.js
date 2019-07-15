@@ -274,6 +274,7 @@ class Profile extends React.Component {
 
    editHandler = (e) => {
      console.log("Edited");
+     alert('Please use the form to edit the purchase and press Submit when done')
 
      let clicked = this.state.purchases.find((purchase) => {
        return parseInt(e.currentTarget.id) === purchase.id

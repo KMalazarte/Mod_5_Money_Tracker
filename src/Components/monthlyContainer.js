@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react'
 import { Header, Image, Table, Button, Icon, Card } from 'semantic-ui-react'
 import MonthlyForm from './monthlyForm'
+import { OverflowDetector } from 'react-overflow';
 
 class monthlyContainer extends React.Component {
+
 
   state={
     clicked:false,
@@ -54,9 +56,24 @@ class monthlyContainer extends React.Component {
       })
   }
 
+  handleOverflowChange = (isOverflowed) => {
+    console.log(isOverflowed);
+  }
+
+  // <OverflowDetector
+  //   onOverflowChange={handleOverflowChange}
+  //   style={{ width: '100px' }}
+  // >
+  //   <div style={{ width: '200px' }}>Overflowing</div>
+  // </OverflowDetector>
+
+  // <OverflowDetector
+  // onOverflowChange={this.handleOverflowChange}
+  // style={{ width: '100px' }}
+  // >
   render() {
     return(
-    <Fragment>
+      <Fragment >
        { this.state.clicked ? (
         <>
           <Header textAlign="center" size="huge" inverted color="green">
