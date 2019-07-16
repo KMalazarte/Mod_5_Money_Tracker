@@ -5,7 +5,6 @@ import { OverflowDetector } from 'react-overflow';
 
 class monthlyContainer extends React.Component {
 
-
   state={
     clicked:false,
   }

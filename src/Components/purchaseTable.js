@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Table, Button, Icon, Header, Image, Modal, Grid } from 'semantic-ui-react'
+import { Table, Button, Icon, Header, Image, Modal, Grid, Confirm } from 'semantic-ui-react'
 import moment from 'moment'
 import _ from 'lodash'
 import { Redirect, withRouter, Link  } from 'react-router-dom'
@@ -15,7 +15,7 @@ class PurchaseTable extends React.Component {
       column: null,
       data: [],
       direction: null,
-      redirect: false
+      redirect: false,
     }
   }
 
@@ -112,14 +112,23 @@ class PurchaseTable extends React.Component {
           </Table.Cell>
           <Table.Cell>{purchase.payment_method} </Table.Cell>
           <Button.Group size="small">
-            <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated >
+            <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated>
               <Button.Content visible>Edit</Button.Content>
               <Button.Content hidden>
                 <Icon name='pencil square'/>
               </Button.Content>
              </Button>
              <Button.Or/>
-             <Button key="delete" data-id={purchase.id} onClick={this.props.deleteHandler} animated>
+             <Button key="delete" data-id={purchase.id} onClick={this.props.show} animated>
+             <Confirm
+              open={this.props.confirm}
+              content='Are you sure you want to delete this purchase?'
+              cancelButton='Never mind'
+              confirmButton="Delete"
+              data-id={purchase.id}
+              onCancel={this.props.handleCancel}
+              onConfirm={this.props.deleteHandler}
+            />
                <Button.Content visible>Delete</Button.Content>
                <Button.Content hidden>
                 <Icon name='delete'/>
@@ -190,33 +199,6 @@ class PurchaseTable extends React.Component {
       )
   }
 
-  // {this.renderRedirect()}
-
 }
 
 export default withRouter(PurchaseTable)
-
-
-// let categoryColor = switch ( purchase.category ) {
-  //   case 'Gifts':
-  //   color = 'pink'
-  //   break
-  //   case 'Food':
-  //   color = 'blue'
-  //   break
-  //   case 'Entertainment':
-  //   color = 'green'
-  //   break
-  //   case 'Clothes/Accessories':
-  //   color = 'orange'
-  //   break
-  //   case 'Booze/Night Out':
-  //   color = 'yellow'
-  //   break
-  //   case 'Transportation/ Gas/ Hotels':
-  //   color = 'purple'
-  //   break
-  //   case 'Misc.':
-  //   color = 'grey'
-  //   break
-  // }

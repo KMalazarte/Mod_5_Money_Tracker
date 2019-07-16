@@ -30,6 +30,10 @@ class PurchaseContainer extends React.Component {
             purchases = {this.props.purchases}
             editHandler = {this.props.editHandler}
             deleteHandler = {this.props.deleteHandler}
+            handleCancel = {this.props.handleCancel}
+            show = {this.props.show}
+            close = {this.props.close}
+            confirm = {this.props.confirm}
           />
         </Fragment>
       )

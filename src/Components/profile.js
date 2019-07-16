@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Table, Card, Image, Grid } from 'semantic-ui-react'
+import { Table, Card, Image, Grid, Confirm } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 import PurchaseContainer from './purchaseContainer'
 import UserStats from './userStats'
@@ -31,7 +31,9 @@ class Profile extends React.Component {
     editClicked:false,
     monthlyEditClicked: false,
     userClicked:true,
-    currentTakeHome:localStorage.monthly_take_home
+    currentTakeHome:localStorage.monthly_take_home,
+    confirm: false,
+    bingo:""
   }
     // LIFECYCLE METHOD
     componentDidMount() {
@@ -58,6 +60,48 @@ class Profile extends React.Component {
       })
     }
 
+    show = (e) => {
+      let datID = e.currentTarget.dataset.id
+      this.setState({
+        confirm: !this.state.confirm,
+        bingo: datID
+      })
+    }
+
+    close = (e) => {
+      this.setState({
+        confirm: false
+      })
+      console.log("close clicked")
+    }
+
+    deleteHandler = (e) => {
+      let notClicked = this.state.purchases.filter((purchase) => {
+        return parseInt(this.state.bingo) !== purchase.id
+      })
+      debugger
+        this.setState({
+          confirm: false,
+          purchases: notClicked,
+
+        })
+       fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.bingo}`, {
+         method: 'DELETE'
+       }).then(() => {
+          console.log('removed');
+       }).catch(err => {
+         console.error(err)
+       });
+       alert('Purchase deleted')
+    }
+
+    handleCancel = (e) => {
+      this.setState({
+        result: 'cancelled',
+        confirm: !this.state.confirm
+      })
+      console.log("cancel clicked, confirmState =", this.state.confirm);
+    }
 
    handleChange = (e) => {
      // console.log(e.target.value);
@@ -136,13 +180,6 @@ class Profile extends React.Component {
          monthlyEditClicked: true,
          monthlyId: clicked.id
        })
-         // fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.id}`, {
-         //   method: 'DELETE'
-         // }).then(() => {
-         //   console.log('removed');
-         // }).catch(err => {
-         //   console.error(err)
-         // })
    }
 
    deleteMonthlyHandler = (e) => {
@@ -283,7 +320,6 @@ class Profile extends React.Component {
        return parseInt(e.currentTarget.id) !== purchase.id
      })
        this.setState({
-         // date:clicked.date,
          name:clicked.name,
          category:clicked.category,
          placeOfPurchase:clicked.place_of_purchase,
@@ -295,31 +331,9 @@ class Profile extends React.Component {
          editClicked:true,
          purchaseId:clicked.id
        })
-         // fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.id}`, {
-         //   method: 'DELETE'
-         // }).then(() => {
-         //   console.log('removed');
-         // }).catch(err => {
-         //   console.error(err)
-         // })
-   }//handleSubmit end
+   }//editHandler end
 
-   deleteHandler = (e) => {
-     let notClicked = this.state.purchases.filter((purchase) => {
-       return parseInt(e.currentTarget.dataset.id) !== purchase.id
-     })
-       this.setState({
-         purchases: notClicked
-       })
-      fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${e.currentTarget.dataset.id}`, {
-        method: 'DELETE'
-      }).then(() => {
-         console.log('removed');
-      }).catch(err => {
-        console.error(err)
-      });
-      alert('Purchase deleted')
-   }
+
 
   render() {
     // console.log("%c profile",'color: firebrick', this.state.monthlies);
@@ -374,6 +388,10 @@ class Profile extends React.Component {
         </Grid.Row>
         <Grid.Row>
             <PurchaseContainer
+              confirm = {this.state.confirm}
+              handleCancel = {this.handleCancel}
+              show = {this.show}
+              close = {this.close}
               editClicked = {this.state.editClicked}
               editHandler = {this.editHandler}
               deleteHandler = {this.deleteHandler}
