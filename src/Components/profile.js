@@ -79,7 +79,6 @@ class Profile extends React.Component {
       let notClicked = this.state.purchases.filter((purchase) => {
         return parseInt(this.state.bingo) !== purchase.id
       })
-      debugger
         this.setState({
           confirm: false,
           purchases: notClicked,
@@ -91,8 +90,7 @@ class Profile extends React.Component {
           console.log('removed');
        }).catch(err => {
          console.error(err)
-       });
-       alert('Purchase deleted')
+       })
     }
 
     handleCancel = (e) => {

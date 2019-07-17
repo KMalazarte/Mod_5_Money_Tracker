@@ -35,6 +35,7 @@ class SignupForm extends React.Component {
     })
       .then(r => r.json())
       .then(r => console.log(r))
+      alert('User successfully created')
     }
     // this.props.loginUser(this.state.username, this.state.password) //comes from mapDispatchToProps
     // this.setState({ username: '', password: '' }) //reset form to initial state
