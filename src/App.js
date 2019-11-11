@@ -5,7 +5,7 @@ import LoginForm from './components/loginForm'
 import Nav from './components/nav'
 import NotFound from './components/notFound'
 import SignupForm from './components/signupForm'
-import withAuth from './hocs/withAuth'
+// import withAuth from './hocs/withAuth'
 import './index.css'
 import './App.css'
 

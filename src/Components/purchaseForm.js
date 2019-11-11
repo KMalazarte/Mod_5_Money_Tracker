@@ -16,15 +16,10 @@ const paymentOptions = [
     value: 'Credit',
   },
   {
-    key: 'Venmo to',
-    text: 'Venmo to',
-    value: 'Venmo to',
-  },
-  {
-    key: 'Venmo from',
-    text: 'Venmo from',
-    value: 'Venmo from',
-  },
+    key: 'Venmo',
+    text: 'Venmo',
+    value: 'Venmo',
+  }
 ]
 
 const categories = [
@@ -76,10 +71,6 @@ const categories = [
 ]
 
 class PurchaseForm extends React.Component {
-
-  constructor(props) {
-    super(props)
-  }
 
   render(){
     // console.log("Purchase Form", this.props);

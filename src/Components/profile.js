@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Table, Card, Image, Grid, Confirm } from 'semantic-ui-react'
+import { Card, Image, Grid } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 import PurchaseContainer from './purchaseContainer'
 import UserStats from './userStats'
@@ -41,8 +41,8 @@ class Profile extends React.Component {
       .then(resp => resp.json())
       .then(purchaseArr => {
       let spend = []
-      const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
+      const reducer = (accumulator, currentValue) => accumulator + currentValue
+      let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseFloat(purchase.actual_paid).toFixed(2) ))
       if (spend.length > 0) {
       let total = parseFloat(spend.reduce(reducer)).toFixed(2)
        this.setState({
