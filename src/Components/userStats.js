@@ -8,10 +8,10 @@ class UserStats extends React.Component {
   renderMonthlies = () => {
     if (this.props.monthlies) {
       let monthliesArr = []
-      const reducer = (accumulator, currentValue) => accumulator + currentValue
-      this.props.monthlies.map(monthly => {
-        monthliesArr.push(parseFloat(monthly.amount)).toFixed(2)
-      })
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      this.props.monthlies.map(monthly =>
+        monthliesArr.push(parseFloat(monthly.amount).toFixed(2))
+      )
         return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
       }
     }

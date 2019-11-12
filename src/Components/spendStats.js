@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Grid, Card } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import PieChart  from 'react-minimal-pie-chart';
 
 

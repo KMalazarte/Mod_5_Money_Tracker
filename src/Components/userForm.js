@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
-import { Button, Form, Dropdown } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 
 class UserForm extends React.Component {
-  
+
   render(){
       return(
         <Fragment >

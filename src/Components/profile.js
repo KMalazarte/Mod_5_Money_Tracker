@@ -42,13 +42,13 @@ class Profile extends React.Component {
       .then(purchaseArr => {
       let spend = []
       const reducer = (accumulator, currentValue) => accumulator + currentValue
-      let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseFloat(purchase.actual_paid).toFixed(2) ))
+      let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
       if (spend.length > 0) {
-      let total = parseFloat(spend.reduce(reducer)).toFixed(2)
-       this.setState({
-       purchases: purchaseArr.purchase,
-       spent: total
-       })
+        let total = parseFloat(spend.reduce(reducer)).toFixed(2)
+         this.setState({
+         purchases: purchaseArr.purchase,
+         spent: total
+          })
      } else { console.log("Nothing to render") }
      })
      fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
@@ -134,9 +134,9 @@ class Profile extends React.Component {
 
    handleTakeHomeSubmit = (e) => {
      e.preventDefault()
-     // let newTakeHome={
-     //   monthly_take_home: this.state.takeHome
-     // }
+     let newTakeHome={
+       monthly_take_home: this.state.takeHome
+     }
      fetch(`http://localhost:3000/profile/${localStorage.user_id}`, {
        method: 'PATCH',
        headers: {

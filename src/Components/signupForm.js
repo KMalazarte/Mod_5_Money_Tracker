@@ -1,9 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-import { withRouter, Redirect } from 'react-router'
-import { loginUser } from '../actions/user'
-import { Button, Form, Segment, Message } from 'semantic-ui-react'
+import { Redirect } from 'react-router'
+import { Button, Form, Segment } from 'semantic-ui-react'
 
 class SignupForm extends React.Component {
   // constructor() {

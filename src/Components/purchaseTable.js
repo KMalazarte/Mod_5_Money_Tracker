@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
-import { Table, Button, Icon, Header, Image, Modal, Grid, Confirm } from 'semantic-ui-react'
+import { Table, Button, Icon, Grid, Confirm } from 'semantic-ui-react'
 import moment from 'moment'
 import _ from 'lodash'
-import { Redirect, withRouter, Link  } from 'react-router-dom'
+import { withRouter  } from 'react-router-dom'
 import PurchaseModal from './purchaseModal'
-import PropTypes from 'prop-types'
+
 
 
 class PurchaseTable extends React.Component {

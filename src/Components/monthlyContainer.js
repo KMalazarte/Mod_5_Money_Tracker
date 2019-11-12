@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
-import { Header, Image, Table, Button, Icon, Card } from 'semantic-ui-react'
+import { Header, Table, Button, Icon } from 'semantic-ui-react'
 import MonthlyForm from './monthlyForm'
-import { OverflowDetector } from 'react-overflow';
 
 class monthlyContainer extends React.Component {
 
@@ -53,10 +52,6 @@ class monthlyContainer extends React.Component {
       this.setState({
         clicked:!this.state.clicked
       })
-  }
-
-  handleOverflowChange = (isOverflowed) => {
-    console.log(isOverflowed);
   }
 
   // <OverflowDetector
