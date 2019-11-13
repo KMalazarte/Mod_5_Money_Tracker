@@ -1,13 +1,42 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-family: sans-serif;
+}
+/*
+.bg {
+background-image: url("https://img1.coastalliving.timeinc.net/sites/default/files/styles/square_1_1/public/1553193950/ocean-horizon-924454206.jpg");
+height: 100%;
+background-position: center;
+background-repeat: repeat-y;
+background-size: cover;
+} */
+.ui.pointing.secondary.menu{
+  margin: 0
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.logo-center {
+  width: 95px;
+  margin: 0 auto;
+  color: #21ba45
+}
+
+.right.menu {
+  margin-left: 0
+}
+
+.four.column.row.profile-background{
+  background-image: url("https://img1.coastalliving.timeinc.net/sites/default/files/styles/square_1_1/public/1553193950/ocean-horizon-924454206.jpg");
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.ui.centered.card.color {
+  height: 100%;
+}
+
+.ui.center.aligned.grid.color-container{
+  height: 100%;
+  padding-top: 20px;
 }

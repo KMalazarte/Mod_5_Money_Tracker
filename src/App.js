@@ -1,63 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import LoginPage from './Pages/LoginPage'
-import SignupPage from './Pages/SignupPage'
-import ProfilePage from './Pages/ProfilePage'
-import IndexPage from './Pages/IndexPage'
-import NoMatch from './Pages/NoMatchPage'
-import { Switch, Route } from 'react-router-dom'
-
+import React, { Fragment } from 'react'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import Profile from './Components/profile'
+import LoginForm from './Components/loginForm.js'
+import Nav from './Components/nav'
+import NotFound from './Components/notFound'
+import SignupForm from './Components/signupForm'
+// import withAuth from './hocs/withAuth'
+import './index.css'
+import './App.css'
 
 class App extends React.Component {
 
-  state = {
-    user: {}
-  }
-
-  // redirect = (page) => {
-  //   this.setState({
-  //     page: page
-  //   })
-  // }
-  componentDidMount() {
-    if (!!localStorage.token) {
-      fetch("http://localhost:3000/profile", {
-        headers: {
-          "Authorization": localStorage.getItem("token")
-        },
-      }).then(resp => resp.json())
-        .then(user => {
-          this.setState({ user })
-        })
-    }
-  }
-
-
-
   render() {
-    // console.log(this.state);
+  console.log('%c APP State: ', 'color: firebrick', )
     return (
+    <Fragment>
+      <Nav />
       <Switch>
-        <Route exact path= "/"
-          render={({ location, history, match }) => <IndexPage user={this.state.user}/>}
-        />
-        <Route path="/login" component={LoginPage}/>
-        <Route path="/signup" component={SignupPage}/>
-        <Route component={NoMatch} />
+        <Route exact path="/" render={() => <Redirect to="/profile" />} />
+        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/login" component={LoginForm} />
+        <Route exact path='/signup' component={SignupForm} />
+        <Route component={NotFound} />
       </Switch>
-    )}
-
+    </Fragment>
+    )
+  }
 }
 
 
-export default App;
-
-
-// if (this.state.page === "index") {
-  //   return <IndexPage />
-  // } else if (this.state.page === "signup") {
-    //   return <SignupPage redirect={this.redirect} />
-    // } else if (this.state.page === "login") {
-      //   return <LoginPage redirect={this.redirect} />
-      // }
+export default withRouter(App)
