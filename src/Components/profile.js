@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Card, Image, Grid } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
-import PurchaseContainer from './purchaseContainer'
+import PurchaseContainer from './PurchaseContainer.js'
 import UserStats from './userStats'
 import SpendStats from './spendStats'
 import MonthlyContainer from "./monthlyContainer"
