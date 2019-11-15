@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Button, Form } from 'semantic-ui-react'
 
-function UserForm(props) {
+const UserForm = (props) => {
   return(
     <Fragment >
           <Form onSubmit={props.handleTakeHomeSubmit} size={"small"} key={"small"}>
