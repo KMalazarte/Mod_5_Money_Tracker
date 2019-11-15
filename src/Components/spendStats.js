@@ -2,8 +2,6 @@ import React, { Fragment } from 'react'
 import { Grid } from 'semantic-ui-react'
 import PieChart  from 'react-minimal-pie-chart';
 
-
-
 class SpendStats extends React.Component {
 
   state={
