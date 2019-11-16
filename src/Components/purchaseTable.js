@@ -5,8 +5,6 @@ import _ from 'lodash'
 import { withRouter  } from 'react-router-dom'
 import PurchaseModal from './purchaseModal'
 
-
-
 class PurchaseTable extends React.Component {
 
   constructor(props) {
