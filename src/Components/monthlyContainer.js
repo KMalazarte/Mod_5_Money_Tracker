@@ -1,16 +1,14 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Header, Table, Button, Icon } from 'semantic-ui-react'
 import MonthlyForm from './monthlyForm'
 
-class monthlyContainer extends React.Component {
+const MonthlyContainer = (props) => {
 
-  state={
-    clicked:false,
-  }
+  const [clicked, setClicked] = useState(false)
 
-  renderMonthlies = () => {
-    if (this.props.monthlies) {
-      return this.props.monthlies.map(monthly => {
+  const renderMonthlies = () => {
+    if (props.monthlies) {
+      return props.monthlies.map(monthly => {
         return <>
           <Table.Row>
             <Table.Cell>{monthly.name}</Table.Cell>
@@ -21,22 +19,22 @@ class monthlyContainer extends React.Component {
     }
   }
 
-  renderMonthliesWEdit = () => {
-    if (this.props.monthlies) {
-      return this.props.monthlies.map(monthly => {
+  const renderMonthliesWEdit = () => {
+    if (props.monthlies) {
+      return props.monthlies.map(monthly => {
         return <>
           <Table.Row>
             <Table.Cell>{monthly.name}</Table.Cell>
             <Table.Cell>${parseFloat(monthly.amount).toFixed(2)}</Table.Cell>
           </Table.Row>
           <Button.Group size="mini">
-            <Button key="edit" id={monthly.id} onClick={this.props.editMonthlyHandler} animated >
+            <Button key="edit" id={monthly.id} onClick={props.editMonthlyHandler} animated >
               <Button.Content visible>Edit</Button.Content>
               <Button.Content hidden>
                 <Icon name='pencil square'/>
               </Button.Content>
              </Button>
-             <Button key="delete" data-id={monthly.id} onClick={this.props.deleteMonthlyHandler} animated>
+             <Button key="delete" data-id={monthly.id} onClick={props.deleteMonthlyHandler} animated>
                <Button.Content visible>Delete</Button.Content>
                <Button.Content hidden>
                 <Icon name='delete'/>
@@ -48,11 +46,11 @@ class monthlyContainer extends React.Component {
     }
   }
 
-  monthliesEdit = (e) => {
-      this.setState({
-        clicked:!this.state.clicked
-      })
-  }
+  // monthliesEdit = (e) => {
+  //     setState({
+  //       clicked:!state.clicked
+  //     })
+  // }
 
   // <OverflowDetector
   //   onOverflowChange={handleOverflowChange}
@@ -62,22 +60,21 @@ class monthlyContainer extends React.Component {
   // </OverflowDetector>
 
   // <OverflowDetector
-  // onOverflowChange={this.handleOverflowChange}
+  // onOverflowChange={handleOverflowChange}
   // style={{ width: '100px' }}
   // >
-  render() {
     return(
       <Fragment >
-       { this.state.clicked ? (
+       { clicked ? (
         <>
           <Header textAlign="center" size="huge" inverted color="green">
             Add or Edit Recurring Monthly Expenses Below
           </Header>
           <MonthlyForm
-            monthlyName= {this.props.monthlyName}
-            monthlyAmount= {this.props.monthlyAmount}
-            handleChange= {this.props.handleChange}
-            handleMonthlySubmit = {this.props.handleMonthlySubmit}
+            monthlyName= {props.monthlyName}
+            monthlyAmount= {props.monthlyAmount}
+            handleChange= {props.handleChange}
+            handleMonthlySubmit = {props.handleMonthlySubmit}
           />
           <Table selectable color="teal">
             <Table.Header>
@@ -87,10 +84,10 @@ class monthlyContainer extends React.Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {this.renderMonthliesWEdit()}
+              {renderMonthliesWEdit()}
             </Table.Body>
           </Table>
-            <Button onClick={this.monthliesEdit}>
+            <Button onClick={ () => setClicked(!clicked) }>
               Done
             </Button>
         </>
@@ -107,17 +104,16 @@ class monthlyContainer extends React.Component {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {this.renderMonthlies()}
+              {renderMonthlies()}
             </Table.Body>
           </Table>
-            <Button onClick={this.monthliesEdit}>
+            <Button onClick={ () => setClicked(!clicked) }>
               Add/Edit
             </Button>
         </>
     )}
     </Fragment>
-)}
-
+)
 }
 
-export default monthlyContainer
+export default MonthlyContainer
