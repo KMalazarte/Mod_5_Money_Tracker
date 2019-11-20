@@ -7,15 +7,12 @@ import PurchaseModal from './purchaseModal'
 
 class PurchaseTable extends React.Component {
 
-  constructor(props) {
-  super(props);
-  this.state = {
+  state = {
       column: null,
       data: [],
       direction: null,
       redirect: false,
     }
-  }
 
   componentDidUpdate(){
     if (this.state.data.length !== this.props.purchases.length) {
