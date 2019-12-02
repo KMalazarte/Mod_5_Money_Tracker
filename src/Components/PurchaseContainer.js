@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import PurchaseForm from "./purchaseForm"
 import PurchaseTable from "./purchaseTable"
+import ViewSelector from './viewSelector'
 import { connect } from 'react-redux'
 import withAuth from '../hocs/withAuth'
 
@@ -23,6 +24,7 @@ const PurchaseContainer = (props) => {
         actualPaid={props.actualPaid}
         paymentMethod={props.paymentMethod}
        />
+      <ViewSelector/>
       <PurchaseTable
         purchases = {props.purchases}
         editHandler = {props.editHandler}
