@@ -46,23 +46,6 @@ const MonthlyContainer = (props) => {
     }
   }
 
-  // monthliesEdit = (e) => {
-  //     setState({
-  //       clicked:!state.clicked
-  //     })
-  // }
-
-  // <OverflowDetector
-  //   onOverflowChange={handleOverflowChange}
-  //   style={{ width: '100px' }}
-  // >
-  //   <div style={{ width: '200px' }}>Overflowing</div>
-  // </OverflowDetector>
-
-  // <OverflowDetector
-  // onOverflowChange={handleOverflowChange}
-  // style={{ width: '100px' }}
-  // >
     return(
       <Fragment >
        { clicked ? (

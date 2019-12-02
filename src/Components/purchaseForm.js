@@ -3,74 +3,74 @@ import { Button, Form, Dropdown } from 'semantic-ui-react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
-const paymentOptions = [
-  {
-    key: 'Cash',
-    text: 'Cash',
-    value: 'Cash',
-  },
-  {
-    key: 'Credit',
-    text: 'Credit',
-    value: 'Credit',
-  },
-  {
-    key: 'Venmo',
-    text: 'Venmo',
-    value: 'Venmo',
-  }
-]
-
-const categories = [
-  {
-    key: 'Eating Out',
-    text: 'Eating Out',
-    value: 'Eating Out',
-  },
-  {
-    key: 'Groceries',
-    text: 'Groceries',
-    value: 'Groceries',
-  },
-  {
-    key: 'Entertainment',
-    text: 'Entertainment',
-    value: 'Entertainment',
-  },
-  {
-    key: 'Clothes/Accessories',
-    text: 'Clothes/Accessories',
-    value: 'Clothes/Accessories',
-  },
-  {
-    key: 'Booze/Night Out',
-    text: 'Booze/Night Out',
-    value: 'Booze/Night Out',
-  },
-  {
-    key: 'Transportation/ Gas',
-    text: 'Transportation/ Gas',
-    value: 'Transportation/ Gas',
-  },
-  {
-    key: 'Flights/ Hotels',
-    text: 'Flights/ Hotels',
-    value: 'Flights/ Hotels',
-  },
-  {
-    key: 'Misc.',
-    text: 'Misc.',
-    value: 'Misc.',
-  },
-  {
-    key: 'Gifts',
-    text: 'Gifts',
-    value: 'Gifts',
-  },
-]
-
 const PurchaseForm = (props) => {
+
+  const paymentOptions = [
+    {
+      key: 'Cash',
+      text: 'Cash',
+      value: 'Cash',
+    },
+    {
+      key: 'Credit',
+      text: 'Credit',
+      value: 'Credit',
+    },
+    {
+      key: 'Venmo',
+      text: 'Venmo',
+      value: 'Venmo',
+    }
+  ]
+
+  const categories = [
+    {
+      key: 'Eating Out',
+      text: 'Eating Out',
+      value: 'Eating Out',
+    },
+    {
+      key: 'Groceries',
+      text: 'Groceries',
+      value: 'Groceries',
+    },
+    {
+      key: 'Entertainment',
+      text: 'Entertainment',
+      value: 'Entertainment',
+    },
+    {
+      key: 'Clothes/Accessories',
+      text: 'Clothes/Accessories',
+      value: 'Clothes/Accessories',
+    },
+    {
+      key: 'Booze/Night Out',
+      text: 'Booze/Night Out',
+      value: 'Booze/Night Out',
+    },
+    {
+      key: 'Transportation/ Gas',
+      text: 'Transportation/ Gas',
+      value: 'Transportation/ Gas',
+    },
+    {
+      key: 'Flights/ Hotels',
+      text: 'Flights/ Hotels',
+      value: 'Flights/ Hotels',
+    },
+    {
+      key: 'Misc.',
+      text: 'Misc.',
+      value: 'Misc.',
+    },
+    {
+      key: 'Gifts',
+      text: 'Gifts',
+      value: 'Gifts',
+    },
+  ]
+
   return(
     <Fragment>
       <Form onSubmit={props.handleSubmit} size={"small"} key={"small"}>

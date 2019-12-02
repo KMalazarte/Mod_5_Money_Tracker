@@ -110,13 +110,13 @@ class Profile extends React.Component {
 
    handlePaymentChange = (e) => {
      this.setState({
-        paymentMethod: e.currentTarget.innerText
+      paymentMethod: e.currentTarget.innerText
      })
    }
 
    handleCategoryChange = (e) => {
      this.setState({
-        category: e.currentTarget.innerText
+      category: e.currentTarget.innerText
      })
    }
 
@@ -355,32 +355,32 @@ class Profile extends React.Component {
           </Grid.Column>
           <Grid.Column centered width={4}>
             <UserStats
-            currentTakeHome={this.state.currentTakeHome}
-            userClickToggle={this.userClickToggle}
-            userClicked={this.state.userClicked}
-            spent={this.state.spent}
-            purchases={this.state.purchases}
-            monthlies={this.state.monthlies}
-            handleChange = {this.handleChange}
-            handleTakeHomeSubmit = {this.handleTakeHomeSubmit}
-            takeHome = {this.state.takeHome}
+              currentTakeHome={this.state.currentTakeHome}
+              userClickToggle={this.userClickToggle}
+              userClicked={this.state.userClicked}
+              spent={this.state.spent}
+              purchases={this.state.purchases}
+              monthlies={this.state.monthlies}
+              handleChange = {this.handleChange}
+              handleTakeHomeSubmit = {this.handleTakeHomeSubmit}
+              takeHome = {this.state.takeHome}
             />
           </Grid.Column>
           <Grid.Column width={4}>
             <SpendStats
-            spent={this.state.spent}
-            purchases={this.state.purchases}
+              spent={this.state.spent}
+              purchases={this.state.purchases}
             />
           </Grid.Column>
           <Grid.Column width={4}>
             <MonthlyContainer
-            handleMonthlySubmit = {this.handleMonthlySubmit}
-            monthlies={this.state.monthlies}
-            monthlyName = {this.state.monthlyName}
-            monthlyAmount = {this.state.monthlyAmount}
-            editMonthlyHandler = {this.editMonthlyHandler}
-            deleteMonthlyHandler = {this.deleteMonthlyHandler}
-            handleChange = {this.handleChange}
+              handleMonthlySubmit = {this.handleMonthlySubmit}
+              monthlies={this.state.monthlies}
+              monthlyName = {this.state.monthlyName}
+              monthlyAmount = {this.state.monthlyAmount}
+              editMonthlyHandler = {this.editMonthlyHandler}
+              deleteMonthlyHandler = {this.deleteMonthlyHandler}
+              handleChange = {this.handleChange}
             />
           </Grid.Column>
         </Grid.Row>
