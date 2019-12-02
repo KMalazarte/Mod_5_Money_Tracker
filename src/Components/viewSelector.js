@@ -1,28 +1,85 @@
 import React, {Fragment} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
+let d = new Date()
+let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+let currentMonth = months[d.getMonth()]
+
 const viewOptions = [
   {
-    key: 'Current Month',
-    text: 'Current Month',
-    value: 'Current Month'
+    key: 'January',
+    text: 'January',
+    value: 'January',
+    id: "January"
   },
   {
-    key: 'Last Month',
-    text: 'Last Month',
-    value: 'Last Month'
+    key: 'February',
+    text: 'February',
+    value: 'February',
+    id: "February"
   },
   {
-    key: '2 Months Ago',
-    text: '2 Months Ago',
-    value: '2 Months Ago'
+    key: 'March',
+    text: 'March',
+    value: 'March',
+    id: "March"
   },
   {
-    key: 'All Purchases',
-    text: 'All Purchases',
-    value: 'All Purchases'
+    key: 'April',
+    text: 'April',
+    value: 'April',
+    id: "April"
   },
+  {
+    key: 'May',
+    text: 'May',
+    value: 'May',
+    id: "May"
+  },
+  {
+    key: 'June ',
+    text: 'June',
+    value: 'June',
+    id: "June"
+  },
+  {
+    key: 'July',
+    text: 'July',
+    value: 'July',
+    id: "July"
+  },
+  {
+    key: 'August',
+    text: 'August',
+    value: 'August',
+    id: "August"
+  },
+  {
+    key: 'September',
+    text: 'September',
+    value: 'September',
+    id: "September"
+  },
+  {
+    key: 'October',
+    text: 'October',
+    value: 'October',
+    id: "October"
+  },
+  {
+    key: 'November',
+    text: 'November',
+    value: 'November',
+    id: "November"
+  },
+  {
+    key: 'December',
+    text: 'December',
+    value: 'December',
+    id: "December"
+  }
 ]
+
 
 
 const viewSelector = (props) => {
@@ -33,6 +90,7 @@ const viewSelector = (props) => {
        fluid
        selection
        options={viewOptions}
+       defaultValue={currentMonth}
        onChange={props.viewHandler}
       />
     </Fragment>

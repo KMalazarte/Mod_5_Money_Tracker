@@ -26,9 +26,9 @@ const PurchaseContainer = (props) => {
        />
       <ViewSelector
         viewHandler={props.viewHandler}
-        view={props.view}
       />
       <PurchaseTable
+        view={props.view}
         purchases = {props.purchases}
         editHandler = {props.editHandler}
         deleteHandler = {props.deleteHandler}

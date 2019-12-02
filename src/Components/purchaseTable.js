@@ -132,8 +132,8 @@ class PurchaseTable extends React.Component {
           </Button.Group>
 
         </Table.Row>
-  )
-}
+    )
+  }
       return(
         <Grid>
         <Fragment>

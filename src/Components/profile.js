@@ -334,7 +334,12 @@ class Profile extends React.Component {
    }//editHandler end
 
    viewHandler = (e) => {
-     console.log(e.currentTarget)
+     // let d = new Date()
+     // let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+     console.log("View has been changed to:", e.currentTarget.id)
+     this.setState({
+       view: e.currentTarget.id
+     })
    }
 
   render() {
