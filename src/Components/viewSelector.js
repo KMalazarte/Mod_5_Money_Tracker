@@ -17,10 +17,15 @@ const viewOptions = [
     text: '2 Months Ago',
     value: '2 Months Ago'
   },
+  {
+    key: 'All Purchases',
+    text: 'All Purchases',
+    value: 'All Purchases'
+  },
 ]
 
 
-const viewSelector = () => {
+const viewSelector = (props) => {
   return (
     <Fragment>
       <Dropdown
@@ -28,6 +33,7 @@ const viewSelector = () => {
        fluid
        selection
        options={viewOptions}
+       onChange={props.viewHandler}
       />
     </Fragment>
   )

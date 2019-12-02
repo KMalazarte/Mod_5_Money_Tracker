@@ -11,7 +11,7 @@ class PurchaseTable extends React.Component {
       column: null,
       data: [],
       direction: null,
-      redirect: false,
+      redirect: false
     }
 
   componentDidUpdate(){

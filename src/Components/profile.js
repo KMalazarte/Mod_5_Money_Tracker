@@ -34,7 +34,8 @@ class Profile extends React.Component {
     userClicked:true,
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
-    bingo:""
+    bingo:"",
+    view:""
   }
     // LIFECYCLE METHOD
     componentDidMount() {
@@ -332,7 +333,9 @@ class Profile extends React.Component {
        })
    }//editHandler end
 
-
+   viewHandler = (e) => {
+     console.log(e.currentTarget)
+   }
 
   render() {
     // console.log("%c profile",'color: firebrick', this.state.monthlies);
@@ -408,6 +411,8 @@ class Profile extends React.Component {
               actualPaid={this.state.actualPaid}
               paymentMethod={this.state.paymentMethod}
               purchases={this.state.purchases}
+              viewHandler={this.viewHandler}
+              view={this.state.view}
             />
         </Grid.Row>
       </Grid>
