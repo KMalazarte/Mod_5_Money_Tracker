@@ -338,8 +338,9 @@ class Profile extends React.Component {
      // let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
      console.log("View has been changed to:", e.currentTarget.id)
      this.setState({
-       view: e.currentTarget.id
+       view: e.currentTarget.id,
      })
+     console.log("this.state.view is now:", e.currentTarget.id)
    }
 
   render() {

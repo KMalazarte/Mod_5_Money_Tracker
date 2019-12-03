@@ -2,85 +2,82 @@ import React, {Fragment} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
 let d = new Date()
-let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-let currentMonth = months[d.getMonth()]
+let currentMonth = d.getMonth
 
 const viewOptions = [
   {
     key: 'January',
     text: 'January',
     value: 'January',
-    id: "January"
+    id: 0
   },
   {
     key: 'February',
     text: 'February',
     value: 'February',
-    id: "February"
+    id: 1
   },
   {
     key: 'March',
     text: 'March',
     value: 'March',
-    id: "March"
+    id: 2
   },
   {
     key: 'April',
     text: 'April',
     value: 'April',
-    id: "April"
+    id: 3
   },
   {
     key: 'May',
     text: 'May',
     value: 'May',
-    id: "May"
+    id: 4
   },
   {
     key: 'June ',
     text: 'June',
     value: 'June',
-    id: "June"
+    id: 5
   },
   {
     key: 'July',
     text: 'July',
     value: 'July',
-    id: "July"
+    id: 6
   },
   {
     key: 'August',
     text: 'August',
     value: 'August',
-    id: "August"
+    id: 7
   },
   {
     key: 'September',
     text: 'September',
     value: 'September',
-    id: "September"
+    id: 8
   },
   {
-    key: 'October',
-    text: 'October',
-    value: 'October',
-    id: "October"
+    key: 'Oct',
+    text: 'Oct',
+    value: 'Oct',
+    id: 9
   },
   {
     key: 'November',
     text: 'November',
     value: 'November',
-    id: "November"
+    id: 10
   },
   {
     key: 'December',
     text: 'December',
     value: 'December',
-    id: "December"
+    id: 11
   }
 ]
-
-
 
 const viewSelector = (props) => {
   return (
