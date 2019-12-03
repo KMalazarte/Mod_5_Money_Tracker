@@ -24,8 +24,11 @@ const PurchaseContainer = (props) => {
         actualPaid={props.actualPaid}
         paymentMethod={props.paymentMethod}
        />
-      <ViewSelector/>
+      <ViewSelector
+        viewHandler={props.viewHandler}
+      />
       <PurchaseTable
+        view={props.view}
         purchases = {props.purchases}
         editHandler = {props.editHandler}
         deleteHandler = {props.deleteHandler}

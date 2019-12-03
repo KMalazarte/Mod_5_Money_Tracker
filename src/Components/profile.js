@@ -34,7 +34,8 @@ class Profile extends React.Component {
     userClicked:true,
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
-    bingo:""
+    bingo:"",
+    view:""
   }
     // LIFECYCLE METHOD
     componentDidMount() {
@@ -332,7 +333,15 @@ class Profile extends React.Component {
        })
    }//editHandler end
 
-
+   viewHandler = (e) => {
+     // let d = new Date()
+     // let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+     console.log("View has been changed to:", e.currentTarget.id)
+     this.setState({
+       view: e.currentTarget.id,
+     })
+     console.log("this.state.view is now:", e.currentTarget.id)
+   }
 
   render() {
     // console.log("%c profile",'color: firebrick', this.state.monthlies);
@@ -408,6 +417,8 @@ class Profile extends React.Component {
               actualPaid={this.state.actualPaid}
               paymentMethod={this.state.paymentMethod}
               purchases={this.state.purchases}
+              viewHandler={this.viewHandler}
+              view={this.state.view}
             />
         </Grid.Row>
       </Grid>

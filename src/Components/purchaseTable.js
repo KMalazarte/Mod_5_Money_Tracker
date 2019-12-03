@@ -11,7 +11,7 @@ class PurchaseTable extends React.Component {
       column: null,
       data: [],
       direction: null,
-      redirect: false,
+      redirect: false
     }
 
   componentDidUpdate(){
@@ -86,8 +86,9 @@ class PurchaseTable extends React.Component {
 
   const purchaseRows = () => {
 
-    return this.state.data.map(purchase =>
+    console.log(this.props.view)
 
+    return this.state.data.map(purchase =>
         <Table.Row style={{backgroundColor:this.renderColors(purchase)}} id={purchase.id} onClick={this.openModal} key={purchase.id}>
           <Table.Cell>{moment(purchase.date).format("DD-MMMM-YY")}</Table.Cell>
           <Table.Cell>{purchase.name}</Table.Cell>
@@ -130,10 +131,25 @@ class PurchaseTable extends React.Component {
                </Button.Content>
               </Button>
           </Button.Group>
-
         </Table.Row>
-  )
-}
+    )
+  }
+
+  // const filterItems = (arr, query) => {
+  // return arr.filter(el => el.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+  // };
+
+  const filteredMonth = this.state.data.filter( (purchase) => { 
+    let randomArr = []
+    randomArr.push(purchase.date[5])
+    randomArr.push(purchase.date[6])
+    let monthNum = (parseInt(randomArr.join("")) + 1)
+    console.log(monthNum)
+    return monthNum === this.props.view
+  })
+
+  console.log(filteredMonth)
+
       return(
         <Grid>
         <Fragment>
