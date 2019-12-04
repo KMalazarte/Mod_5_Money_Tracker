@@ -18,9 +18,10 @@ class PurchaseTable extends React.Component {
     if (this.state.data.length !== this.props.purchases.length) {
       this.setState(
         {
-        data: this.props.purchases
+          data: this.props.purchases
         }
-      )}
+      )
+    }
   }
 
   handleSort = clickedColumn => () => {
@@ -94,8 +95,6 @@ class PurchaseTable extends React.Component {
         return monthNum === viewNum
       })
 
-  console.log("filtered month:", filteredMonthRows)
-
   const purchaseRows = () => {
     return filteredMonthRows.map(purchase =>
       <Table.Row style={{backgroundColor:this.renderColors(purchase)}} id={purchase.id} onClick={this.openModal} key={purchase.id}>
@@ -151,10 +150,6 @@ class PurchaseTable extends React.Component {
       return filteredMonthRows
     }
   }
-
-  // const filterItems = (arr, query) => {
-  // return arr.filter(el => el.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-  // };
 
       return(
         <Grid>

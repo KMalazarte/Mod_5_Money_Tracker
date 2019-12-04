@@ -6,6 +6,7 @@ import PurchaseContainer from './PurchaseContainer.js'
 import UserStats from './userStats'
 import SpendStats from './spendStats'
 import MonthlyContainer from "./monthlyContainer"
+import moment from 'moment'
 
 
 
@@ -64,8 +65,6 @@ class Profile extends React.Component {
         })
       })
     }
-
-
 
     show = (e) => {
       let datID = e.currentTarget.dataset.id
@@ -251,10 +250,9 @@ class Profile extends React.Component {
 
 
    handleSubmit = (e) => {
-      // debugger
      e.preventDefault()
 
-     let purObj= { date: this.state.date,
+     let purObj= { date: moment(this.state.date).format("YYYY-MM-DD"),
                    name: this.state.name,
                    category: this.state.category,
                    place_of_purchase: this.state.placeOfPurchase,
@@ -339,13 +337,11 @@ class Profile extends React.Component {
    }//editHandler end
 
    viewHandler = (e) => {
-     // let d = new Date()
-     // let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-     console.log("View has been changed to:", e.currentTarget.id)
+     // console.log("View has been changed to:", e.currentTarget.id)
      this.setState({
        view: e.currentTarget.id,
      })
-     console.log("this.state.view is now:", e.currentTarget.id)
+     // console.log("this.state.view is now:", e.currentTarget.id)
    }
 
   render() {

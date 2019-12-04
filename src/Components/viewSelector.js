@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
 let d = new Date()
-let currentMonth = d.getMonth
+let currentMonth = d.getMonth()
 
 const viewOptions = [
   {
@@ -83,11 +83,10 @@ const viewSelector = (props) => {
   return (
     <Fragment>
       <Dropdown
-       placeholder='Please Select Purchase View'
+       placeholder='Please select month to view'
        fluid
        selection
        options={viewOptions}
-       defaultValue={currentMonth}
        onChange={props.viewHandler}
       />
     </Fragment>
