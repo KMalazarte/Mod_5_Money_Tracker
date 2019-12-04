@@ -84,71 +84,76 @@ class PurchaseTable extends React.Component {
 
   const { column, data, direction } = this.state
 
+  const filteredMonth = this.state.data.filter( (purchase) => {
+    let randomArr = []
+    randomArr.push(purchase.date[5])
+    randomArr.push(purchase.date[6])
+    let monthNum = parseInt(randomArr.join(""))
+    let viewNum = parseInt(this.props.view)
+    return monthNum === viewNum
+  })
+
+  console.log("filtered month:", filteredMonth)
+
   const purchaseRows = () => {
-
-    console.log(this.props.view)
-
     return this.state.data.map(purchase =>
-        <Table.Row style={{backgroundColor:this.renderColors(purchase)}} id={purchase.id} onClick={this.openModal} key={purchase.id}>
-          <Table.Cell>{moment(purchase.date).format("DD-MMMM-YY")}</Table.Cell>
-          <Table.Cell>{purchase.name}</Table.Cell>
-          <Table.Cell>{purchase.category}</Table.Cell>
-          <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
-          <Table.Cell>${parseFloat(purchase.out_of_pocket).toFixed(2)}</Table.Cell>
-          <Table.Cell>${parseFloat(purchase.actual_paid).toFixed(2)}
-            <PurchaseModal
-              date = {moment(purchase.date).format("DD-MMMM-YY")}
-              name = {purchase.name}
-              category = {purchase.category}
-              place_of_purchase = {purchase.place_of_purchase}
-              out_of_pocket = {parseFloat(purchase.out_of_pocket).toFixed(2)}
-              actual_paid = {parseFloat(purchase.actual_paid).toFixed(2)}
-              payment_method = {purchase.payment_method}
-            />
-          </Table.Cell>
-          <Table.Cell>{purchase.payment_method} </Table.Cell>
-          <Button.Group size="small">
-            <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated>
-              <Button.Content visible>Edit</Button.Content>
-              <Button.Content hidden>
-                <Icon name='pencil square'/>
-              </Button.Content>
-             </Button>
-             <Button.Or/>
-             <Button key="delete" data-id={purchase.id} onClick={this.props.show} animated>
-             <Confirm
-              open={this.props.confirm}
-              content='Are you sure you want to delete this purchase?'
-              cancelButton='Never mind'
-              confirmButton="Delete"
-              data-id={purchase.id}
-              onCancel={this.props.handleCancel}
-              onConfirm={this.props.deleteHandler}
-            />
-               <Button.Content visible>Delete</Button.Content>
-               <Button.Content hidden>
-                <Icon name='delete'/>
-               </Button.Content>
-              </Button>
-          </Button.Group>
-        </Table.Row>
+      <Table.Row style={{backgroundColor:this.renderColors(purchase)}} id={purchase.id} onClick={this.openModal} key={purchase.id}>
+        <Table.Cell>{moment(purchase.date).format("DD-MMMM-YY")}</Table.Cell>
+        <Table.Cell>{purchase.name}</Table.Cell>
+        <Table.Cell>{purchase.category}</Table.Cell>
+        <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
+        <Table.Cell>${parseFloat(purchase.out_of_pocket).toFixed(2)}</Table.Cell>
+        <Table.Cell>${parseFloat(purchase.actual_paid).toFixed(2)}
+          <PurchaseModal
+            date = {moment(purchase.date).format("DD-MMMM-YY")}
+            name = {purchase.name}
+            category = {purchase.category}
+            place_of_purchase = {purchase.place_of_purchase}
+            out_of_pocket = {parseFloat(purchase.out_of_pocket).toFixed(2)}
+            actual_paid = {parseFloat(purchase.actual_paid).toFixed(2)}
+            payment_method = {purchase.payment_method}
+          />
+        </Table.Cell>
+        <Table.Cell>{purchase.payment_method} </Table.Cell>
+        <Button.Group size="small">
+          <Button key="edit" id={purchase.id} onClick={this.props.editHandler} animated>
+            <Button.Content visible>Edit</Button.Content>
+            <Button.Content hidden>
+              <Icon name='pencil square'/>
+            </Button.Content>
+           </Button>
+           <Button.Or/>
+           <Button key="delete" data-id={purchase.id} onClick={this.props.show} animated>
+           <Confirm
+            open={this.props.confirm}
+            content='Are you sure you want to delete this purchase?'
+            cancelButton='Never mind'
+            confirmButton="Delete"
+            data-id={purchase.id}
+            onCancel={this.props.handleCancel}
+            onConfirm={this.props.deleteHandler}
+          />
+             <Button.Content visible>Delete</Button.Content>
+             <Button.Content hidden>
+              <Icon name='delete'/>
+             </Button.Content>
+            </Button>
+        </Button.Group>
+      </Table.Row>
     )
+  }
+
+  let purchaseShow = () => {
+    if (this.props.view = "") {
+      return purchaseRows()
+    } else {
+      return filteredMonth
+    }
   }
 
   // const filterItems = (arr, query) => {
   // return arr.filter(el => el.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   // };
-
-  const filteredMonth = this.state.data.filter( (purchase) => { 
-    let randomArr = []
-    randomArr.push(purchase.date[5])
-    randomArr.push(purchase.date[6])
-    let monthNum = (parseInt(randomArr.join("")) + 1)
-    console.log(monthNum)
-    return monthNum === this.props.view
-  })
-
-  console.log(filteredMonth)
 
       return(
         <Grid>
