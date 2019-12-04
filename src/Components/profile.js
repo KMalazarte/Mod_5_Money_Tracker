@@ -35,7 +35,7 @@ class Profile extends React.Component {
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
     bingo:"",
-    view:""
+    view: ""
   }
     // LIFECYCLE METHOD
     componentDidMount() {
@@ -45,12 +45,15 @@ class Profile extends React.Component {
       let spend = []
       const reducer = (accumulator, currentValue) => accumulator + currentValue
       let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
+      let d = new Date()
+      let realDateNum = (parseInt(d.getMonth())) + 1
       if (spend.length > 0) {
         let total = parseFloat(spend.reduce(reducer)).toFixed(2)
          this.setState({
-         purchases: purchaseArr.purchase,
-         spent: total
-          })
+           purchases: purchaseArr.purchase,
+           spent: total,
+           view: realDateNum
+         })
      } else { console.log("Nothing to render") }
      })
      fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
@@ -61,6 +64,8 @@ class Profile extends React.Component {
         })
       })
     }
+
+
 
     show = (e) => {
       let datID = e.currentTarget.dataset.id

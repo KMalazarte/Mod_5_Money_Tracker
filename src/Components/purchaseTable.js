@@ -84,19 +84,20 @@ class PurchaseTable extends React.Component {
 
   const { column, data, direction } = this.state
 
-  const filteredMonth = this.state.data.filter( (purchase) => {
-    let randomArr = []
-    randomArr.push(purchase.date[5])
-    randomArr.push(purchase.date[6])
-    let monthNum = parseInt(randomArr.join(""))
-    let viewNum = parseInt(this.props.view)
-    return monthNum === viewNum
-  })
+  const filteredMonthRows =
+      this.state.data.filter( (purchase) => {
+        let randomArr = []
+        randomArr.push(purchase.date[5])
+        randomArr.push(purchase.date[6])
+        let monthNum = parseInt(randomArr.join(""))
+        let viewNum = parseInt(this.props.view)
+        return monthNum === viewNum
+      })
 
-  console.log("filtered month:", filteredMonth)
+  console.log("filtered month:", filteredMonthRows)
 
   const purchaseRows = () => {
-    return this.state.data.map(purchase =>
+    return filteredMonthRows.map(purchase =>
       <Table.Row style={{backgroundColor:this.renderColors(purchase)}} id={purchase.id} onClick={this.openModal} key={purchase.id}>
         <Table.Cell>{moment(purchase.date).format("DD-MMMM-YY")}</Table.Cell>
         <Table.Cell>{purchase.name}</Table.Cell>
@@ -147,7 +148,7 @@ class PurchaseTable extends React.Component {
     if (this.props.view = "") {
       return purchaseRows()
     } else {
-      return filteredMonth
+      return filteredMonthRows
     }
   }
 
