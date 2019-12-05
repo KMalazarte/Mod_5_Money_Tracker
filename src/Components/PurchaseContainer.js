@@ -37,6 +37,9 @@ const PurchaseContainer = (props) => {
         show = {props.show}
         close = {props.close}
         confirm = {props.confirm}
+        currentPurchases={props.currentPurchases}
+        filteredMonthRows={props.filteredMonthRows}
+        updateCurrentPurchases={props.updateCurrentPurchases}
       />
     </Fragment>
   )

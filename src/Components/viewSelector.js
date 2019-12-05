@@ -87,8 +87,6 @@ const viewSelector = (props) => {
     } else { return months[parseInt(props.view)-1] }
   }
 
-  debugger
-
   return (
     <Fragment>
       <h1>You are currently viewing: {currentMonth()}</h1>

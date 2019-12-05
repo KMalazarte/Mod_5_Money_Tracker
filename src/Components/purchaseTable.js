@@ -45,7 +45,6 @@ class PurchaseTable extends React.Component {
 
    OpenModal = () => {
      console.log("clicked");
-
    }
 
    renderColors = (purchase) => {
@@ -141,14 +140,6 @@ class PurchaseTable extends React.Component {
         </Button.Group>
       </Table.Row>
     )
-  }
-
-  let purchaseShow = () => {
-    if (this.props.view = "") {
-      return purchaseRows()
-    } else {
-      return filteredMonthRows
-    }
   }
 
       return(

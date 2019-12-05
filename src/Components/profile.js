@@ -36,7 +36,8 @@ class Profile extends React.Component {
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
     bingo:"",
-    view: ""
+    view: "",
+    currentPurchases:[]
   }
     // LIFECYCLE METHOD
     componentDidMount() {
@@ -339,10 +340,32 @@ class Profile extends React.Component {
    viewHandler = (e) => {
      // console.log("View has been changed to:", e.currentTarget.id)
      this.setState({
-       view: e.currentTarget.id,
+       view: e.currentTarget.id
      })
      // console.log("this.state.view is now:", e.currentTarget.id)
    }
+
+   updateCurrentPurchases = (filteredMonthRows) => {
+     this.setState({
+       currentPurchases: filteredMonthRows
+     })
+     debugger
+  }
+
+  //  filteredMonthRows = (dataFromChild) => {
+  //   let filteredThangs = this.state.purchases.filter( (purchase) => {
+  //    let randomArr = []
+  //    randomArr.push(purchase.date[5])
+  //    randomArr.push(purchase.date[6])
+  //    let monthNum = parseInt(randomArr.join(""))
+  //    let viewNum = parseInt(this.state.view)
+  //    return monthNum === viewNum
+  //   })
+  //   this.setState({
+  //     currentPurchases: filteredThangs
+  //   })
+  //   debugger
+  // }
 
   render() {
     // console.log("%c profile",'color: firebrick', this.state.monthlies);
@@ -420,6 +443,8 @@ class Profile extends React.Component {
               purchases={this.state.purchases}
               viewHandler={this.viewHandler}
               view={this.state.view}
+              updateCurrentPurchases={this.updateCurrentPurchases}
+              filteredMonthRows={this.filteredMonthRows}
             />
         </Grid.Row>
       </Grid>
