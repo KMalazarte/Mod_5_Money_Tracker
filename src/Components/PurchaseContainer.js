@@ -25,6 +25,7 @@ const PurchaseContainer = (props) => {
         paymentMethod={props.paymentMethod}
        />
       <ViewSelector
+        view={props.view}
         viewHandler={props.viewHandler}
       />
       <PurchaseTable

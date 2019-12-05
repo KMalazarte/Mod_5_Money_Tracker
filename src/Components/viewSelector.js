@@ -1,9 +1,6 @@
 import React, {Fragment} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
-let d = new Date()
-let currentMonth = d.getMonth()
-
 const viewOptions = [
   {
     key: 'January',
@@ -80,8 +77,21 @@ const viewOptions = [
 ]
 
 const viewSelector = (props) => {
+
+  let d = new Date()
+  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+  let currentMonth = () => {
+    if (props.view === "") {
+      return months[d.getMonth()]
+    } else { return months[parseInt(props.view)-1] }
+  }
+
+  debugger
+
   return (
     <Fragment>
+      <h1>You are currently viewing: {currentMonth()}</h1>
       <Dropdown
        placeholder='Please select month to view'
        fluid
