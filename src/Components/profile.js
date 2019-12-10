@@ -6,6 +6,7 @@ import PurchaseContainer from './PurchaseContainer.js'
 import UserStats from './userStats'
 import SpendStats from './spendStats'
 import MonthlyContainer from "./monthlyContainer"
+import moment from 'moment'
 
 
 
@@ -35,7 +36,8 @@ class Profile extends React.Component {
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
     bingo:"",
-    view:""
+    view: "",
+    currentPurchases:[]
   }
     // LIFECYCLE METHOD
     componentDidMount() {
@@ -45,12 +47,15 @@ class Profile extends React.Component {
       let spend = []
       const reducer = (accumulator, currentValue) => accumulator + currentValue
       let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
+      let d = new Date()
+      let realDateNum = (parseInt(d.getMonth())) + 1
       if (spend.length > 0) {
         let total = parseFloat(spend.reduce(reducer)).toFixed(2)
          this.setState({
-         purchases: purchaseArr.purchase,
-         spent: total
-          })
+           purchases: purchaseArr.purchase,
+           spent: total,
+           view: realDateNum
+         })
      } else { console.log("Nothing to render") }
      })
      fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
@@ -246,10 +251,9 @@ class Profile extends React.Component {
 
 
    handleSubmit = (e) => {
-      // debugger
      e.preventDefault()
 
-     let purObj= { date: this.state.date,
+     let purObj= { date: moment(this.state.date).format("YYYY-MM-DD"),
                    name: this.state.name,
                    category: this.state.category,
                    place_of_purchase: this.state.placeOfPurchase,
@@ -334,14 +338,34 @@ class Profile extends React.Component {
    }//editHandler end
 
    viewHandler = (e) => {
-     // let d = new Date()
-     // let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-     console.log("View has been changed to:", e.currentTarget.id)
+     // console.log("View has been changed to:", e.currentTarget.id)
      this.setState({
-       view: e.currentTarget.id,
+       view: e.currentTarget.id
      })
-     console.log("this.state.view is now:", e.currentTarget.id)
+     // console.log("this.state.view is now:", e.currentTarget.id)
    }
+
+   updateCurrentPurchases = (filteredMonthRows) => {
+     this.setState({
+       currentPurchases: filteredMonthRows
+     })
+     debugger
+  }
+
+  //  filteredMonthRows = (dataFromChild) => {
+  //   let filteredThangs = this.state.purchases.filter( (purchase) => {
+  //    let randomArr = []
+  //    randomArr.push(purchase.date[5])
+  //    randomArr.push(purchase.date[6])
+  //    let monthNum = parseInt(randomArr.join(""))
+  //    let viewNum = parseInt(this.state.view)
+  //    return monthNum === viewNum
+  //   })
+  //   this.setState({
+  //     currentPurchases: filteredThangs
+  //   })
+  //   debugger
+  // }
 
   render() {
     // console.log("%c profile",'color: firebrick', this.state.monthlies);
@@ -419,6 +443,8 @@ class Profile extends React.Component {
               purchases={this.state.purchases}
               viewHandler={this.viewHandler}
               view={this.state.view}
+              updateCurrentPurchases={this.updateCurrentPurchases}
+              filteredMonthRows={this.filteredMonthRows}
             />
         </Grid.Row>
       </Grid>
