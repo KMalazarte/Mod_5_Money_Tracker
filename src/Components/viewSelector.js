@@ -84,7 +84,9 @@ const viewSelector = (props) => {
   let currentMonth = () => {
     if (props.view === "") {
       return months[d.getMonth()]
-    } else { return months[parseInt(props.view)-1] }
+    } else {
+      return months[parseInt(props.view)-1]
+    }
   }
 
   return (

@@ -8,8 +8,6 @@ import SpendStats from './spendStats'
 import MonthlyContainer from "./monthlyContainer"
 import moment from 'moment'
 
-
-
 class Profile extends React.Component {
 
   state={
@@ -337,35 +335,42 @@ class Profile extends React.Component {
        })
    }//editHandler end
 
-   viewHandler = (e) => {
-     // console.log("View has been changed to:", e.currentTarget.id)
-     this.setState({
-       view: e.currentTarget.id
-     })
-     // console.log("this.state.view is now:", e.currentTarget.id)
-   }
+   // filteredMonthRows = () => {
+   //   let filteredThangs = this.state.purchases.filter( (purchase) => {
+   //     let randomArr = []
+   //     randomArr.push(purchase.date[5])
+   //     randomArr.push(purchase.date[6])
+   //     let monthNum = parseInt(randomArr.join(""))
+   //     let viewNum = parseInt(this.state.view)
+   //     return monthNum === viewNum
+   //   })
+   // }
 
-   updateCurrentPurchases = (filteredMonthRows) => {
+   updateCurrentPurchases = () => {
+     let filteredMonthRows =
+         this.state.purchases.filter( (purchase) => {
+           let randomArr = []
+           randomArr.push(purchase.date[5])
+           randomArr.push(purchase.date[6])
+           let monthNum = parseInt(randomArr.join(""))
+           let viewNum = parseInt(this.state.view)
+           return monthNum === viewNum
+         })
      this.setState({
        currentPurchases: filteredMonthRows
      })
-     debugger
-  }
+     console.log("Hot diggity dog!", this.state.currentPurchases)
+   }
 
-  //  filteredMonthRows = (dataFromChild) => {
-  //   let filteredThangs = this.state.purchases.filter( (purchase) => {
-  //    let randomArr = []
-  //    randomArr.push(purchase.date[5])
-  //    randomArr.push(purchase.date[6])
-  //    let monthNum = parseInt(randomArr.join(""))
-  //    let viewNum = parseInt(this.state.view)
-  //    return monthNum === viewNum
-  //   })
-  //   this.setState({
-  //     currentPurchases: filteredThangs
-  //   })
-  //   debugger
-  // }
+   viewHandler = (e) => {
+     // console.log("View has been changed to:", e.currentTarget.id)
+     this.setState({
+       view: e.currentTarget.id,
+     })
+     this.updateCurrentPurchases()
+     // console.log("this.state.view is now:", e.currentTarget.id)
+   }
+
 
   render() {
     // console.log("%c profile",'color: firebrick', this.state.monthlies);
