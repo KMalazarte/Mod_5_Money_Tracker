@@ -14,7 +14,24 @@ import registerServiceWorker from './registerServiceWorker'
 
 const rootReducer = combineReducers({ usersReducer: usersReducer }) //TODO: move this too
 
+// STORE -> GLOBALIZED STATE
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk))) //TODO: move this
+
+// ACTION -> CHANGE PURCHASES
+const changePurchases = () => {
+  return {
+    type: "CHANGEPURCHASES"
+  }
+}
+
+// REDUCER
+const purchaseTracker = (state = []; action) = {
+  switch(action.type){
+    case "CHANGEPURCHASES":
+      return state
+  }
+}
+
 
 console.log(`%c INITIAL REDUX STORE`, 'color: purple', store.getState())
 

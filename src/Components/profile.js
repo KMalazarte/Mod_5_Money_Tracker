@@ -359,7 +359,6 @@ class Profile extends React.Component {
      this.setState({
        currentPurchases: filteredMonthRows
      })
-     console.log("Hot diggity dog!", this.state.currentPurchases)
    }
 
    viewHandler = (e) => {
@@ -368,7 +367,10 @@ class Profile extends React.Component {
        view: e.currentTarget.id,
      })
      this.updateCurrentPurchases()
-     // console.log("this.state.view is now:", e.currentTarget.id)
+     // console.log("Hot diggity dog!", this.state.currentPurchases,
+     //             "This is the view", this.state.view
+     //            )
+     // console.log("current purchases is now:", this.state.currentPurchases)
    }
 
 
