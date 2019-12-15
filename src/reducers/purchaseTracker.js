@@ -1,6 +1,8 @@
+// JUST AN EXAMPLE
+
 const purchaseTrackerReducer = (state = 0, action) => {
   switch(action.type) {
-    case "CHANGEPURCHASES":
+    case "INCREMENT":
       return state + 1;
     case "DECREMENT":
       return state - 1;
@@ -8,5 +10,7 @@ const purchaseTrackerReducer = (state = 0, action) => {
       return state;
   }
 }
+
+
 
 export default purchaseTrackerReducer
