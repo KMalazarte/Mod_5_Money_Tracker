@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -9,16 +9,11 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 
 import App from './App'
-import registerServiceWorker from './registerServiceWorker'
+// import registerServiceWorker from './registerServiceWorker'
 import rootReducer from './reducers'
 
 // STORE -> GLOBALIZED STATE
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk))) //TODO: move this
-
-
-// DISPATCH
-store.dispatch(changePurchases())
-
 
 console.log(`%c INITIAL REDUX STORE`, 'color: purple', store.getState())
 
@@ -30,4 +25,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
-registerServiceWorker()
+// registerServiceWorker()

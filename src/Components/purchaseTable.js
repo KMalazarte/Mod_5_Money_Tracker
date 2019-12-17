@@ -4,6 +4,7 @@ import moment from 'moment'
 import _ from 'lodash'
 import { withRouter  } from 'react-router-dom'
 import PurchaseModal from './purchaseModal'
+import { useSelector } from 'react-redux'
 
 class PurchaseTable extends React.Component {
 
