@@ -27,6 +27,7 @@ const PurchaseContainer = (props) => {
       <ViewSelector
         view={props.view}
         viewHandler={props.viewHandler}
+        updateCurrentPurchases={props.updateCurrentPurchases}
       />
       <PurchaseTable
         view={props.view}
@@ -39,7 +40,6 @@ const PurchaseContainer = (props) => {
         confirm = {props.confirm}
         currentPurchases={props.currentPurchases}
         filteredMonthRows={props.filteredMonthRows}
-        updateCurrentPurchases={props.updateCurrentPurchases}
       />
     </Fragment>
   )
