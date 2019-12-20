@@ -1,25 +1,26 @@
-import { fetchPurchasesPending, fetchPurchasesSuccess, fetchProductsError } from '../actions'
+import { FETCH_PRODUCTS_PENDING, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_ERROR } from '../actions'
 
 const initialState = {
   pending:false,
   purchases: [],
-  error: null
+  error: null,
+  pineapples: 0
 }
 
 const purchaseReducer = (state = initialState, action) => {
   switch(action.type) {
-    case "FETCH_PRODUCTS_PENDING":
+    case "FETCH_PURCHASES_PENDING":
       return {
-        ...state,
-        pending:true
+        ...state, ///make a copy of the old state with spread operator
+        pending:true // update only the pending part of the initialState
       }
-    case "FETCH_PRODUCTS_SUCCESS":
+    case "FETCH_PURCHASES_SUCCESS":
       return {
         ...state,
         pending: false,
         purchases: action.payload
       }
-    case "FETCH_PRODUCTS_ERROR":
+    case "FETCH_PURCHASES_ERROR":
       return {
         ...state,
         pending: false,

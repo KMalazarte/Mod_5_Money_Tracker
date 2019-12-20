@@ -1,23 +1,27 @@
 export * from './user'
+export const FETCH_PURCHASES_PENDING = "FETCH_PURCHASES_PENDING"
+export const FETCH_PURCHASES_SUCCESS = "FETCH_PURCHASES_SUCCESS"
+export const FETCH_PURCHASES_ERROR = "FETCH_PURCHASES_ERROR"
+
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
 
-export const fetchPurchasesPending = () => {
+const fetchPurchasesPending = () => {
   return {
-    type: "FETCH_PRODUCTS_PENDING",
+    type: "FETCH_PURCHASES_PENDING",
   }
 }
 
-export const fetchPurchasesSuccess = (purchases) => {
+const fetchPurchasesSuccess = (purchases) => {
   return {
-    type: "FETCH_PRODUCTS_SUCCESS",
+    type: "FETCH_PURCHASES_SUCCESS",
     purchases: purchases
   }
 }
 
-export const fetchProductsError = (error) => {
+const fetchPurchasesError = (error) => {
   return {
-    type: "FETCH_PRODUCTS_ERROR",
+    type: "FETCH_PURCHASES_ERROR",
     error: error
   }
 }
