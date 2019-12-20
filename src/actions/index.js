@@ -1,24 +1,23 @@
 export * from './user'
 
-// ACTIONS CAN ALSO HAVE PAYLOADS
+// NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
 
-export const changePurchases = () => {
+export const fetchPurchasesPending = () => {
   return {
-    type: "CHANGEPURCHASES"
+    type: "FETCH_PRODUCTS_PENDING",
   }
 }
 
-store.dispatch( ( dispatch ) => {
-  dispatch ( { type: 'LOADING'} )
+export const fetchPurchasesSuccess = (purchases) => {
+  return {
+    type: "FETCH_PRODUCTS_SUCCESS",
+    purchases: purchases
+  }
+}
 
-  fetch(input: 'http://localhost:3000/${localStorage.user_id}/purchases')
-  .then(onfulfilled: response => response.json())
-  .then(onfulfilled: jsonData => {
-
-    dispatch ( { type: 'LOADED', payload: jsonData } )
-  })
-  .catch( onrejected: err =>  {
-
-    dispatch( {type: 'FETCH_PURCHASE_ERRORS'} )
-  } )
-})
+export const fetchProductsError = (error) => {
+  return {
+    type: "FETCH_PRODUCTS_ERROR",
+    error: error
+  }
+}

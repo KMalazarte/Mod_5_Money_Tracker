@@ -1,23 +1,37 @@
-// JUST AN EXAMPLE
+import { fetchPurchasesPending, fetchPurchasesSuccess, fetchProductsError } from '../actions'
+
 const initialState = {
-  loading:false,
-  loaded: false,
+  pending:false,
   purchases: [],
-  error
+  error: null
 }
 
-const middleware = applyMiddleware ( thunk )
-
-const purchaseReducer = (state = [], action) => {
+const purchaseReducer = (state = initialState, action) => {
   switch(action.type) {
-    case "CHANGEMONTH":
-      return state + 1;
-    case "DECREMENT":
-      return state - 1;
+    case "FETCH_PRODUCTS_PENDING":
+      return {
+        ...state,
+        pending:true
+      }
+    case "FETCH_PRODUCTS_SUCCESS":
+      return {
+        ...state,
+        pending: false,
+        purchases: action.payload
+      }
+    case "FETCH_PRODUCTS_ERROR":
+      return {
+        ...state,
+        pending: false,
+        error: action.error
+      }
     default:
       return state;
   }
 }
 
+export const getPurchases = state => state.purchases;
+export const getPurchasesPending = state => state.pending;
+export const getPurchasesError = state => state.error;
 
 export default purchaseReducer
