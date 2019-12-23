@@ -86,9 +86,6 @@ class PurchaseTable extends React.Component {
 
   render() {
 
-
-    console.log(this.props);
-
   const { column, data, direction } = this.state
 
   const filteredMonthRows =
@@ -212,7 +209,7 @@ class PurchaseTable extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-  return { example: state.purchasesReducer.pineapples}
+  return { pineapple: state.purchaseReducer.pineapples}
 }
 
 export default connect(mapStateToProps)(PurchaseTable)

@@ -18,10 +18,9 @@ const withAuth = /*FUNCTION*/ (WrappedComponent) => {
       console.log('%c INSIDE RENDER FOR HOC', 'color: green')
       if (localStorage.getItem('jwt') && this.props.loggedIn) {
         //i have a token and i'm logged in
-        // wrapped component in our case is Profile
+        // wrapped component in my case is Profile
         return <WrappedComponent {...this.props}/>
       } else if (localStorage.getItem('jwt') && (this.props.authenticatingUser || !this.props.loggedIn)) {
-        //we're currently fetching, show a loading spinner
         return <Loader active inline="centered" />
       } else {
         //user is not AUTHORIZED to see this component
@@ -37,17 +36,11 @@ const withAuth = /*FUNCTION*/ (WrappedComponent) => {
     }
   }
 
-  // const mapDispatchToProps = /*FUNCTION*/ (dispatch) => {
-  //   return {
-  //     fetchCurrentUser: () => dispatch(fetchCurrentUser()), //dispatch is automagically provided by redux
-  //   }
-  // }
-
-  const mapDispatchToProps = { fetchCurrentUser: fetchCurrentUser }
-
-  // const connectedToReduxHOC = connect(mapStateToProps, mapDispatchToProps)
-  // const connectedAuthorizedComponent = connectedToReduxHOC(AuthorizedComponent)
-  // return connectedAuthorizedComponent
+  const mapDispatchToProps = /*FUNCTION*/ (dispatch) => {
+    return {
+      fetchCurrentUser: () => dispatch(fetchCurrentUser()), //dispatch is automagically provided by redux
+    }
+  }
 
   return connect(mapStateToProps, mapDispatchToProps)(AuthorizedComponent)
 }

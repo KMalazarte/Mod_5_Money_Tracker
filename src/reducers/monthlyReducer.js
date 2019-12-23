@@ -1,25 +1,25 @@
-import { FETCH_PURCHASES_PENDING, FETCH_PURCHASES_SUCCESS, FETCH_PURCHASES_ERROR } from '../actions'
+import { FETCH_MONTHLIES_PENDING, FETCH_MONTHLIES_SUCCESS, FETCH_MONTHLIES_ERROR } from '../actions'
 
 const initialState = {
   pending:false,
-  purchases: [],
+  monthlies: [],
   error: null
 }
 
-const purchaseReducer = (state = initialState, action) => {
+const monthlyReducer = (state = initialState, action) => {
   switch(action.type) {
-    case FETCH_PURCHASES_PENDING:
+    case FETCH_MONTHLIES_PENDING:
       return {
         ...state, ///make a copy of the old state with spread operator
         pending:true // update only the pending part of the initialState
       }
-    case FETCH_PURCHASES_SUCCESS:
+    case FETCH_MONTHLIES_SUCCESS:
       return {
         ...state,
         pending: false,
-        purchases: action.payload
+        monthlies: action.payload
       }
-    case FETCH_PURCHASES_ERROR:
+    case FETCH_MONTHLIES_ERROR:
       return {
         ...state,
         pending: false,
@@ -34,4 +34,4 @@ const purchaseReducer = (state = initialState, action) => {
 // export const getPurchasesPending = state => state.pending;
 // export const getPurchasesError = state => state.error;
 
-export default purchaseReducer
+export default monthlyReducer

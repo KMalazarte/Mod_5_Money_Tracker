@@ -7,12 +7,14 @@ import UserStats from './userStats'
 import SpendStats from './spendStats'
 import MonthlyContainer from "./monthlyContainer"
 import moment from 'moment'
+import rootReducer from '../reducers'
+// import fetchPurchases from '../adapters'
 
 class Profile extends React.Component {
 
   state={
-    purchases:[],
-    monthlies: [],
+    // purchases:[],
+    // monthlies: [],
     date: new Date(),
     name:"",
     category:"",
@@ -34,28 +36,26 @@ class Profile extends React.Component {
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
     bingo:"",
-    view: "",
-    currentPurchases:[]
+    view: ""
   }
     // LIFECYCLE METHOD
     componentDidMount() {
-      fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
-      .then(resp => resp.json())
-      .then(purchaseArr => {
+      // fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
+      // .then(resp => resp.json())
+      // .then(purchaseArr => {
       let spend = []
       const reducer = (accumulator, currentValue) => accumulator + currentValue
-      let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
+      let spendCalc = this.props.currentPurchases.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
       let d = new Date()
       let realDateNum = (parseInt(d.getMonth())) + 1
       if (spend.length > 0) {
         let total = parseFloat(spend.reduce(reducer)).toFixed(2)
          this.setState({
-           purchases: purchaseArr.purchase,
            spent: total,
            view: realDateNum
          })
      } else { console.log("Nothing to render") }
-     })
+
      fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
      .then(resp => resp.json())
      .then(data => {
@@ -64,6 +64,7 @@ class Profile extends React.Component {
         })
       })
     }
+
 
     show = (e) => {
       let datID = e.currentTarget.dataset.id
@@ -81,7 +82,7 @@ class Profile extends React.Component {
     }
 
     deleteHandler = (e) => {
-      let notClicked = this.state.purchases.filter((purchase) => {
+      let notClicked = this.props.currentPurchases.filter((purchase) => {
         return parseInt(this.state.bingo) !== purchase.id
       })
         this.setState({
@@ -170,10 +171,10 @@ class Profile extends React.Component {
    }
 
    editMonthlyHandler = (e) => {
-     let clicked = this.state.monthlies.find((monthly) => {
+     let clicked = this.props.currentMonthlies.find((monthly) => {
        return parseInt(e.currentTarget.id) === monthly.id
      })
-     let notClicked = this.state.monthlies.filter((monthly) => {
+     let notClicked = this.props.currentMonthlies.filter((monthly) => {
        return parseInt(e.currentTarget.id) !== monthly.id
      })
        this.setState({
@@ -187,7 +188,7 @@ class Profile extends React.Component {
 
    deleteMonthlyHandler = (e) => {
      console.log(e.currentTarget.dataset.id);
-       let notClicked = this.state.monthlies.filter((monthly) => {
+       let notClicked = this.props.currentMonthlies.filter((monthly) => {
          return parseInt(e.currentTarget.dataset.id) !== monthly.id
        })
          this.setState({
@@ -211,6 +212,12 @@ class Profile extends React.Component {
                   amount: this.state.monthlyAmount,
                   user_id: localStorage.user_id
                   }
+
+    let body = JSON.stringify({
+      name: this.state.monthlyName,
+      amount: this.state.monthlyAmount,
+      user_id: localStorage.user_id
+    })
 
     if (this.state.monthlyEditClicked) {
     fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${this.state.monthlyId}`, {
@@ -238,7 +245,7 @@ class Profile extends React.Component {
       })//2nd Fetch
     }
       this.setState({
-        monthlies: [...this.state.monthlies, monthlyObj],
+        monthlies: [...this.props.currentMonthlies, monthlyObj],
         monthlyName: "",
         monthlyAmount: "",
         monthlyId: ""
@@ -298,7 +305,7 @@ class Profile extends React.Component {
        })
      }
      this.setState({
-       purchases: [...this.state.purchases, purObj],
+       purchases: [...this.props.currentPurchases, purObj],
        date:"",
        name:"",
        category:"",
@@ -315,10 +322,10 @@ class Profile extends React.Component {
      console.log("Edited");
      alert('Please use the form to edit the purchase and press Submit when done')
 
-     let clicked = this.state.purchases.find((purchase) => {
+     let clicked = this.props.currentPurchases.find((purchase) => {
        return parseInt(e.currentTarget.id) === purchase.id
      })
-     let notClicked = this.state.purchases.filter((purchase) => {
+     let notClicked = this.props.currentPurchases.filter((purchase) => {
        return parseInt(e.currentTarget.id) !== purchase.id
      })
        this.setState({
@@ -336,7 +343,7 @@ class Profile extends React.Component {
    }//editHandler end
 
    // filteredMonthRows = () => {
-   //   let filteredThangs = this.state.purchases.filter( (purchase) => {
+   //   let filteredThangs = this.props.currentPurchases.filter( (purchase) => {
    //     let randomArr = []
    //     randomArr.push(purchase.date[5])
    //     randomArr.push(purchase.date[6])
@@ -348,7 +355,7 @@ class Profile extends React.Component {
 
    updateCurrentPurchases = () => {
      let filteredMonthRows =
-         this.state.purchases.filter( (purchase) => {
+         this.props.currentPurchases.filter( (purchase) => {
            let randomArr = []
            randomArr.push(purchase.date[5])
            randomArr.push(purchase.date[6])
@@ -367,16 +374,12 @@ class Profile extends React.Component {
        view: e.currentTarget.id,
      })
      this.updateCurrentPurchases()
-     // console.log("Hot diggity dog!", this.state.currentPurchases,
-     //             "This is the view", this.state.view
-     //            )
-     // console.log("current purchases is now:", this.state.currentPurchases)
    }
 
 
   render() {
-    // console.log("%c profile",'color: firebrick', this.state.monthlies);
-    // const monthlyRows = this.state.monthlies.map(monthly =>
+    console.log("%c profile props",'color: firebrick', this.props);
+    // const monthlyRows = this.props.currentMonthlies.map(monthly =>
     //     <Table.Row>
     //       <Table.Cell>{monthly.name}</Table.Cell>
     //       <Table.Cell>{monthly.amount}</Table.Cell>
@@ -400,8 +403,8 @@ class Profile extends React.Component {
               userClickToggle={this.userClickToggle}
               userClicked={this.state.userClicked}
               spent={this.state.spent}
-              purchases={this.state.purchases}
-              monthlies={this.state.monthlies}
+              purchases={this.props.currentPurchases}
+              monthlies={this.props.currentMonthlies}
               handleChange = {this.handleChange}
               handleTakeHomeSubmit = {this.handleTakeHomeSubmit}
               takeHome = {this.state.takeHome}
@@ -410,13 +413,13 @@ class Profile extends React.Component {
           <Grid.Column width={4}>
             <SpendStats
               spent={this.state.spent}
-              purchases={this.state.purchases}
+              purchases={this.props.currentPurchases}
             />
           </Grid.Column>
           <Grid.Column width={4}>
             <MonthlyContainer
               handleMonthlySubmit = {this.handleMonthlySubmit}
-              monthlies={this.state.monthlies}
+              monthlies={this.props.currentMonthlies}
               monthlyName = {this.state.monthlyName}
               monthlyAmount = {this.state.monthlyAmount}
               editMonthlyHandler = {this.editMonthlyHandler}
@@ -447,7 +450,7 @@ class Profile extends React.Component {
               outOfPocket={this.state.outOfPocket}
               actualPaid={this.state.actualPaid}
               paymentMethod={this.state.paymentMethod}
-              purchases={this.state.purchases}
+              purchases={this.props.currentPurchases}
               viewHandler={this.viewHandler}
               view={this.state.view}
               updateCurrentPurchases={this.updateCurrentPurchases}
@@ -460,41 +463,28 @@ class Profile extends React.Component {
   }
 }
 
-// purchases={this.props.purchases}
-// date={this.props.date}
-// name={this.props.name}
-// category={this.props.category}
-// placeOfPurchase={this.props.placeOfPurchase}
-// outOfPocket={this.props.outOfPocket}
-// actualPaid={this.props.actualPaid}
-// paymentMethod={this.props.paymentMethod}
-// selected={this.props.selected}
-// spent={this.props.spent}
+const mapStateToProps = (state, props) => {
+  return {
+    user: state.usersReducer,
+    currentPurchases: state.purchaseReducer.purchases,
+    currentMonthlies: state.monthlyReducer.monthlies
+  }
+}
 
-// const mapStateToProps = ({ usersReducer: { user: { avatar, username, id } } }) => ({
-//   avatar,
-//   username,
-//   id
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    changePurchases: function() {
+      dispatch("")
+    }
+  }
+}
+
+
+// const mapStateToProps = ({ usersReducer: { user } }) => ({
+//   user
 // })
 
-// const mapStateToProps = (reduxStoreState) => {
-//   return {
-//     avatar: reduxStoreState.usersReducer.user.avatar,
-//     username: reduxStoreState.usersReducer.user.username,
-//     bio: reduxStoreState.usersReducer.user.bio
-//   }
-// }
-
-const mapStateToProps = ({ usersReducer: { user } }) => ({
-  user
-})
 
 
-// const connectedToReduxHOC = connect(mapStateToProps)
-// const connectedProfile = connectedToReduxHOC(Profile)
-//
-// const withAuthProfile = withAuth(connectedProfile)
-//
-// export default withAuthProfile
 
-export default withAuth(connect(mapStateToProps)(Profile))
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Profile))

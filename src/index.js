@@ -9,13 +9,39 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 
 import App from './App'
-// import registerServiceWorker from './registerServiceWorker'
+
 import rootReducer from './reducers'
 
 // STORE IS THE GLOBALIZED STATE
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
-console.log(`%c INITIAL REDUX STORE`, 'color: purple', store.getState())
+
+store.dispatch((dispatch) => {
+  dispatch({type: "FETCH_PURCHASES_PENDING"})
+  fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
+    .then(resp => resp.json())
+    .then(purchaseArr => {
+    dispatch({type: "FETCH_PURCHASES_SUCCESS", payload: purchaseArr.purchase })
+  })
+   .catch(error => {
+     dispatch({type: "FETCH_PURCHASES_ERROR", payload: error})
+   })
+   dispatch({type: "FETCH_MONTHLIES_PENDING"})
+   fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
+   .then(resp => resp.json())
+   .then(data => {
+      // this.setState({
+      // monthlies: data.monthly
+      // })
+     dispatch({type: "FETCH_MONTHLIES_SUCCESS", payload: data.monthly })
+   })
+    .catch(error => {
+      dispatch({type: "FETCH_MONTHLIES_ERROR", payload: error})
+    })
+})
+
+
+console.log(`%c INITIAL REDUX STORE`, 'color: orange', store.getState())
 
 ReactDOM.render(
   <Provider store={store}>
@@ -25,4 +51,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
-// registerServiceWorker()
