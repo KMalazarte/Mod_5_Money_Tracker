@@ -4,7 +4,7 @@ import {combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
   usersReducer: usersReducer,
-  purchases: purchaseReducer
+  purchasesReducer: purchaseReducer
 })
 
 export default rootReducer
