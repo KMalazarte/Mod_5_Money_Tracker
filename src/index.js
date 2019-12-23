@@ -12,8 +12,8 @@ import App from './App'
 // import registerServiceWorker from './registerServiceWorker'
 import rootReducer from './reducers'
 
-// STORE IS THE GLOBALIZED STATE
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+// STORE -> GLOBALIZED STATE
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk))) //TODO: move this
 
 console.log(`%c INITIAL REDUX STORE`, 'color: purple', store.getState())
 

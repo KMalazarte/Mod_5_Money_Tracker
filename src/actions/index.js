@@ -1,27 +1,24 @@
 export * from './user'
-export const FETCH_PURCHASES_PENDING = "FETCH_PURCHASES_PENDING"
-export const FETCH_PURCHASES_SUCCESS = "FETCH_PURCHASES_SUCCESS"
-export const FETCH_PURCHASES_ERROR = "FETCH_PURCHASES_ERROR"
 
+// ACTIONS CAN ALSO HAVE PAYLOADS
 
-// NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
-
-const fetchPurchasesPending = () => {
+export const changePurchases = () => {
   return {
-    type: "FETCH_PURCHASES_PENDING",
+    type: "CHANGEPURCHASES"
   }
 }
 
-const fetchPurchasesSuccess = (purchases) => {
-  return {
-    type: "FETCH_PURCHASES_SUCCESS",
-    purchases: purchases
-  }
-}
+store.dispatch( ( dispatch ) => {
+  dispatch ( { type: 'LOADING'} )
 
-const fetchPurchasesError = (error) => {
-  return {
-    type: "FETCH_PURCHASES_ERROR",
-    error: error
-  }
-}
+  fetch(input: 'http://localhost:3000/${localStorage.user_id}/purchases')
+  .then(onfulfilled: response => response.json())
+  .then(onfulfilled: jsonData => {
+
+    dispatch ( { type: 'LOADED', payload: jsonData } )
+  })
+  .catch( onrejected: err =>  {
+
+    dispatch( {type: 'FETCH_PURCHASE_ERRORS'} )
+  } )
+})

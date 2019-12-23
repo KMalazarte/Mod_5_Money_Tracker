@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
 import { Table, Button, Icon, Grid, Confirm } from 'semantic-ui-react'
 import moment from 'moment'
 import _ from 'lodash'
@@ -26,7 +25,6 @@ class PurchaseTable extends React.Component {
     }
   }
 
-
   handleSort = clickedColumn => () => {
     const { column, data, direction } = this.state
 
@@ -49,7 +47,6 @@ class PurchaseTable extends React.Component {
    OpenModal = () => {
      console.log("clicked");
    }
-
 
    renderColors = (purchase) => {
      let color = ""
@@ -85,9 +82,6 @@ class PurchaseTable extends React.Component {
    }
 
   render() {
-
-
-    console.log(this.props);
 
   const { column, data, direction } = this.state
 
@@ -211,8 +205,4 @@ class PurchaseTable extends React.Component {
 
 }
 
-function mapStateToProps(state, props) {
-  return { example: state.purchasesReducer.pineapples}
-}
-
-export default connect(mapStateToProps)(PurchaseTable)
+export default withRouter(PurchaseTable)
