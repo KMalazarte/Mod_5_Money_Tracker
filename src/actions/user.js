@@ -31,8 +31,8 @@ export const /*FUNCTION*/ loginUser = (username, password) => {
         jwt: 'aaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccc'
       } */
       .then(JSONResponse => {
-        // console.log('%c INSIDE YE OLDE .THEN', 'color: navy')
-        // console.log(JSONResponse);
+        console.log('%c INSIDE YE OLDE .THEN', 'color: navy')
+        console.log(JSONResponse);
         localStorage.setItem('jwt', JSONResponse.jwt)
         localStorage.setItem('username', JSONResponse.user.username)
         localStorage.setItem('user_id', JSONResponse.user.id)

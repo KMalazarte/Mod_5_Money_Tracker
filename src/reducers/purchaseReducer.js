@@ -1,38 +1,23 @@
-import { FETCH_PRODUCTS_PENDING, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCTS_ERROR } from '../actions'
-
+// JUST AN EXAMPLE
 const initialState = {
-  pending:false,
+  loading:false,
+  loaded: false,
   purchases: [],
-  error: null,
-  pineapples: 0
+  error
 }
 
-const purchaseReducer = (state = initialState, action) => {
+const middleware = applyMiddleware ( thunk )
+
+const purchaseReducer = (state = [], action) => {
   switch(action.type) {
-    case "FETCH_PURCHASES_PENDING":
-      return {
-        ...state, ///make a copy of the old state with spread operator
-        pending:true // update only the pending part of the initialState
-      }
-    case "FETCH_PURCHASES_SUCCESS":
-      return {
-        ...state,
-        pending: false,
-        purchases: action.payload
-      }
-    case "FETCH_PURCHASES_ERROR":
-      return {
-        ...state,
-        pending: false,
-        error: action.error
-      }
+    case "CHANGEMONTH":
+      return state + 1;
+    case "DECREMENT":
+      return state - 1;
     default:
       return state;
   }
 }
 
-export const getPurchases = state => state.purchases;
-export const getPurchasesPending = state => state.pending;
-export const getPurchasesError = state => state.error;
 
 export default purchaseReducer
