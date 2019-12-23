@@ -36,28 +36,26 @@ class Profile extends React.Component {
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
     bingo:"",
-    view: "",
-    currentPurchases:[]
+    view: ""
   }
     // LIFECYCLE METHOD
     componentDidMount() {
-      fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
-      .then(resp => resp.json())
-      .then(purchaseArr => {
+      // fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
+      // .then(resp => resp.json())
+      // .then(purchaseArr => {
       let spend = []
       const reducer = (accumulator, currentValue) => accumulator + currentValue
-      let spendCalc = purchaseArr.purchase.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
+      let spendCalc = this.props.currentPurchases.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
       let d = new Date()
       let realDateNum = (parseInt(d.getMonth())) + 1
       if (spend.length > 0) {
         let total = parseFloat(spend.reduce(reducer)).toFixed(2)
          this.setState({
-           purchases: purchaseArr.purchase,
            spent: total,
            view: realDateNum
          })
      } else { console.log("Nothing to render") }
-     })
+
      fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
      .then(resp => resp.json())
      .then(data => {
@@ -66,6 +64,7 @@ class Profile extends React.Component {
         })
       })
     }
+
 
     show = (e) => {
       let datID = e.currentTarget.dataset.id
@@ -83,7 +82,7 @@ class Profile extends React.Component {
     }
 
     deleteHandler = (e) => {
-      let notClicked = this.state.purchases.filter((purchase) => {
+      let notClicked = this.props.currentPurchases.filter((purchase) => {
         return parseInt(this.state.bingo) !== purchase.id
       })
         this.setState({
@@ -306,7 +305,7 @@ class Profile extends React.Component {
        })
      }
      this.setState({
-       purchases: [...this.state.purchases, purObj],
+       purchases: [...this.props.currentPurchases, purObj],
        date:"",
        name:"",
        category:"",
@@ -323,10 +322,10 @@ class Profile extends React.Component {
      console.log("Edited");
      alert('Please use the form to edit the purchase and press Submit when done')
 
-     let clicked = this.state.purchases.find((purchase) => {
+     let clicked = this.props.currentPurchases.find((purchase) => {
        return parseInt(e.currentTarget.id) === purchase.id
      })
-     let notClicked = this.state.purchases.filter((purchase) => {
+     let notClicked = this.props.currentPurchases.filter((purchase) => {
        return parseInt(e.currentTarget.id) !== purchase.id
      })
        this.setState({
@@ -344,7 +343,7 @@ class Profile extends React.Component {
    }//editHandler end
 
    // filteredMonthRows = () => {
-   //   let filteredThangs = this.state.purchases.filter( (purchase) => {
+   //   let filteredThangs = this.props.currentPurchases.filter( (purchase) => {
    //     let randomArr = []
    //     randomArr.push(purchase.date[5])
    //     randomArr.push(purchase.date[6])
@@ -356,7 +355,7 @@ class Profile extends React.Component {
 
    updateCurrentPurchases = () => {
      let filteredMonthRows =
-         this.state.purchases.filter( (purchase) => {
+         this.props.currentPurchases.filter( (purchase) => {
            let randomArr = []
            randomArr.push(purchase.date[5])
            randomArr.push(purchase.date[6])
@@ -404,7 +403,7 @@ class Profile extends React.Component {
               userClickToggle={this.userClickToggle}
               userClicked={this.state.userClicked}
               spent={this.state.spent}
-              purchases={this.state.purchases}
+              purchases={this.props.currentPurchases}
               monthlies={this.state.monthlies}
               handleChange = {this.handleChange}
               handleTakeHomeSubmit = {this.handleTakeHomeSubmit}
@@ -414,7 +413,7 @@ class Profile extends React.Component {
           <Grid.Column width={4}>
             <SpendStats
               spent={this.state.spent}
-              purchases={this.state.purchases}
+              purchases={this.props.currentPurchases}
             />
           </Grid.Column>
           <Grid.Column width={4}>
@@ -451,7 +450,7 @@ class Profile extends React.Component {
               outOfPocket={this.state.outOfPocket}
               actualPaid={this.state.actualPaid}
               paymentMethod={this.state.paymentMethod}
-              purchases={this.state.purchases}
+              purchases={this.props.currentPurchases}
               viewHandler={this.viewHandler}
               view={this.state.view}
               updateCurrentPurchases={this.updateCurrentPurchases}
@@ -467,7 +466,8 @@ class Profile extends React.Component {
 const mapStateToProps = (state, props) => {
   return {
     user: state.usersReducer,
-    reduxPurchases: state.purchaseReducer
+    reduxPurchases: state.purchaseReducer,
+    currentPurchases: state.purchaseReducer.purchases
   }
 }
 

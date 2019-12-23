@@ -29,7 +29,7 @@ store.dispatch((dispatch) => {
 })
 
 
-console.log(`%c INITIAL REDUX STORE`, 'color: purple', store.getState())
+console.log(`%c INITIAL REDUX STORE`, 'color: orange', store.getState())
 
 ReactDOM.render(
   <Provider store={store}>
