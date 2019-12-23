@@ -13,8 +13,8 @@ import rootReducer from '../reducers'
 class Profile extends React.Component {
 
   state={
-    purchases:[],
-    monthlies: [],
+    // purchases:[],
+    // monthlies: [],
     date: new Date(),
     name:"",
     category:"",
@@ -171,10 +171,10 @@ class Profile extends React.Component {
    }
 
    editMonthlyHandler = (e) => {
-     let clicked = this.state.monthlies.find((monthly) => {
+     let clicked = this.props.currentMonthlies.find((monthly) => {
        return parseInt(e.currentTarget.id) === monthly.id
      })
-     let notClicked = this.state.monthlies.filter((monthly) => {
+     let notClicked = this.props.currentMonthlies.filter((monthly) => {
        return parseInt(e.currentTarget.id) !== monthly.id
      })
        this.setState({
@@ -188,7 +188,7 @@ class Profile extends React.Component {
 
    deleteMonthlyHandler = (e) => {
      console.log(e.currentTarget.dataset.id);
-       let notClicked = this.state.monthlies.filter((monthly) => {
+       let notClicked = this.props.currentMonthlies.filter((monthly) => {
          return parseInt(e.currentTarget.dataset.id) !== monthly.id
        })
          this.setState({
@@ -245,7 +245,7 @@ class Profile extends React.Component {
       })//2nd Fetch
     }
       this.setState({
-        monthlies: [...this.state.monthlies, monthlyObj],
+        monthlies: [...this.props.currentMonthlies, monthlyObj],
         monthlyName: "",
         monthlyAmount: "",
         monthlyId: ""
@@ -379,7 +379,7 @@ class Profile extends React.Component {
 
   render() {
     console.log("%c profile props",'color: firebrick', this.props);
-    // const monthlyRows = this.state.monthlies.map(monthly =>
+    // const monthlyRows = this.props.currentMonthlies.map(monthly =>
     //     <Table.Row>
     //       <Table.Cell>{monthly.name}</Table.Cell>
     //       <Table.Cell>{monthly.amount}</Table.Cell>
@@ -404,7 +404,7 @@ class Profile extends React.Component {
               userClicked={this.state.userClicked}
               spent={this.state.spent}
               purchases={this.props.currentPurchases}
-              monthlies={this.state.monthlies}
+              monthlies={this.props.currentMonthlies}
               handleChange = {this.handleChange}
               handleTakeHomeSubmit = {this.handleTakeHomeSubmit}
               takeHome = {this.state.takeHome}
@@ -419,7 +419,7 @@ class Profile extends React.Component {
           <Grid.Column width={4}>
             <MonthlyContainer
               handleMonthlySubmit = {this.handleMonthlySubmit}
-              monthlies={this.state.monthlies}
+              monthlies={this.props.currentMonthlies}
               monthlyName = {this.state.monthlyName}
               monthlyAmount = {this.state.monthlyAmount}
               editMonthlyHandler = {this.editMonthlyHandler}
@@ -466,8 +466,8 @@ class Profile extends React.Component {
 const mapStateToProps = (state, props) => {
   return {
     user: state.usersReducer,
-    reduxPurchases: state.purchaseReducer,
-    currentPurchases: state.purchaseReducer.purchases
+    currentPurchases: state.purchaseReducer.purchases,
+    currentMonthlies: state.monthlyReducer.monthlies
   }
 }
 

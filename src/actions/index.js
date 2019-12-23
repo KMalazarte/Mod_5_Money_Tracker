@@ -2,6 +2,9 @@ export * from './user'
 export const FETCH_PURCHASES_PENDING = "FETCH_PURCHASES_PENDING"
 export const FETCH_PURCHASES_SUCCESS = "FETCH_PURCHASES_SUCCESS"
 export const FETCH_PURCHASES_ERROR = "FETCH_PURCHASES_ERROR"
+export const FETCH_MONTHLIES_PENDING = "FETCH_MONTHLIES_PENDING"
+export const FETCH_MONTHLIES_SUCCESS = "FETCH_MONTHLIES_SUCCESS"
+export const FETCH_MONTHLIES_ERROR = "FETCH_MONTHLIES_ERROR"
 
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
@@ -24,6 +27,26 @@ const fetchPurchasesSuccess = (purchases) => {
 const fetchPurchasesError = (error) => {
   return {
     type: FETCH_PURCHASES_ERROR ,
+    error: error
+  }
+}
+
+const fetchMonthliesPending = () => {
+  return {
+    type: FETCH_MONTHLIES_PENDING
+  }
+}
+
+const fetchMonthliesSuccess = (monthlies) => {
+  return {
+    type: FETCH_MONTHLIES_SUCCESS,
+    monthlies: monthlies
+  }
+}
+
+const fetchMonthliesError = (error) => {
+  return {
+    type: FETCH_MONTHLIES_ERROR ,
     error: error
   }
 }

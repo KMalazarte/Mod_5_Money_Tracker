@@ -1,20 +1,13 @@
-// import { fetchPurchasesPending, fetchPurchasesSuccess, fetchPurchasesError } from '../actions'
-
-// function fetchPurchases(dispatch) {
-//   return dispatch => {
-//     dispatch(fetchPurchasesPending())
-//     console.log('%c INSIDE FETCH FOR FETCH PURCHASES ADAPTER', 'color: orange')
-//     fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
+// import { store } from '../store.js'
+//
+// export const fetchPurchases = () => store.dispatch((dispatch) => {
+//   dispatch({type: "FETCH_PURCHASES_PENDING"})
+//   fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
 //     .then(resp => resp.json())
 //     .then(purchaseArr => {
-//       if(purchaseArr.error) {
-//         throw(purchaseArr.error)
-//       }
-//       dispatch(fetchPurchasesSuccess(purchaseArr.purchase))
-//       return purchaseArr.purchase
-//     })
-//     .catch(error=> {
-//       dispatch(fetchPurchasesError(error))
-//     })
-//   }
-// }
+//     dispatch({type: "FETCH_PURCHASES_SUCCESS", payload: purchaseArr.purchase })
+//   })
+//    .catch(error => {
+//      dispatch({type: "FETCH_PURCHASES_ERROR", payload: error})
+//    })
+// })
