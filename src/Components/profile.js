@@ -7,6 +7,8 @@ import UserStats from './userStats'
 import SpendStats from './spendStats'
 import MonthlyContainer from "./monthlyContainer"
 import moment from 'moment'
+import rootReducer from '../reducers'
+// import fetchPurchases from '../adapters'
 
 class Profile extends React.Component {
 
@@ -212,6 +214,12 @@ class Profile extends React.Component {
                   user_id: localStorage.user_id
                   }
 
+    let body = JSON.stringify({
+      name: this.state.monthlyName,
+      amount: this.state.monthlyAmount,
+      user_id: localStorage.user_id
+    })
+
     if (this.state.monthlyEditClicked) {
     fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${this.state.monthlyId}`, {
       method: 'PATCH',
@@ -367,15 +375,11 @@ class Profile extends React.Component {
        view: e.currentTarget.id,
      })
      this.updateCurrentPurchases()
-     // console.log("Hot diggity dog!", this.state.currentPurchases,
-     //             "This is the view", this.state.view
-     //            )
-     // console.log("current purchases is now:", this.state.currentPurchases)
    }
 
 
   render() {
-    // console.log("%c profile",'color: firebrick', this.state.monthlies);
+    console.log("%c profile props",'color: firebrick', this.props);
     // const monthlyRows = this.state.monthlies.map(monthly =>
     //     <Table.Row>
     //       <Table.Cell>{monthly.name}</Table.Cell>
@@ -460,41 +464,27 @@ class Profile extends React.Component {
   }
 }
 
-// purchases={this.props.purchases}
-// date={this.props.date}
-// name={this.props.name}
-// category={this.props.category}
-// placeOfPurchase={this.props.placeOfPurchase}
-// outOfPocket={this.props.outOfPocket}
-// actualPaid={this.props.actualPaid}
-// paymentMethod={this.props.paymentMethod}
-// selected={this.props.selected}
-// spent={this.props.spent}
+const mapStateToProps = (state, props) => {
+  return {
+    user: state.usersReducer,
+    reduxPurchases: state.purchaseReducer
+  }
+}
 
-// const mapStateToProps = ({ usersReducer: { user: { avatar, username, id } } }) => ({
-//   avatar,
-//   username,
-//   id
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    changePurchases: function() {
+      dispatch("")
+    }
+  }
+}
+
+
+// const mapStateToProps = ({ usersReducer: { user } }) => ({
+//   user
 // })
 
-// const mapStateToProps = (reduxStoreState) => {
-//   return {
-//     avatar: reduxStoreState.usersReducer.user.avatar,
-//     username: reduxStoreState.usersReducer.user.username,
-//     bio: reduxStoreState.usersReducer.user.bio
-//   }
-// }
-
-const mapStateToProps = ({ usersReducer: { user } }) => ({
-  user
-})
 
 
-// const connectedToReduxHOC = connect(mapStateToProps)
-// const connectedProfile = connectedToReduxHOC(Profile)
-//
-// const withAuthProfile = withAuth(connectedProfile)
-//
-// export default withAuthProfile
 
-export default withAuth(connect(mapStateToProps)(Profile))
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Profile))
