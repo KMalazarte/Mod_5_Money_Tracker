@@ -413,7 +413,8 @@ class Profile extends React.Component {
           <Grid.Column width={4}>
             <SpendStats
               spent={this.state.spent}
-              purchases={this.props.Purchases}
+              // purchases={this.props.Purchases}
+              view={this.state.view}
             />
           </Grid.Column>
           <Grid.Column width={4}>

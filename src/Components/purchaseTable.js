@@ -5,7 +5,7 @@ import moment from 'moment'
 import _ from 'lodash'
 import { withRouter  } from 'react-router-dom'
 import PurchaseModal from './purchaseModal'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 
 class PurchaseTable extends React.Component {
 
@@ -86,7 +86,7 @@ class PurchaseTable extends React.Component {
 
   render() {
 
-      console.log("%c purchase table props",'color: firebrick', this.props);
+      // console.log("%c purchase table props",'color: firebrick', this.props);
 
   const { column, data, direction } = this.state
 
