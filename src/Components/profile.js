@@ -342,16 +342,15 @@ class Profile extends React.Component {
        })
    }//editHandler end
 
-   // filteredMonthRows = () => {
-   //   let filteredThangs = this.props.Purchases.filter( (purchase) => {
-   //     let randomArr = []
-   //     randomArr.push(purchase.date[5])
-   //     randomArr.push(purchase.date[6])
-   //     let monthNum = parseInt(randomArr.join(""))
-   //     let viewNum = parseInt(this.state.view)
-   //     return monthNum === viewNum
-   //   })
-   // }
+   filteredMonthRows =
+     this.props.Purchases.filter( (purchase) => {
+       let randomArr = []
+       randomArr.push(purchase.date[5])
+       randomArr.push(purchase.date[6])
+       let monthNum = parseInt(randomArr.join(""))
+       let viewNum = parseInt(this.state.view)
+       return monthNum === viewNum
+     })
 
    updatePurchases = () => {
      let filteredMonthRows =
@@ -363,9 +362,9 @@ class Profile extends React.Component {
            let viewNum = parseInt(this.state.view)
            return monthNum === viewNum
          })
-     this.setState({
-       Purchases: filteredMonthRows
-     })
+     // this.setState({
+     //   Purchases: filteredMonthRows
+     // })
    }
 
    viewHandler = (e) => {
@@ -412,7 +411,7 @@ class Profile extends React.Component {
           </Grid.Column>
           <Grid.Column width={4}>
             <SpendStats
-              spent={this.state.spent}
+              // spent={this.state.spent}
               // purchases={this.props.Purchases}
               view={this.state.view}
             />

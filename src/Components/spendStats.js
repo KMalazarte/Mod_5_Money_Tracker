@@ -20,8 +20,13 @@ const SpendStats = (props) => {
       return monthNum === viewNum
     })
 
+    let spend = []
+    shownPurchases.forEach( purchase => spend.push(parseFloat( purchase.actual_paid) ) )
+    if (spend.length > 0) {
+      var total = parseFloat(spend.reduce(reducer)).toFixed(2)
+    }
 
-    console.log("%c purchase spend stats",'color: blue', props);
+    console.log("%c purchase spend stats",'color: blue', total);
 
     let eatingOutAdd = () => {
       const eatingOutFilter = shownPurchases.filter(purchase => purchase.category === "Eating Out")
@@ -77,38 +82,38 @@ const SpendStats = (props) => {
       return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
     }
 
-    // console.log("spend Stats", parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.spent)))*100).toFixed(4)   )
+    // console.log("spend Stats", parseFloat((parseFloat(groceriesAdd())/(parseFloat(total)))*100).toFixed(4)   )
     return(
     <Fragment>
       {clicked ? (
         <div centered onClick={() => setClicked(!clicked)} className='color'>
           <Grid textAlign='center' className='color-container'>
             <Grid.Row color="blue">
-              <p>Eating Out: ${eatingOutAdd()} / {parseFloat((parseFloat(eatingOutAdd())/(parseFloat(props.spent)))*100).toFixed(2)}% </p>
+              <p>Eating Out: ${eatingOutAdd()} / {parseFloat((parseFloat(eatingOutAdd())/(parseFloat(total)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="teal">
-              <p>Groceries: ${groceriesAdd()} / {parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%  </p>
+              <p>Groceries: ${groceriesAdd()} / {parseFloat((parseFloat(groceriesAdd())/(parseFloat(total)))*100).toFixed(2)}%  </p>
             </Grid.Row>
             <Grid.Row color="green">
-              <p>Entertainment: ${entertainmentAdd()} / {parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.spent)))*100).toFixed(2)}% </p>
+              <p>Entertainment: ${entertainmentAdd()} / {parseFloat((parseFloat(entertainmentAdd())/(parseFloat(total)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="red">
-              <p>Clothes/Accessories: ${clothesAdd()} / {parseFloat((parseFloat(clothesAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Clothes/Accessories: ${clothesAdd()} / {parseFloat((parseFloat(clothesAdd())/(parseFloat(total)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="yellow">
-              <p>Booze/Night Out: ${boozeAdd()} / {parseFloat((parseFloat(boozeAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Booze/Night Out: ${boozeAdd()} / {parseFloat((parseFloat(boozeAdd())/(parseFloat(total)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="purple">
-              <p>Transportation/ Gas: ${transportAdd()} / {parseFloat((parseFloat(transportAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Transportation/ Gas: ${transportAdd()} / {parseFloat((parseFloat(transportAdd())/(parseFloat(total)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="orange">
-              <p>Flights/ Hotels: ${travelAdd()} / {parseFloat((parseFloat(travelAdd())/(parseFloat(props.spent)))*100).toFixed(2)}% </p>
+              <p>Flights/ Hotels: ${travelAdd()} / {parseFloat((parseFloat(travelAdd())/(parseFloat(total)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="brown">
-              <p>Misc: ${miscAdd()} / {parseFloat((parseFloat(miscAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Misc: ${miscAdd()} / {parseFloat((parseFloat(miscAdd())/(parseFloat(total)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="pink">
-              <p>Gifts: ${giftsAdd()} / {parseFloat((parseFloat(giftsAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Gifts: ${giftsAdd()} / {parseFloat((parseFloat(giftsAdd())/(parseFloat(total)))*100).toFixed(2)}%</p>
             </Grid.Row>
           </Grid>
         </div>
