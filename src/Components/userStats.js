@@ -1,27 +1,56 @@
 import React, { Fragment } from 'react'
 import { Header, Table, Button } from 'semantic-ui-react'
 import UserForm from './userForm'
+import { useSelector } from 'react-redux'
 
 
 const UserStats = (props) => {
 
+  const allMonthlies = useSelector(state => state.monthlyReducer.monthlies)
+
+  const allPurchases = useSelector(state => state.purchaseReducer.purchases)
+
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  let shownPurchases = allPurchases.filter( (purchase) => {
+    let randomArr = []
+    randomArr.push(purchase.date[5])
+    randomArr.push(purchase.date[6])
+    let monthNum = parseInt(randomArr.join(""))
+    let viewNum = parseInt(props.view)
+    return monthNum === viewNum
+  })
+
+  let spend = []
+  shownPurchases.forEach( purchase => spend.push(parseFloat( purchase.actual_paid) ) )
+  if (spend.length > 0) {
+    var total = parseFloat(spend.reduce(reducer)).toFixed(2)
+  }
+
+
   const renderMonthlies = () => {
-    if (props.monthlies) {
+    if (allMonthlies.length > 0) {
       let monthliesArr = []
-      const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      props.monthlies.map(monthly => monthliesArr.push(parseFloat(monthly.amount))
+      allMonthlies.map(
+        monthly => monthliesArr.push( parseFloat(monthly.amount) )
       )
-        return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
+      return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
       }
     }
 
   let spent = () => {
-    return (parseFloat(props.spent).toFixed(2))
+    if (total) {
+      return (parseFloat(total).toFixed(2))
+    } else { return 0 }
   }
 
   let amtLeft = () => {
-    return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(props.spent))).toFixed(2)
+    if (total) {
+      return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(total))).toFixed(2)
+    } else { return parseFloat( (localStorage.monthly_take_home) - ( parseFloat(renderMonthlies() )) ) }
   }
+
+  console.log("%c purchase user stats",'color: blue', spent())
 
   return(
     <Fragment>

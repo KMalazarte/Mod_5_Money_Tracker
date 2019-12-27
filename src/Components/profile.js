@@ -43,18 +43,19 @@ class Profile extends React.Component {
       // fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
       // .then(resp => resp.json())
       // .then(purchaseArr => {
-      let spend = []
-      const reducer = (accumulator, currentValue) => accumulator + currentValue
-      let spendCalc = this.props.Purchases.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
+      // let spend = []
+      // const reducer = (accumulator, currentValue) => accumulator + currentValue
+      // let spendCalc = this.props.Purchases.forEach( purchase => spend.push(parseInt(purchase.actual_paid) ))
       let d = new Date()
-      let realDateNum = (parseInt(d.getMonth())) + 1
-      if (spend.length > 0) {
-        let total = parseFloat(spend.reduce(reducer)).toFixed(2)
+      let realDateNum = ( parseInt( d.getMonth() ) ) + 1
+      // if (spend.length > 0) {
+      //   let total = parseFloat(spend.reduce(reducer)).toFixed(2)
          this.setState({
-           spent: total,
+           // spent: total,
            view: realDateNum
          })
-     } else { console.log("Nothing to render") }
+     }
+     // else { console.log("Nothing to render") }
 
      // fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
      // .then(resp => resp.json())
@@ -63,8 +64,6 @@ class Profile extends React.Component {
      //    monthlies: data.monthly
      //    })
      //  })
-    }
-
 
     show = (e) => {
       let datID = e.currentTarget.dataset.id
@@ -401,12 +400,13 @@ class Profile extends React.Component {
               currentTakeHome={this.state.currentTakeHome}
               userClickToggle={this.userClickToggle}
               userClicked={this.state.userClicked}
-              spent={this.state.spent}
-              purchases={this.props.Purchases}
-              monthlies={this.props.currentMonthlies}
+              // spent={this.state.spent}
+              // purchases={this.props.Purchases}
+              // monthlies={this.props.currentMonthlies}
               handleChange = {this.handleChange}
               handleTakeHomeSubmit = {this.handleTakeHomeSubmit}
               takeHome = {this.state.takeHome}
+              view={this.state.view}
             />
           </Grid.Column>
           <Grid.Column width={4}>

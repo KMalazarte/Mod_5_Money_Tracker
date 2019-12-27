@@ -25,8 +25,8 @@ const SpendStats = (props) => {
     if (spend.length > 0) {
       var total = parseFloat(spend.reduce(reducer)).toFixed(2)
     }
-
-    console.log("%c purchase spend stats",'color: blue', total);
+    //
+    // console.log("%c purchase spend stats",'color: blue', total);
 
     let eatingOutAdd = () => {
       const eatingOutFilter = shownPurchases.filter(purchase => purchase.category === "Eating Out")
