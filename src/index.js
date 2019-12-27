@@ -21,25 +21,21 @@ store.dispatch((dispatch) => {
   fetch(`http://localhost:3000/${localStorage.user_id}/purchases`)
     .then(resp => resp.json())
     .then(purchaseArr => {
-    dispatch({type: "FETCH_PURCHASES_SUCCESS", payload: purchaseArr.purchase })
-  })
-   .catch(error => {
+      dispatch({type: "FETCH_PURCHASES_SUCCESS", payload: purchaseArr.purchase })
+    })
+    .catch(error => {
      dispatch({type: "FETCH_PURCHASES_ERROR", payload: error})
-   })
-   dispatch({type: "FETCH_MONTHLIES_PENDING"})
-   fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
+    })
+ dispatch({type: "FETCH_MONTHLIES_PENDING"})
+ fetch(`http://localhost:3000/${localStorage.user_id}/monthlies`)
    .then(resp => resp.json())
    .then(data => {
-      // this.setState({
-      // monthlies: data.monthly
-      // })
      dispatch({type: "FETCH_MONTHLIES_SUCCESS", payload: data.monthly })
    })
-    .catch(error => {
-      dispatch({type: "FETCH_MONTHLIES_ERROR", payload: error})
-    })
+   .catch(error => {
+     dispatch({type: "FETCH_MONTHLIES_ERROR", payload: error})
+   })
 })
-
 
 console.log(`%c INITIAL REDUX STORE`, 'color: orange', store.getState())
 

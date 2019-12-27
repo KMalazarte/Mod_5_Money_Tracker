@@ -86,6 +86,8 @@ class PurchaseTable extends React.Component {
 
   render() {
 
+      console.log("%c purchase table props",'color: firebrick', this.props);
+
   const { column, data, direction } = this.state
 
   const filteredMonthRows =
@@ -209,7 +211,7 @@ class PurchaseTable extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-  return { pineapple: state.purchaseReducer.pineapples}
+  return { purchases: state.purchaseReducer.purchases }
 }
 
 export default connect(mapStateToProps)(PurchaseTable)

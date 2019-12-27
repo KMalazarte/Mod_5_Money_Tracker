@@ -5,6 +5,8 @@ export const FETCH_PURCHASES_ERROR = "FETCH_PURCHASES_ERROR"
 export const FETCH_MONTHLIES_PENDING = "FETCH_MONTHLIES_PENDING"
 export const FETCH_MONTHLIES_SUCCESS = "FETCH_MONTHLIES_SUCCESS"
 export const FETCH_MONTHLIES_ERROR = "FETCH_MONTHLIES_ERROR"
+export const FILTER_PURCHASES = "FILTER_PURCHASES"
+
 
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
@@ -31,6 +33,12 @@ const fetchPurchasesError = (error) => {
   }
 }
 
+const filterPurchases = () => {
+  return {
+    type: FILTER_PURCHASES,
+  }
+}
+
 const fetchMonthliesPending = () => {
   return {
     type: FETCH_MONTHLIES_PENDING
@@ -46,7 +54,7 @@ const fetchMonthliesSuccess = (monthlies) => {
 
 const fetchMonthliesError = (error) => {
   return {
-    type: FETCH_MONTHLIES_ERROR ,
+    type: FETCH_MONTHLIES_ERROR,
     error: error
   }
 }
