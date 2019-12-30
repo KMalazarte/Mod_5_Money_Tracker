@@ -5,12 +5,11 @@ export const FETCH_PURCHASES_ERROR = "FETCH_PURCHASES_ERROR"
 export const FETCH_MONTHLIES_PENDING = "FETCH_MONTHLIES_PENDING"
 export const FETCH_MONTHLIES_SUCCESS = "FETCH_MONTHLIES_SUCCESS"
 export const FETCH_MONTHLIES_ERROR = "FETCH_MONTHLIES_ERROR"
-export const FILTER_PURCHASES = "FILTER_PURCHASES"
-
 
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
 // WITH THUNK WE CAN RETURN A FUNCTION THAT USES DISPATCH
+// BELOW ARE ACTIONS CREATORS: FUNCTIONS THAT RETURN ACTIONS
 
 
 const fetchPurchasesPending = () => {
@@ -30,12 +29,6 @@ const fetchPurchasesError = (error) => {
   return {
     type: FETCH_PURCHASES_ERROR ,
     error: error
-  }
-}
-
-const filterPurchases = () => {
-  return {
-    type: FILTER_PURCHASES,
   }
 }
 

@@ -27,12 +27,6 @@ const purchaseReducer = (state = initialState, action) => {
         pending: false,
         error: action.error
       }
-    case FILTER_PURCHASES:
-      return {
-        ...state,
-        // currentPurchases: 
-        // view:
-      }
     default:
       return state;
   }

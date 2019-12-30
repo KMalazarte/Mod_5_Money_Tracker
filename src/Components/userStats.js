@@ -6,32 +6,34 @@ import { useSelector } from 'react-redux'
 
 const UserStats = (props) => {
 
-  const allMonthlies = useSelector(state => state.monthlyReducer.monthlies)
+  // const allMonthlies = useSelector(state => state.monthlyReducer.monthlies)
+  //
+  // const allPurchases = useSelector(state => state.purchaseReducer.purchases)
 
-  const allPurchases = useSelector(state => state.purchaseReducer.purchases)
+  console.log(props);
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-  let shownPurchases = allPurchases.filter( (purchase) => {
-    let randomArr = []
-    randomArr.push(purchase.date[5])
-    randomArr.push(purchase.date[6])
-    let monthNum = parseInt(randomArr.join(""))
-    let viewNum = parseInt(props.view)
-    return monthNum === viewNum
-  })
+  // let shownPurchases = props.purchases.filter( (purchase) => {
+  //   let randomArr = []
+  //   randomArr.push(purchase.date[5])
+  //   randomArr.push(purchase.date[6])
+  //   let monthNum = parseInt(randomArr.join(""))
+  //   let viewNum = parseInt(props.view)
+  //   return monthNum === viewNum
+  // })
 
   let spend = []
-  shownPurchases.forEach( purchase => spend.push(parseFloat( purchase.actual_paid) ) )
+  props.shownPurchases.forEach( purchase => spend.push(parseFloat( purchase.actual_paid) ) )
   if (spend.length > 0) {
     var total = parseFloat(spend.reduce(reducer)).toFixed(2)
   }
 
 
   const renderMonthlies = () => {
-    if (allMonthlies.length > 0) {
+    if (props.monthlies.length > 0) {
       let monthliesArr = []
-      allMonthlies.map(
+      props.monthlies.map(
         monthly => monthliesArr.push( parseFloat(monthly.amount) )
       )
       return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
