@@ -31,7 +31,7 @@ const PurchaseContainer = (props) => {
       />
       <PurchaseTable
         view={props.view}
-        purchases = {props.purchases}
+        // purchases = {props.purchases}
         editHandler = {props.editHandler}
         deleteHandler = {props.deleteHandler}
         handleCancel = {props.handleCancel}

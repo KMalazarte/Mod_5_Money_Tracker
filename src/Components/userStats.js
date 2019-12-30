@@ -1,26 +1,33 @@
 import React, { Fragment } from 'react'
 import { Header, Table, Button } from 'semantic-ui-react'
 import UserForm from './userForm'
+import { useSelector } from 'react-redux'
 
 
 const UserStats = (props) => {
 
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
   const renderMonthlies = () => {
-    if (props.monthlies) {
+    if (props.monthlies.length > 0) {
       let monthliesArr = []
-      const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      props.monthlies.map(monthly => monthliesArr.push(parseFloat(monthly.amount))
+      props.monthlies.map(
+        monthly => monthliesArr.push( parseFloat(monthly.amount) )
       )
-        return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
+      return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
       }
     }
 
   let spent = () => {
-    return (parseFloat(props.spent).toFixed(2))
+    if (props.total) {
+      return (parseFloat(props.total).toFixed(2))
+    } else { return 0 }
   }
 
   let amtLeft = () => {
-    return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(props.spent))).toFixed(2)
+    if (props.total) {
+      return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(props.total))).toFixed(2)
+    } else { return parseFloat( (localStorage.monthly_take_home) - ( parseFloat(renderMonthlies() )) ) }
   }
 
   return(

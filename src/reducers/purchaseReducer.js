@@ -1,9 +1,11 @@
-import { FETCH_PURCHASES_PENDING, FETCH_PURCHASES_SUCCESS, FETCH_PURCHASES_ERROR } from '../actions'
+import { FETCH_PURCHASES_PENDING, FETCH_PURCHASES_SUCCESS, FETCH_PURCHASES_ERROR, FILTER_PURCHASES } from '../actions'
 
 const initialState = {
   pending:false,
   purchases: [],
-  error: null
+  error: null,
+  currentPurchases: [],
+  view: ""
 }
 
 const purchaseReducer = (state = initialState, action) => {
@@ -30,8 +32,5 @@ const purchaseReducer = (state = initialState, action) => {
   }
 }
 
-// export const getPurchases = state => state.purchases;
-// export const getPurchasesPending = state => state.pending;
-// export const getPurchasesError = state => state.error;
 
 export default purchaseReducer

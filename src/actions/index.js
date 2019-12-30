@@ -9,6 +9,7 @@ export const FETCH_MONTHLIES_ERROR = "FETCH_MONTHLIES_ERROR"
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
 // WITH THUNK WE CAN RETURN A FUNCTION THAT USES DISPATCH
+// BELOW ARE ACTIONS CREATORS: FUNCTIONS THAT RETURN ACTIONS
 
 
 const fetchPurchasesPending = () => {
@@ -46,7 +47,7 @@ const fetchMonthliesSuccess = (monthlies) => {
 
 const fetchMonthliesError = (error) => {
   return {
-    type: FETCH_MONTHLIES_ERROR ,
+    type: FETCH_MONTHLIES_ERROR,
     error: error
   }
 }

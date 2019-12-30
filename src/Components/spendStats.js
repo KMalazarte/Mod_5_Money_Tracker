@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { Grid } from 'semantic-ui-react'
 import PieChart  from 'react-minimal-pie-chart';
+import { useSelector } from 'react-redux'
 
 const SpendStats = (props) => {
 
@@ -8,92 +9,94 @@ const SpendStats = (props) => {
 
     const reducer = (accumulator, currentValue) => accumulator + currentValue
 
+    console.log("%c purchase spend stats",'color: blue', props.total);
+
     let eatingOutAdd = () => {
-      const eatingOutFilter = props.purchases.filter(purchase => purchase.category === "Eating Out")
+      const eatingOutFilter = props.shownPurchases.filter(purchase => purchase.category === "Eating Out")
       const eatingOutMap = eatingOutFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(eatingOutMap.reduce(reducer, 0)).toFixed(2)
     }
 
     let groceriesAdd = () => {
-      const groceriesFilter = props.purchases.filter(purchase => purchase.category === "Groceries")
+      const groceriesFilter = props.shownPurchases.filter(purchase => purchase.category === "Groceries")
       const groceriesMap = groceriesFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(groceriesMap.reduce(reducer, 0)).toFixed(2)
     }
 
     let entertainmentAdd = () => {
-      const entertainmentFilter = props.purchases.filter(purchase => purchase.category === "Entertainment")
+      const entertainmentFilter = props.shownPurchases.filter(purchase => purchase.category === "Entertainment")
       const entertainmentMap = entertainmentFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(entertainmentMap.reduce(reducer, 0)).toFixed(2)
     }
 
     let giftsAdd = () => {
-      const giftsFilter = props.purchases.filter(purchase => purchase.category === "Gifts")
+      const giftsFilter = props.shownPurchases.filter(purchase => purchase.category === "Gifts")
       const giftsMap = giftsFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(giftsMap.reduce(reducer, 0)).toFixed(2)
     }
 
     let boozeAdd = () => {
-      const boozeFilter = props.purchases.filter(purchase => purchase.category === "Booze/Night Out")
+      const boozeFilter = props.shownPurchases.filter(purchase => purchase.category === "Booze/Night Out")
       const boozeMap = boozeFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(boozeMap.reduce(reducer, 0)).toFixed(2)
     }
 
     let transportAdd = () => {
-      const transportFilter = props.purchases.filter(purchase => purchase.category === "Transportation/ Gas")
+      const transportFilter = props.shownPurchases.filter(purchase => purchase.category === "Transportation/ Gas")
       const transportMap = transportFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(transportMap.reduce(reducer, 0)).toFixed(2)
     }
 
     let clothesAdd = () => {
-      const clothesFilter = props.purchases.filter(purchase => purchase.category === "Clothes/Accessories")
+      const clothesFilter = props.shownPurchases.filter(purchase => purchase.category === "Clothes/Accessories")
       const clothesMap = clothesFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(clothesMap.reduce(reducer, 0)).toFixed(2)
     }
 
     let travelAdd = () => {
-      const travelFilter = props.purchases.filter(purchase => purchase.category === "Flights/ Hotels")
+      const travelFilter = props.shownPurchases.filter(purchase => purchase.category === "Flights/ Hotels")
       const travelMap = travelFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(travelMap.reduce(reducer, 0)).toFixed(2)
     }
 
     let miscAdd = () => {
-      const miscFilter = props.purchases.filter(purchase => purchase.category === "Misc.")
+      const miscFilter = props.shownPurchases.filter(purchase => purchase.category === "Misc.")
       const miscMap = miscFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
     }
 
-    // console.log("spend Stats", parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.spent)))*100).toFixed(4)   )
+    // console.log("spend Stats", parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.total)))*100).toFixed(4)   )
     return(
     <Fragment>
       {clicked ? (
         <div centered onClick={() => setClicked(!clicked)} className='color'>
           <Grid textAlign='center' className='color-container'>
             <Grid.Row color="blue">
-              <p>Eating Out: ${eatingOutAdd()} / {parseFloat((parseFloat(eatingOutAdd())/(parseFloat(props.spent)))*100).toFixed(2)}% </p>
+              <p>Eating Out: ${eatingOutAdd()} / {parseFloat((parseFloat(eatingOutAdd())/(parseFloat(props.total)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="teal">
-              <p>Groceries: ${groceriesAdd()} / {parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%  </p>
+              <p>Groceries: ${groceriesAdd()} / {parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.total)))*100).toFixed(2)}%  </p>
             </Grid.Row>
             <Grid.Row color="green">
-              <p>Entertainment: ${entertainmentAdd()} / {parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.spent)))*100).toFixed(2)}% </p>
+              <p>Entertainment: ${entertainmentAdd()} / {parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.total)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="red">
-              <p>Clothes/Accessories: ${clothesAdd()} / {parseFloat((parseFloat(clothesAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Clothes/Accessories: ${clothesAdd()} / {parseFloat((parseFloat(clothesAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="yellow">
-              <p>Booze/Night Out: ${boozeAdd()} / {parseFloat((parseFloat(boozeAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Booze/Night Out: ${boozeAdd()} / {parseFloat((parseFloat(boozeAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="purple">
-              <p>Transportation/ Gas: ${transportAdd()} / {parseFloat((parseFloat(transportAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Transportation/ Gas: ${transportAdd()} / {parseFloat((parseFloat(transportAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="orange">
-              <p>Flights/ Hotels: ${travelAdd()} / {parseFloat((parseFloat(travelAdd())/(parseFloat(props.spent)))*100).toFixed(2)}% </p>
+              <p>Flights/ Hotels: ${travelAdd()} / {parseFloat((parseFloat(travelAdd())/(parseFloat(props.total)))*100).toFixed(2)}% </p>
             </Grid.Row>
             <Grid.Row color="brown">
-              <p>Misc: ${miscAdd()} / {parseFloat((parseFloat(miscAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Misc: ${miscAdd()} / {parseFloat((parseFloat(miscAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
             </Grid.Row>
             <Grid.Row color="pink">
-              <p>Gifts: ${giftsAdd()} / {parseFloat((parseFloat(giftsAdd())/(parseFloat(props.spent)))*100).toFixed(2)}%</p>
+              <p>Gifts: ${giftsAdd()} / {parseFloat((parseFloat(giftsAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
             </Grid.Row>
           </Grid>
         </div>
