@@ -62,7 +62,7 @@ class Profile extends React.Component {
     }
 
     deleteHandler = (e) => {
-      let notClicked = this.props.Purchases.filter((purchase) => {
+      let notClicked = this.props.purchases.filter((purchase) => {
         return parseInt(this.state.bingo) !== purchase.id
       })
         this.setState({
@@ -279,7 +279,7 @@ class Profile extends React.Component {
        })
      }
      this.setState({
-       purchases: [...this.props.Purchases, purObj],
+       purchases: [...this.props.purchases, purObj],
        date:"",
        name:"",
        category:"",
@@ -316,7 +316,7 @@ class Profile extends React.Component {
        })
    }//editHandler end
 
-   filteredMonthRows =
+   updatePurchases = () => {
      this.props.purchases.filter( (purchase) => {
        let randomArr = []
        randomArr.push(purchase.date[5])
@@ -325,20 +325,6 @@ class Profile extends React.Component {
        let viewNum = parseInt(this.state.view)
        return monthNum === viewNum
      })
-
-   updatePurchases = () => {
-     let filteredMonthRows =
-         this.props.Purchases.filter( (purchase) => {
-           let randomArr = []
-           randomArr.push(purchase.date[5])
-           randomArr.push(purchase.date[6])
-           let monthNum = parseInt(randomArr.join(""))
-           let viewNum = parseInt(this.state.view)
-           return monthNum === viewNum
-         })
-     // this.setState({
-     //   Purchases: filteredMonthRows
-     // })
    }
 
    viewHandler = (e) => {
@@ -349,24 +335,33 @@ class Profile extends React.Component {
      this.updatePurchases()
    }
 
-   shownPurchases = this.props.purchases.filter( (purchase) => {
-     let randomArr = []
-     randomArr.push(purchase.date[5])
-     randomArr.push(purchase.date[6])
-     let monthNum = parseInt(randomArr.join(""))
-     let viewNum = parseInt(this.state.view)
-     return monthNum === viewNum
-   })
-
 
   render() {
     // console.log("%c profile props",'color: firebrick', this.props);
-    // const monthlyRows = this.props.currentMonthlies.map(monthly =>
-    //     <Table.Row>
-    //       <Table.Cell>{monthly.name}</Table.Cell>
-    //       <Table.Cell>{monthly.amount}</Table.Cell>
-    //     </Table.Row>
-    //   )
+
+    let shownPurchases = this.props.purchases.filter( (purchase) => {
+      let randomArr = []
+      randomArr.push(purchase.date[5])
+      randomArr.push(purchase.date[6])
+      let monthNum = parseInt(randomArr.join(""))
+      let viewNum = parseInt(this.state.view)
+      return monthNum === viewNum
+    })
+
+
+    let spent = []
+    let total = 0
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue
+
+    shownPurchases.forEach( purchase => spent.push(parseFloat( purchase.actual_paid) ) )
+
+
+    if (spent.length > 0) {
+      total = parseFloat(spent.reduce(reducer)).toFixed(2)
+    }
+
+    // console.log("%c profile props",'color: firebrick', total);
     return (
     <Fragment className="bg">
       <Grid padded className='profile-background'>
@@ -385,8 +380,8 @@ class Profile extends React.Component {
               currentTakeHome={this.state.currentTakeHome}
               userClickToggle={this.userClickToggle}
               userClicked={this.state.userClicked}
-              // spent={this.state.spent}
-              // purchases={this.props.Purchases}
+              total={total}
+              spent={spent}
               monthlies={this.props.currentMonthlies}
               handleChange = {this.handleChange}
               handleTakeHomeSubmit = {this.handleTakeHomeSubmit}
@@ -396,9 +391,9 @@ class Profile extends React.Component {
           </Grid.Column>
           <Grid.Column width={4}>
             <SpendStats
-              // spent={this.state.spent}
-              // purchases={this.props.Purchases}
-              shownPurchases={this.props.purchases}
+              total={total}
+              spent={spent}
+              shownPurchases={shownPurchases}
               view={this.state.view}
             />
           </Grid.Column>
@@ -436,11 +431,11 @@ class Profile extends React.Component {
               outOfPocket={this.state.outOfPocket}
               actualPaid={this.state.actualPaid}
               paymentMethod={this.state.paymentMethod}
-              // purchases={this.props.Purchases}
+              // purchases={this.props.purchases}
               viewHandler={this.viewHandler}
               view={this.state.view}
               updatePurchases={this.updatePurchases}
-              filteredMonthRows={this.filteredMonthRows}
+              filteredMonthRows={this.shownPurchases}
             />
         </Grid.Row>
       </Grid>

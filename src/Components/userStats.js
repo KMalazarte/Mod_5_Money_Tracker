@@ -6,29 +6,7 @@ import { useSelector } from 'react-redux'
 
 const UserStats = (props) => {
 
-  // const allMonthlies = useSelector(state => state.monthlyReducer.monthlies)
-  //
-  // const allPurchases = useSelector(state => state.purchaseReducer.purchases)
-
-  console.log(props);
-
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
-
-  // let shownPurchases = props.purchases.filter( (purchase) => {
-  //   let randomArr = []
-  //   randomArr.push(purchase.date[5])
-  //   randomArr.push(purchase.date[6])
-  //   let monthNum = parseInt(randomArr.join(""))
-  //   let viewNum = parseInt(props.view)
-  //   return monthNum === viewNum
-  // })
-
-  let spend = []
-  props.shownPurchases.forEach( purchase => spend.push(parseFloat( purchase.actual_paid) ) )
-  if (spend.length > 0) {
-    var total = parseFloat(spend.reduce(reducer)).toFixed(2)
-  }
-
 
   const renderMonthlies = () => {
     if (props.monthlies.length > 0) {
@@ -41,18 +19,16 @@ const UserStats = (props) => {
     }
 
   let spent = () => {
-    if (total) {
-      return (parseFloat(total).toFixed(2))
+    if (props.total) {
+      return (parseFloat(props.total).toFixed(2))
     } else { return 0 }
   }
 
   let amtLeft = () => {
-    if (total) {
-      return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(total))).toFixed(2)
+    if (props.total) {
+      return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(props.total))).toFixed(2)
     } else { return parseFloat( (localStorage.monthly_take_home) - ( parseFloat(renderMonthlies() )) ) }
   }
-
-  console.log("%c purchase user stats",'color: blue', spent())
 
   return(
     <Fragment>
