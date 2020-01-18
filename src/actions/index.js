@@ -5,6 +5,7 @@ export const FETCH_PURCHASES_ERROR = "FETCH_PURCHASES_ERROR"
 export const FETCH_MONTHLIES_PENDING = "FETCH_MONTHLIES_PENDING"
 export const FETCH_MONTHLIES_SUCCESS = "FETCH_MONTHLIES_SUCCESS"
 export const FETCH_MONTHLIES_ERROR = "FETCH_MONTHLIES_ERROR"
+export const PURCHASE_SUBMITTED = "PURCHASE_SUBMITTED"
 
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
@@ -49,5 +50,13 @@ const fetchMonthliesError = (error) => {
   return {
     type: FETCH_MONTHLIES_ERROR,
     error: error
+  }
+}
+
+const purchaseSubmitted = (purObj) => {
+  console.log("submitted");
+  return {
+    type: PURCHASE_SUBMITTED,
+    payload: purObj
   }
 }

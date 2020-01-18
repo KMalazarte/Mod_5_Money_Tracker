@@ -45,7 +45,6 @@ class Profile extends React.Component {
          })
      }
 
-
     show = (e) => {
       let datID = e.currentTarget.dataset.id
       this.setState({
@@ -242,6 +241,8 @@ class Profile extends React.Component {
                    user_id: localStorage.user_id
                  }
 
+      console.log("%c purobj",'color: yellow',purObj);
+
       if (this.state.editClicked) {
 
       fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.purchaseId}`, {
@@ -328,7 +329,6 @@ class Profile extends React.Component {
    }
 
    viewHandler = (e) => {
-     // console.log("View has been changed to:", e.currentTarget.id)
      this.setState({
        view: e.currentTarget.id,
      })
@@ -337,7 +337,6 @@ class Profile extends React.Component {
 
 
   render() {
-    // console.log("%c profile props",'color: firebrick', this.props);
 
     let shownPurchases = this.props.purchases.filter( (purchase) => {
       let randomArr = []
@@ -361,7 +360,8 @@ class Profile extends React.Component {
       total = parseFloat(spent.reduce(reducer)).toFixed(2)
     }
 
-    // console.log("%c profile props",'color: firebrick', total);
+    console.log("%c profile props",'color: firebrick', this.props);
+
     return (
     <Fragment className="bg">
       <Grid padded className='profile-background'>
@@ -454,17 +454,14 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    changePurchases: function() {
-      dispatch("")
+    addPurchase: (purObj) => {
+      dispatch({
+        type: "",
+        payload: purObj
+      })
     }
   }
 }
-
-
-// const mapStateToProps = ({ usersReducer: { user } }) => ({
-//   user
-// })
-
 
 
 

@@ -9,8 +9,6 @@ const SpendStats = (props) => {
 
     const reducer = (accumulator, currentValue) => accumulator + currentValue
 
-    console.log("%c purchase spend stats",'color: blue', props.total);
-
     let eatingOutAdd = () => {
       const eatingOutFilter = props.shownPurchases.filter(purchase => purchase.category === "Eating Out")
       const eatingOutMap = eatingOutFilter.map(purchase => parseFloat(purchase.actual_paid))
