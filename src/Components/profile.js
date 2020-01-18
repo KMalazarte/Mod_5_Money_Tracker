@@ -184,7 +184,9 @@ class Profile extends React.Component {
 
 
    handleMonthlySubmit = (e) => {
-     e.preventDefault()
+
+    e.preventDefault()
+
     let monthlyObj= {
                   name: this.state.monthlyName,
                   amount: this.state.monthlyAmount,
@@ -225,8 +227,6 @@ class Profile extends React.Component {
     }//handleMonthlySubmit
 
 
-
-
    handleSubmit = (e) => {
      e.preventDefault()
 
@@ -258,6 +258,8 @@ class Profile extends React.Component {
           user_id: localStorage.user_id
         })
       })
+      this.props.addPurchase(purObj)
+      
     } else {
      fetch(`http://localhost:3000/purchases`, {
        method: 'POST',
@@ -277,43 +279,46 @@ class Profile extends React.Component {
      })
     this.props.addPurchase(purObj)
     }
-    
-     this.setState({
-       date:"",
-       name:"",
-       category:"",
-       placeOfPurchase:"",
-       outOfPocket:"",
-       actualPaid:"",
-       paymentMethod:"",
-       selected: "",
-       purchaseId: ""
-     })
+      // FORM RESET
+      this.setState({
+        date:"",
+        name:"",
+        category:"",
+        placeOfPurchase:"",
+        outOfPocket:"",
+        actualPaid:"",
+        paymentMethod:"",
+        selected: "",
+        purchaseId: ""
+      })
 
    }
 
    editHandler = (e) => {
-     console.log("Edited");
      alert('Please use the form to edit the purchase and press Submit when done')
 
      let clicked = this.props.purchases.find((purchase) => {
        return parseInt(e.currentTarget.id) === purchase.id
      })
+
      let notClicked = this.props.purchases.filter((purchase) => {
        return parseInt(e.currentTarget.id) !== purchase.id
      })
-       this.setState({
-         name:clicked.name,
-         category:clicked.category,
-         placeOfPurchase:clicked.place_of_purchase,
-         outOfPocket:clicked.out_of_pocket,
-         actualPaid:clicked.actual_paid,
-         paymentMethod:clicked.payment_method,
-         selected:clicked.selected,
-         purchases: notClicked,
-         editClicked:true,
-         purchaseId:clicked.id
-       })
+
+     this.props.editPurchase(clicked.id)
+
+     this.setState({
+       name:clicked.name,
+       category:clicked.category,
+       placeOfPurchase:clicked.place_of_purchase,
+       outOfPocket:clicked.out_of_pocket,
+       actualPaid:clicked.actual_paid,
+       paymentMethod:clicked.payment_method,
+       selected:clicked.selected,
+       purchases: notClicked,
+       editClicked:true,
+       purchaseId:clicked.id
+     })
    }//editHandler end
 
    updatePurchases = () => {
@@ -334,7 +339,6 @@ class Profile extends React.Component {
      this.updatePurchases()
    }
 
-
   render() {
 
     let shownPurchases = this.props.purchases.filter( (purchase) => {
@@ -345,7 +349,6 @@ class Profile extends React.Component {
       let viewNum = parseInt(this.state.view)
       return monthNum === viewNum
     })
-
 
     let spent = []
     let total = 0
@@ -453,12 +456,16 @@ const mapDispatchToProps = (dispatch, props) => {
     addPurchase: (purObj) => {
       dispatch({
         type: "PURCHASE_SUBMITTED",
-        payload: purObj
+        purObj: purObj
+      })
+    },
+    editPurchase: (id) => {
+      dispatch({
+        type: 'PURCHASE_EDITED',
+        id: id
       })
     }
   }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Profile))
