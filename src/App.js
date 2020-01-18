@@ -12,7 +12,6 @@ import './App.css'
 class App extends React.Component {
 
   render() {
-  console.log('%c APP State: ', 'color: firebrick', )
     return (
     <Fragment>
       <Nav />

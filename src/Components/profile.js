@@ -45,7 +45,6 @@ class Profile extends React.Component {
          })
      }
 
-
     show = (e) => {
       let datID = e.currentTarget.dataset.id
       this.setState({
@@ -88,7 +87,6 @@ class Profile extends React.Component {
     }
 
    handleChange = (e) => {
-     // console.log(e.target.value);
      this.setState({
        [e.target.name]: e.target.value
      })
@@ -186,7 +184,9 @@ class Profile extends React.Component {
 
 
    handleMonthlySubmit = (e) => {
-     e.preventDefault()
+
+    e.preventDefault()
+
     let monthlyObj= {
                   name: this.state.monthlyName,
                   amount: this.state.monthlyAmount,
@@ -227,8 +227,6 @@ class Profile extends React.Component {
     }//handleMonthlySubmit
 
 
-
-
    handleSubmit = (e) => {
      e.preventDefault()
 
@@ -260,60 +258,67 @@ class Profile extends React.Component {
           user_id: localStorage.user_id
         })
       })
+      this.props.addPurchase(purObj)
+      
     } else {
-       fetch(`http://localhost:3000/purchases`, {
-         method: 'POST',
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify({
-           date: this.state.date,
-           name: this.state.name,
-           category: this.state.category,
-           place_of_purchase: this.state.placeOfPurchase,
-           out_of_pocket: this.state.outOfPocket,
-           actual_paid: this.state.actualPaid,
-           payment_method: this.state.paymentMethod,
-           user_id: localStorage.user_id
-         })
+     fetch(`http://localhost:3000/purchases`, {
+       method: 'POST',
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify({
+         date: this.state.date,
+         name: this.state.name,
+         category: this.state.category,
+         place_of_purchase: this.state.placeOfPurchase,
+         out_of_pocket: this.state.outOfPocket,
+         actual_paid: this.state.actualPaid,
+         payment_method: this.state.paymentMethod,
+         user_id: localStorage.user_id
        })
-     }
-     this.setState({
-       purchases: [...this.props.purchases, purObj],
-       date:"",
-       name:"",
-       category:"",
-       placeOfPurchase:"",
-       outOfPocket:"",
-       actualPaid:"",
-       paymentMethod:"",
-       selected: "",
-       purchaseId: ""
      })
+    this.props.addPurchase(purObj)
+    }
+      // FORM RESET
+      this.setState({
+        date:"",
+        name:"",
+        category:"",
+        placeOfPurchase:"",
+        outOfPocket:"",
+        actualPaid:"",
+        paymentMethod:"",
+        selected: "",
+        purchaseId: ""
+      })
+
    }
 
    editHandler = (e) => {
-     console.log("Edited");
      alert('Please use the form to edit the purchase and press Submit when done')
 
      let clicked = this.props.purchases.find((purchase) => {
        return parseInt(e.currentTarget.id) === purchase.id
      })
+
      let notClicked = this.props.purchases.filter((purchase) => {
        return parseInt(e.currentTarget.id) !== purchase.id
      })
-       this.setState({
-         name:clicked.name,
-         category:clicked.category,
-         placeOfPurchase:clicked.place_of_purchase,
-         outOfPocket:clicked.out_of_pocket,
-         actualPaid:clicked.actual_paid,
-         paymentMethod:clicked.payment_method,
-         selected:clicked.selected,
-         purchases: notClicked,
-         editClicked:true,
-         purchaseId:clicked.id
-       })
+
+     this.props.editPurchase(clicked.id)
+
+     this.setState({
+       name:clicked.name,
+       category:clicked.category,
+       placeOfPurchase:clicked.place_of_purchase,
+       outOfPocket:clicked.out_of_pocket,
+       actualPaid:clicked.actual_paid,
+       paymentMethod:clicked.payment_method,
+       selected:clicked.selected,
+       purchases: notClicked,
+       editClicked:true,
+       purchaseId:clicked.id
+     })
    }//editHandler end
 
    updatePurchases = () => {
@@ -328,16 +333,13 @@ class Profile extends React.Component {
    }
 
    viewHandler = (e) => {
-     // console.log("View has been changed to:", e.currentTarget.id)
      this.setState({
        view: e.currentTarget.id,
      })
      this.updatePurchases()
    }
 
-
   render() {
-    // console.log("%c profile props",'color: firebrick', this.props);
 
     let shownPurchases = this.props.purchases.filter( (purchase) => {
       let randomArr = []
@@ -348,7 +350,6 @@ class Profile extends React.Component {
       return monthNum === viewNum
     })
 
-
     let spent = []
     let total = 0
 
@@ -356,12 +357,10 @@ class Profile extends React.Component {
 
     shownPurchases.forEach( purchase => spent.push(parseFloat( purchase.actual_paid) ) )
 
-
     if (spent.length > 0) {
       total = parseFloat(spent.reduce(reducer)).toFixed(2)
     }
 
-    // console.log("%c profile props",'color: firebrick', total);
     return (
     <Fragment className="bg">
       <Grid padded className='profile-background'>
@@ -454,18 +453,19 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    changePurchases: function() {
-      dispatch("")
+    addPurchase: (purObj) => {
+      dispatch({
+        type: "PURCHASE_SUBMITTED",
+        purObj: purObj
+      })
+    },
+    editPurchase: (id) => {
+      dispatch({
+        type: 'PURCHASE_EDITED',
+        id: id
+      })
     }
   }
 }
-
-
-// const mapStateToProps = ({ usersReducer: { user } }) => ({
-//   user
-// })
-
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Profile))
