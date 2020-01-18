@@ -1,4 +1,10 @@
-import { FETCH_PURCHASES_PENDING, FETCH_PURCHASES_SUCCESS, FETCH_PURCHASES_ERROR, FILTER_PURCHASES, PURCHASE_SUBMITTED, PURCHASE_EDITED } from '../actions'
+import { FETCH_PURCHASES_PENDING,
+         FETCH_PURCHASES_SUCCESS,
+         FETCH_PURCHASES_ERROR,
+         FILTER_PURCHASES,
+         PURCHASE_SUBMITTED,
+         PURCHASE_EDITED,
+         PURCHASE_DELETED } from '../actions'
 
 const initialState = {
   pending:false,
@@ -37,6 +43,14 @@ const purchaseReducer = (state = initialState, action) => {
       return {
         ...state,
         purchases: newPurchases
+      }
+    case PURCHASE_DELETED:
+      let afterDelete = state.purchases.filter( (purchase) => {
+        return parseInt(action.id) !== purchase.id
+      })
+      return {
+        ...state,
+        purchases: afterDelete
       }
     default:
       return state;

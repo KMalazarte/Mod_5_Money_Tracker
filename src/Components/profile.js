@@ -57,25 +57,22 @@ class Profile extends React.Component {
       this.setState({
         confirm: false
       })
-      console.log("close clicked")
     }
 
     deleteHandler = (e) => {
-      let notClicked = this.props.purchases.filter((purchase) => {
-        return parseInt(this.state.bingo) !== purchase.id
-      })
-        this.setState({
-          confirm: false,
-          purchases: notClicked,
 
-        })
-       fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.bingo}`, {
-         method: 'DELETE'
-       }).then(() => {
-          console.log('removed');
-       }).catch(err => {
-         console.error(err)
-       })
+      this.props.deletePurchase(this.state.bingo)
+
+      this.setState({
+        confirm: false
+      })
+
+     fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.bingo}`, {
+       method: 'DELETE'
+     }).then(() => {
+     }).catch(err => {
+       console.error(err)
+     })
     }
 
     handleCancel = (e) => {
@@ -259,7 +256,7 @@ class Profile extends React.Component {
         })
       })
       this.props.addPurchase(purObj)
-      
+
     } else {
      fetch(`http://localhost:3000/purchases`, {
        method: 'POST',
@@ -464,7 +461,13 @@ const mapDispatchToProps = (dispatch, props) => {
         type: 'PURCHASE_EDITED',
         id: id
       })
-    }
+    },
+    deletePurchase: (id) => {
+      dispatch({
+        type: 'PURCHASE_DELETED',
+        id: id
+      })
+    },
   }
 }
 

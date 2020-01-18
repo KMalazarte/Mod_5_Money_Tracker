@@ -7,7 +7,7 @@ export const FETCH_MONTHLIES_SUCCESS = "FETCH_MONTHLIES_SUCCESS"
 export const FETCH_MONTHLIES_ERROR = "FETCH_MONTHLIES_ERROR"
 export const PURCHASE_SUBMITTED = "PURCHASE_SUBMITTED"
 export const PURCHASE_EDITED = "PURCHASE_EDITED"
-
+export const PURCHASE_DELETED = "PURCHASE_DELETED"
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
 // WITH THUNK WE CAN RETURN A FUNCTION THAT USES DISPATCH
@@ -64,6 +64,13 @@ const purchaseSubmitted = (purObj) => {
 const purchaseEdited = (id) => {
   return {
     type: PURCHASE_EDITED,
+    id: id
+  }
+}
+
+const purchaseDeleted = (id) => {
+  return {
+    type: PURCHASE_DELETED,
     id: id
   }
 }
