@@ -231,6 +231,7 @@ class Profile extends React.Component {
    handleSubmit = (e) => {
      e.preventDefault()
 
+
      let purObj= { date: moment(this.state.date).format("YYYY-MM-DD"),
                    name: this.state.name,
                    category: this.state.category,
@@ -240,8 +241,6 @@ class Profile extends React.Component {
                    payment_method: this.state.paymentMethod,
                    user_id: localStorage.user_id
                  }
-
-      console.log("%c purobj",'color: yellow',purObj);
 
       if (this.state.editClicked) {
 
@@ -262,35 +261,37 @@ class Profile extends React.Component {
         })
       })
     } else {
-       fetch(`http://localhost:3000/purchases`, {
-         method: 'POST',
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify({
-           date: this.state.date,
-           name: this.state.name,
-           category: this.state.category,
-           place_of_purchase: this.state.placeOfPurchase,
-           out_of_pocket: this.state.outOfPocket,
-           actual_paid: this.state.actualPaid,
-           payment_method: this.state.paymentMethod,
-           user_id: localStorage.user_id
-         })
+     fetch(`http://localhost:3000/purchases`, {
+       method: 'POST',
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify({
+         date: this.state.date,
+         name: this.state.name,
+         category: this.state.category,
+         place_of_purchase: this.state.placeOfPurchase,
+         out_of_pocket: this.state.outOfPocket,
+         actual_paid: this.state.actualPaid,
+         payment_method: this.state.paymentMethod,
+         user_id: localStorage.user_id
        })
-     }
-     this.setState({
-       purchases: [...this.props.purchases, purObj],
-       date:"",
-       name:"",
-       category:"",
-       placeOfPurchase:"",
-       outOfPocket:"",
-       actualPaid:"",
-       paymentMethod:"",
-       selected: "",
-       purchaseId: ""
      })
+    this.props.addPurchase(purObj)
+    }
+     // this.setState({
+     //   purchases: [...this.props.purchases, purObj],
+     //   date:"",
+     //   name:"",
+     //   category:"",
+     //   placeOfPurchase:"",
+     //   outOfPocket:"",
+     //   actualPaid:"",
+     //   paymentMethod:"",
+     //   selected: "",
+     //   purchaseId: ""
+     // })
+
    }
 
    editHandler = (e) => {
@@ -355,12 +356,9 @@ class Profile extends React.Component {
 
     shownPurchases.forEach( purchase => spent.push(parseFloat( purchase.actual_paid) ) )
 
-
     if (spent.length > 0) {
       total = parseFloat(spent.reduce(reducer)).toFixed(2)
     }
-
-    console.log("%c profile props",'color: firebrick', this.props);
 
     return (
     <Fragment className="bg">
@@ -456,7 +454,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     addPurchase: (purObj) => {
       dispatch({
-        type: "",
+        type: "PURCHASE_SUBMITTED",
         payload: purObj
       })
     }
