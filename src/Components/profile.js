@@ -87,7 +87,6 @@ class Profile extends React.Component {
     }
 
    handleChange = (e) => {
-     // console.log(e.target.value);
      this.setState({
        [e.target.name]: e.target.value
      })
@@ -231,7 +230,6 @@ class Profile extends React.Component {
    handleSubmit = (e) => {
      e.preventDefault()
 
-
      let purObj= { date: moment(this.state.date).format("YYYY-MM-DD"),
                    name: this.state.name,
                    category: this.state.category,
@@ -279,18 +277,18 @@ class Profile extends React.Component {
      })
     this.props.addPurchase(purObj)
     }
-     // this.setState({
-     //   purchases: [...this.props.purchases, purObj],
-     //   date:"",
-     //   name:"",
-     //   category:"",
-     //   placeOfPurchase:"",
-     //   outOfPocket:"",
-     //   actualPaid:"",
-     //   paymentMethod:"",
-     //   selected: "",
-     //   purchaseId: ""
-     // })
+    
+     this.setState({
+       date:"",
+       name:"",
+       category:"",
+       placeOfPurchase:"",
+       outOfPocket:"",
+       actualPaid:"",
+       paymentMethod:"",
+       selected: "",
+       purchaseId: ""
+     })
 
    }
 
