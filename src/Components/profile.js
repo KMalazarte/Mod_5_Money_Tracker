@@ -13,7 +13,7 @@ import moment from 'moment'
 class Profile extends React.Component {
 
   state={
-    date: new Date(),
+    date:"",
     name:"",
     category:"",
     placeOfPurchase:"",
@@ -302,10 +302,15 @@ class Profile extends React.Component {
        return parseInt(e.currentTarget.id) !== purchase.id
      })
 
+     let dateFormatter = moment(clicked.date).toDate()
+
+     debugger
+
      this.props.editPurchase(clicked.id)
 
      this.setState({
        name:clicked.name,
+       date:dateFormatter,
        category:clicked.category,
        placeOfPurchase:clicked.place_of_purchase,
        outOfPocket:clicked.out_of_pocket,

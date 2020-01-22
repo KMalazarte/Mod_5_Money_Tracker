@@ -31,7 +31,6 @@ const PurchaseContainer = (props) => {
       />
       <PurchaseTable
         view={props.view}
-        // purchases = {props.purchases}
         editHandler = {props.editHandler}
         deleteHandler = {props.deleteHandler}
         handleCancel = {props.handleCancel}
@@ -50,5 +49,4 @@ const mapStateToProps = ({ usersReducer: { user } }) => ({
   user
 })
 
-// export default PurchaseContainer
 export default withAuth(connect(mapStateToProps)(PurchaseContainer))
