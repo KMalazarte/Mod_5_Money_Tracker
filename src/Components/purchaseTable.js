@@ -46,11 +46,6 @@ class PurchaseTable extends React.Component {
      })
    }
 
-   OpenModal = () => {
-     console.log("clicked");
-   }
-
-
    renderColors = (purchase) => {
      let color = ""
      switch (purchase.category) {
@@ -103,14 +98,14 @@ class PurchaseTable extends React.Component {
   const purchaseRows = () => {
     return filteredMonthRows.map(purchase =>
       <Table.Row style={{backgroundColor:this.renderColors(purchase)}} id={purchase.id} onClick={this.openModal} key={purchase.id}>
-        <Table.Cell>{moment(purchase.date).format("DD-MMMM-YY")}</Table.Cell>
+        <Table.Cell>{moment(purchase.date).format("Do of MMM, YYYY")}</Table.Cell>
         <Table.Cell>{purchase.name}</Table.Cell>
         <Table.Cell>{purchase.category}</Table.Cell>
         <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
         <Table.Cell>${parseFloat(purchase.out_of_pocket).toFixed(2)}</Table.Cell>
         <Table.Cell>${parseFloat(purchase.actual_paid).toFixed(2)}
           <PurchaseModal
-            date = {moment(purchase.date).format("DD-MMMM-YY")}
+            date = {moment(purchase.date).format("Do of MMM, YYYY")}
             name = {purchase.name}
             category = {purchase.category}
             place_of_purchase = {purchase.place_of_purchase}
