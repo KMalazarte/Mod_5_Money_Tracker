@@ -13,7 +13,7 @@ import moment from 'moment'
 class Profile extends React.Component {
 
   state={
-    date: new Date(),
+    date:"",
     name:"",
     category:"",
     placeOfPurchase:"",
@@ -34,14 +34,17 @@ class Profile extends React.Component {
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
     bingo:"",
-    view: ""
+    view: "",
+    viewYear: ""
   }
     // LIFECYCLE METHOD
     componentDidMount() {
       let d = new Date()
       let realDateNum = ( parseInt( d.getMonth() ) ) + 1
+      let currentYear = d.getFullYear()
          this.setState({
-           view: realDateNum
+           view: realDateNum,
+           viewYear: currentYear
          })
      }
 
@@ -57,25 +60,22 @@ class Profile extends React.Component {
       this.setState({
         confirm: false
       })
-      console.log("close clicked")
     }
 
     deleteHandler = (e) => {
-      let notClicked = this.props.purchases.filter((purchase) => {
-        return parseInt(this.state.bingo) !== purchase.id
-      })
-        this.setState({
-          confirm: false,
-          purchases: notClicked,
 
-        })
-       fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.bingo}`, {
-         method: 'DELETE'
-       }).then(() => {
-          console.log('removed');
-       }).catch(err => {
-         console.error(err)
-       })
+      this.props.deletePurchase(this.state.bingo)
+
+      this.setState({
+        confirm: false
+      })
+
+     fetch(`http://localhost:3000/${localStorage.user_id}/purchases/${this.state.bingo}`, {
+       method: 'DELETE'
+     }).then(() => {
+     }).catch(err => {
+       console.error(err)
+     })
     }
 
     handleCancel = (e) => {
@@ -259,7 +259,7 @@ class Profile extends React.Component {
         })
       })
       this.props.addPurchase(purObj)
-      
+
     } else {
      fetch(`http://localhost:3000/purchases`, {
        method: 'POST',
@@ -305,10 +305,15 @@ class Profile extends React.Component {
        return parseInt(e.currentTarget.id) !== purchase.id
      })
 
+     let dateFormatter = moment(clicked.date).toDate()
+
+     debugger
+
      this.props.editPurchase(clicked.id)
 
      this.setState({
        name:clicked.name,
+       date:dateFormatter,
        category:clicked.category,
        placeOfPurchase:clicked.place_of_purchase,
        outOfPocket:clicked.out_of_pocket,
@@ -337,6 +342,12 @@ class Profile extends React.Component {
        view: e.currentTarget.id,
      })
      this.updatePurchases()
+   }
+
+   yearViewHandler = (e) => {
+     this.setState({
+       viewYear: parseInt(e.currentTarget.id)
+     })
    }
 
   render() {
@@ -430,11 +441,13 @@ class Profile extends React.Component {
               outOfPocket={this.state.outOfPocket}
               actualPaid={this.state.actualPaid}
               paymentMethod={this.state.paymentMethod}
-              // purchases={this.props.purchases}
               viewHandler={this.viewHandler}
               view={this.state.view}
+              viewYear={this.state.viewYear}
+              yearViewHandler={this.yearViewHandler}
               updatePurchases={this.updatePurchases}
               filteredMonthRows={this.shownPurchases}
+
             />
         </Grid.Row>
       </Grid>
@@ -464,7 +477,13 @@ const mapDispatchToProps = (dispatch, props) => {
         type: 'PURCHASE_EDITED',
         id: id
       })
-    }
+    },
+    deletePurchase: (id) => {
+      dispatch({
+        type: 'PURCHASE_DELETED',
+        id: id
+      })
+    },
   }
 }
 

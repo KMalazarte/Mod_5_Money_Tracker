@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { Header, Table, Button } from 'semantic-ui-react'
 import UserForm from './userForm'
-import { useSelector } from 'react-redux'
 
 
 const UserStats = (props) => {
@@ -34,7 +33,7 @@ const UserStats = (props) => {
     <Fragment>
     { props.userClicked ? (
       <>
-        <Header size="huge" inverted color="orange">
+        <Header size="huge" color="black" textAlign="center">
           User Stats
         </Header>
         <Table color="orange">

@@ -18,11 +18,9 @@ class PurchaseTable extends React.Component {
 
   componentDidUpdate(){
     if (this.state.data.length !== this.props.purchases.length) {
-      this.setState(
-        {
-          data: this.props.purchases
-        }
-      )
+      this.setState({
+        data: this.props.purchases
+      })
     }
   }
 
@@ -45,11 +43,6 @@ class PurchaseTable extends React.Component {
        direction: direction === 'ascending' ? 'descending' : 'ascending',
      })
    }
-
-   OpenModal = () => {
-     console.log("clicked");
-   }
-
 
    renderColors = (purchase) => {
      let color = ""
@@ -86,8 +79,6 @@ class PurchaseTable extends React.Component {
 
   render() {
 
-      // console.log("%c purchase table props",'color: firebrick', this.props);
-
   const { column, data, direction } = this.state
 
   const filteredMonthRows =
@@ -103,14 +94,14 @@ class PurchaseTable extends React.Component {
   const purchaseRows = () => {
     return filteredMonthRows.map(purchase =>
       <Table.Row style={{backgroundColor:this.renderColors(purchase)}} id={purchase.id} onClick={this.openModal} key={purchase.id}>
-        <Table.Cell>{moment(purchase.date).format("DD-MMMM-YY")}</Table.Cell>
+        <Table.Cell>{moment(purchase.date).format("Do of MMM, YYYY")}</Table.Cell>
         <Table.Cell>{purchase.name}</Table.Cell>
         <Table.Cell>{purchase.category}</Table.Cell>
         <Table.Cell>{purchase.place_of_purchase}</Table.Cell>
         <Table.Cell>${parseFloat(purchase.out_of_pocket).toFixed(2)}</Table.Cell>
         <Table.Cell>${parseFloat(purchase.actual_paid).toFixed(2)}
           <PurchaseModal
-            date = {moment(purchase.date).format("DD-MMMM-YY")}
+            date = {moment(purchase.date).format("Do of MMM, YYYY")}
             name = {purchase.name}
             category = {purchase.category}
             place_of_purchase = {purchase.place_of_purchase}

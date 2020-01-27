@@ -79,7 +79,7 @@ const PurchaseForm = (props) => {
             <DatePicker
               selected={props.date}
               onChange={props.dateHandler}
-              dateFormat="dd-MMMM-yy"
+              dateFormat="MMMM dd, yyyy"
               placeholderText="Date"
             />
           </Form.Field>

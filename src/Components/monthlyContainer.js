@@ -76,7 +76,7 @@ const MonthlyContainer = (props) => {
         </>
     ) : (
         <>
-          <Header textAlign="center" size="huge" inverted color="orange">
+          <Header textAlign="center" size="huge" color="black">
             Recurring Monthly Expenses
           </Header>
           <Table selectable color="orange">
