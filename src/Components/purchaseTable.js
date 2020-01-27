@@ -81,8 +81,6 @@ class PurchaseTable extends React.Component {
 
   render() {
 
-      // console.log("%c purchase table props",'color: firebrick', this.props);
-
   const { column, data, direction } = this.state
 
   const filteredMonthRows =

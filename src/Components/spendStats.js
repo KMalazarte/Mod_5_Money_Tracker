@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Grid } from 'semantic-ui-react'
 import PieChart  from 'react-minimal-pie-chart';
-import { useSelector } from 'react-redux'
 
 const SpendStats = (props) => {
 
