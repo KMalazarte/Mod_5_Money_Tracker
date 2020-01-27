@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Grid, Header } from 'semantic-ui-react'
 
 const monthOptions = [
   {
@@ -110,24 +110,27 @@ const viewSelector = (props) => {
     }
   }
 
-  console.log(props.viewYear)
-
   return (
     <Fragment>
-      <h1>You are currently viewing: {currentMonth()} {props.viewYear}</h1>
-      <Dropdown
-       placeholder='Please select month to view'
-       selection
-       options={monthOptions}
-       onChange={props.viewHandler}
-      />
-      <Dropdown
-        placeholder='Please select year to view'
-        fluid
-        selection
-        options={yearOptions}
-        onChange={props.yearViewHandler}
-      />
+       <Header>You are currently viewing: {currentMonth()} {props.viewYear}</Header>
+       <Grid padded textAlign="center" columns="equal">
+        <Grid.Column>
+          <Dropdown
+           placeholder='Please select month to view'
+           selection
+           options={monthOptions}
+           onChange={props.viewHandler}
+          />
+        </Grid.Column>
+        <Grid.Column>
+          <Dropdown
+            placeholder='Please select year to view'
+            selection
+            options={yearOptions}
+            onChange={props.yearViewHandler}
+          />
+        </Grid.Column>
+      </Grid>
     </Fragment>
   )
 }
