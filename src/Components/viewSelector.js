@@ -76,6 +76,7 @@ const viewOptions = [
   }
 ]
 
+
 const viewSelector = (props) => {
 
   let d = new Date()
@@ -89,9 +90,19 @@ const viewSelector = (props) => {
     }
   }
 
+  let currentYear = () => {
+    if (props.viewYear === "") {
+      return d.getFullYear
+    } else {
+      return 
+    }
+  }
+
+  console.log(props.viewYear)
+
   return (
     <Fragment>
-      <h1>You are currently viewing: {currentMonth()}</h1>
+      <h1>You are currently viewing: {currentMonth()} {currentYear}</h1>
       <Dropdown
        placeholder='Please select month to view'
        fluid

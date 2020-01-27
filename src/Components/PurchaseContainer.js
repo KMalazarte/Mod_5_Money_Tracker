@@ -28,6 +28,7 @@ const PurchaseContainer = (props) => {
         view={props.view}
         viewHandler={props.viewHandler}
         updateCurrentPurchases={props.updateCurrentPurchases}
+        viewYear={props.viewYear}
       />
       <PurchaseTable
         view={props.view}

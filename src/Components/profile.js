@@ -34,14 +34,17 @@ class Profile extends React.Component {
     currentTakeHome:localStorage.monthly_take_home,
     confirm: false,
     bingo:"",
-    view: ""
+    view: "",
+    viewYear: ""
   }
     // LIFECYCLE METHOD
     componentDidMount() {
       let d = new Date()
       let realDateNum = ( parseInt( d.getMonth() ) ) + 1
+      let currentYear = d.getFullYear()
          this.setState({
-           view: realDateNum
+           view: realDateNum,
+           viewYear: currentYear
          })
      }
 
@@ -432,11 +435,12 @@ class Profile extends React.Component {
               outOfPocket={this.state.outOfPocket}
               actualPaid={this.state.actualPaid}
               paymentMethod={this.state.paymentMethod}
-              // purchases={this.props.purchases}
               viewHandler={this.viewHandler}
               view={this.state.view}
+              viewYear={this.state.viewYear}
               updatePurchases={this.updatePurchases}
               filteredMonthRows={this.shownPurchases}
+
             />
         </Grid.Row>
       </Grid>

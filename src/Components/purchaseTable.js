@@ -18,11 +18,9 @@ class PurchaseTable extends React.Component {
 
   componentDidUpdate(){
     if (this.state.data.length !== this.props.purchases.length) {
-      this.setState(
-        {
-          data: this.props.purchases
-        }
-      )
+      this.setState({
+        data: this.props.purchases
+      })
     }
   }
 
