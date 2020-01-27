@@ -344,6 +344,12 @@ class Profile extends React.Component {
      this.updatePurchases()
    }
 
+   yearViewHandler = (e) => {
+     this.setState({
+       viewYear: parseInt(e.currentTarget.id)
+     })
+   }
+
   render() {
 
     let shownPurchases = this.props.purchases.filter( (purchase) => {
@@ -438,6 +444,7 @@ class Profile extends React.Component {
               viewHandler={this.viewHandler}
               view={this.state.view}
               viewYear={this.state.viewYear}
+              yearViewHandler={this.yearViewHandler}
               updatePurchases={this.updatePurchases}
               filteredMonthRows={this.shownPurchases}
 

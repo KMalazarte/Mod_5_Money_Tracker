@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
-const viewOptions = [
+const monthOptions = [
   {
     key: 'January',
     text: 'January',
@@ -76,6 +76,26 @@ const viewOptions = [
   }
 ]
 
+const yearOptions = [
+  {
+    key: '2020',
+    text: '2020',
+    value: '2020',
+    id: 2020
+  },
+  {
+    key: '2019',
+    text: '2019',
+    value: '2019',
+    id: 2019
+  },
+  {
+    key: '2018',
+    text: '2018',
+    value: '2018',
+    id: 2018
+  }
+]
 
 const viewSelector = (props) => {
 
@@ -90,25 +110,23 @@ const viewSelector = (props) => {
     }
   }
 
-  let currentYear = () => {
-    if (props.viewYear === "") {
-      return d.getFullYear
-    } else {
-      return 
-    }
-  }
-
   console.log(props.viewYear)
 
   return (
     <Fragment>
-      <h1>You are currently viewing: {currentMonth()} {currentYear}</h1>
+      <h1>You are currently viewing: {currentMonth()} {props.viewYear}</h1>
       <Dropdown
        placeholder='Please select month to view'
-       fluid
        selection
-       options={viewOptions}
+       options={monthOptions}
        onChange={props.viewHandler}
+      />
+      <Dropdown
+        placeholder='Please select year to view'
+        fluid
+        selection
+        options={yearOptions}
+        onChange={props.yearViewHandler}
       />
     </Fragment>
   )
