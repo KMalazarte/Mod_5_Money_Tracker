@@ -83,13 +83,17 @@ class PurchaseTable extends React.Component {
 
   const filteredMonthRows =
       this.state.data.filter( (purchase) => {
-        let randomArr = []
-        randomArr.push(purchase.date[5])
-        randomArr.push(purchase.date[6])
-        let monthNum = parseInt(randomArr.join(""))
+        // let randomArr = []
+        // randomArr.push(purchase.date[5])
+        // randomArr.push(purchase.date[6])
+        // let monthNum = parseInt(randomArr.join(""))
+
+        let momentDate = moment(purchase.date,"YYYY-MM-DD")
+        let monthNum = momentDate.month() + 1
         let viewNum = parseInt(this.props.view)
         let yearNum = parseInt(this.props.viewYear)
-        let purchaseYear = moment(purchase.date,"YYYY-MM-DD").year()
+        let purchaseYear = momentDate.year()
+        // debugger
         return monthNum === viewNum && yearNum === purchaseYear
       })
 
