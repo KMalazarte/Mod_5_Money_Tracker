@@ -88,7 +88,9 @@ class PurchaseTable extends React.Component {
         randomArr.push(purchase.date[6])
         let monthNum = parseInt(randomArr.join(""))
         let viewNum = parseInt(this.props.view)
-        return monthNum === viewNum
+        let yearNum = parseInt(this.props.viewYear)
+        let purchaseYear = moment(purchase.date,"YYYY-MM-DD").year()
+        return monthNum === viewNum && yearNum === purchaseYear
       })
 
   const purchaseRows = () => {
