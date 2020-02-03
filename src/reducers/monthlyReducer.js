@@ -1,4 +1,9 @@
-import { FETCH_MONTHLIES_PENDING, FETCH_MONTHLIES_SUCCESS, FETCH_MONTHLIES_ERROR } from '../actions'
+import { FETCH_MONTHLIES_PENDING,
+         FETCH_MONTHLIES_SUCCESS,
+         FETCH_MONTHLIES_ERROR,
+         MONTHLY_SUBMITTED,
+         MONTHLY_EDITED,
+         MONTHLY_DELETED } from '../actions'
 
 const initialState = {
   pending:false,
@@ -24,6 +29,27 @@ const monthlyReducer = (state = initialState, action) => {
         ...state,
         pending: false,
         error: action.error
+      }
+    case MONTHLY_SUBMITTED:
+      return {
+        ...state,
+        monthlies: [...state.monthlies, action.monthlyObj]
+      }
+    case MONTHLY_EDITED:
+      let newMonthlies = state.monthlies.filter( (monthly) => {
+        return parseInt(action.id) !== purchase.id
+      })
+      return {
+        ...state,
+        monthlies: newMonthlies
+      }
+    case MONTHLY_DELETED:
+      let afterDelete = state.monthlies.filter( (monthly) => {
+        return parseInt(action.id) !== purchase.id
+      })
+      return {
+        ...state,
+        monthlies: afterDelete
       }
     default:
       return state;
