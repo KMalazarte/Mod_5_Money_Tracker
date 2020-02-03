@@ -169,22 +169,29 @@ class Profile extends React.Component {
    }
 
    deleteMonthlyHandler = (e) => {
-     console.log(e.currentTarget.dataset.id);
+
        let notClicked = this.props.currentMonthlies.filter((monthly) => {
          return parseInt(e.currentTarget.dataset.id) !== monthly.id
        })
-         this.setState({
-           monthlies: notClicked
-         })
-        fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.dataset.id}`, {
-          method: 'DELETE'
-        }).then(() => {
-           console.log('removed');
-        }).catch(err => {
-          console.error(err)
-        });
-        alert('Monthly deleted')
-     }
+
+       this.setState({
+         monthlies: notClicked
+       })
+
+      this.props.deleteMonthly(e.currentTarget.dataset.id)
+
+      debugger
+
+      fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.dataset.id}`, {
+        method: 'DELETE'
+      }).then(() => {
+         console.log('removed');
+      }).catch(err => {
+        console.error(err)
+      });
+      alert('Monthly deleted')
+
+  }
 
 
    handleMonthlySubmit = (e) => {
@@ -501,6 +508,12 @@ const mapDispatchToProps = (dispatch, props) => {
         id: id
       })
     },
+    deleteMonthly: (id) => {
+      dispatch({
+        type: 'MONTHLY_DELETED',
+        id: id
+      })
+    }
   }
 }
 
