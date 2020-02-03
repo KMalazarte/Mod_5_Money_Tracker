@@ -37,7 +37,7 @@ const monthlyReducer = (state = initialState, action) => {
       }
     case MONTHLY_EDITED:
       let newMonthlies = state.monthlies.filter( (monthly) => {
-        return parseInt(action.id) !== purchase.id
+        return parseInt(action.id) !== monthly.id
       })
       return {
         ...state,
@@ -45,7 +45,7 @@ const monthlyReducer = (state = initialState, action) => {
       }
     case MONTHLY_DELETED:
       let afterDelete = state.monthlies.filter( (monthly) => {
-        return parseInt(action.id) !== purchase.id
+        return parseInt(action.id) !== monthly.id
       })
       return {
         ...state,

@@ -155,6 +155,7 @@ class Profile extends React.Component {
      let notClicked = this.props.currentMonthlies.filter((monthly) => {
        return parseInt(e.currentTarget.id) !== monthly.id
      })
+
        this.setState({
          monthlyName: clicked.name,
          monthlyAmount: clicked.amount,
@@ -162,6 +163,9 @@ class Profile extends React.Component {
          monthlyEditClicked: true,
          monthlyId: clicked.id
        })
+
+       this.props.editMonthly(clicked.id)
+
    }
 
    deleteMonthlyHandler = (e) => {
@@ -205,6 +209,7 @@ class Profile extends React.Component {
         user_id: localStorage.user_id
         })
     })
+    this.props.addMonthly(monthlyObj)
     } else {
       fetch(`http://localhost:3000/monthlies`, {
         method: 'POST',
@@ -217,6 +222,7 @@ class Profile extends React.Component {
           user_id: localStorage.user_id
         })
       })//2nd Fetch
+    this.props.addMonthly(monthlyObj)
     }
       this.setState({
         monthlies: [...this.props.currentMonthlies, monthlyObj],
@@ -307,9 +313,8 @@ class Profile extends React.Component {
 
      let dateFormatter = moment(clicked.date).toDate()
 
-     debugger
-
      this.props.editPurchase(clicked.id)
+     this.props.editMonthly(clicked.id)
 
      this.setState({
        name:clicked.name,
@@ -481,6 +486,18 @@ const mapDispatchToProps = (dispatch, props) => {
     deletePurchase: (id) => {
       dispatch({
         type: 'PURCHASE_DELETED',
+        id: id
+      })
+    },
+    addMonthly: (monthlyObj) => {
+      dispatch({
+        type: "MONTHLY_SUBMITTED",
+        monthlyObj: monthlyObj
+      })
+    },
+    editMonthly: (id) => {
+      dispatch({
+        type: 'MONTHLY_EDITED',
         id: id
       })
     },
