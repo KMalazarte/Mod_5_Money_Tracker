@@ -8,6 +8,10 @@ export const FETCH_MONTHLIES_ERROR = "FETCH_MONTHLIES_ERROR"
 export const PURCHASE_SUBMITTED = "PURCHASE_SUBMITTED"
 export const PURCHASE_EDITED = "PURCHASE_EDITED"
 export const PURCHASE_DELETED = "PURCHASE_DELETED"
+export const MONTHLY_SUBMITTED = "MONTHLY_SUBMITTED"
+export const MONTHLY_EDITED = "MONTHLY_EDITED"
+export const MONTHLY_DELETED = "MONTHLY_DELETED"
+
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
 // WITH THUNK WE CAN RETURN A FUNCTION THAT USES DISPATCH
@@ -71,6 +75,27 @@ const purchaseEdited = (id) => {
 const purchaseDeleted = (id) => {
   return {
     type: PURCHASE_DELETED,
+    id: id
+  }
+}
+
+const monthlySubmitted = (monthlyObj) => {
+  return {
+    type: MONTHLY_SUBMITTED,
+    monthlyObj: monthlyObj
+  }
+}
+
+const monthlyEdited = (id) => {
+  return {
+    type: MONTHLY_EDITED,
+    id: id
+  }
+}
+
+const monthlyDeleted = (id) => {
+  return {
+    type: MONTHLY_DELETED,
     id: id
   }
 }
