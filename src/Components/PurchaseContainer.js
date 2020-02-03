@@ -33,6 +33,7 @@ const PurchaseContainer = (props) => {
       />
       <PurchaseTable
         view={props.view}
+        viewYear={props.viewYear}
         editHandler = {props.editHandler}
         deleteHandler = {props.deleteHandler}
         handleCancel = {props.handleCancel}
