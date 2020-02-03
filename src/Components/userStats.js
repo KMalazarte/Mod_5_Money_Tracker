@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Header, Table, Button } from 'semantic-ui-react'
+
 import UserForm from './userForm'
 
 
 const UserStats = (props) => {
+
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
@@ -17,6 +19,7 @@ const UserStats = (props) => {
       }
     }
 
+
   let spent = () => {
     if (props.total) {
       return (parseFloat(props.total).toFixed(2))
@@ -28,6 +31,10 @@ const UserStats = (props) => {
       return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(props.total))).toFixed(2)
     } else { return parseFloat( (localStorage.monthly_take_home) - ( parseFloat(renderMonthlies() )) ) }
   }
+
+  // useEffect(() => {
+  //   amtLeft()
+  // },[props.currentTakeHome])
 
   return(
     <Fragment>

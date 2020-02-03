@@ -4,10 +4,10 @@ import { Header, Image, Button, Modal } from 'semantic-ui-react'
 const PurchaseModal = (props) => {
   return(
     <Modal trigger={<Button>Details</Button>}>
-      <Modal.Header>{props.name} / {props.date}</Modal.Header>
+      <Modal.Header>{props.date}: {props.name}</Modal.Header>
       <Modal.Content image>
         <Modal.Description>
-          <Header>Default Profile Image</Header>
+          <Header>{props.name}</Header>
           <p>Category: {props.category}</p>
           <p>Out of Pocket: {props.out_of_pocket}</p>
           <p>Actual Paid: {props.actual_paid}</p>
