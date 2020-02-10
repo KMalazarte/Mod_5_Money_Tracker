@@ -27,14 +27,10 @@ const UserStats = (props) => {
   }
 
   let amtLeft = () => {
-    if (props.total) {
-      return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(props.total))).toFixed(2)
-    } else { return parseFloat( (localStorage.monthly_take_home) - ( parseFloat(renderMonthlies() )) ) }
+    if (props.total) return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(props.total))).toFixed(2)
+    return parseFloat( (localStorage.monthly_take_home) - ( parseFloat(renderMonthlies() )) )
   }
 
-  // useEffect(() => {
-  //   amtLeft()
-  // },[props.currentTakeHome])
 
   return(
     <Fragment>
