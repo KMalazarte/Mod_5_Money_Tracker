@@ -251,7 +251,7 @@ class Profile extends React.Component {
                    actual_paid: this.state.actualPaid,
                    payment_method: this.state.paymentMethod,
                    user_id: localStorage.user_id
-                 }
+    }
 
       if (this.state.editClicked) {
 
@@ -473,7 +473,8 @@ const mapStateToProps = (state, props) => {
   return {
     user: state.usersReducer,
     purchases: state.purchaseReducer.purchases,
-    currentMonthlies: state.monthlyReducer.monthlies
+    currentMonthlies: state.monthlyReducer.monthlies,
+    
   }
 }
 

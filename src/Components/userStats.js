@@ -6,7 +6,6 @@ import UserForm from './userForm'
 
 const UserStats = (props) => {
 
-
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
   const renderMonthlies = () => {
