@@ -101,8 +101,9 @@ const monthlyDeleted = (id) => {
   }
 }
 
-const takeHomeEdited = () => {
+const takeHomeEdited = (takeHome) => {
   return {
-    type: TAKE_HOME_EDITED
+    type: TAKE_HOME_EDITED,
+    takeHome: takeHome
   }
 }

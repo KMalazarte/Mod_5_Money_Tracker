@@ -138,13 +138,15 @@ class Profile extends React.Component {
        }
      })
      .then(JSONResponse => {
-       console.log(JSONResponse);
        localStorage.setItem('monthly_take_home', JSONResponse.monthly_take_home)
      })
      this.setState({
        userClicked:!this.state.userClicked,
        currentTakeHome:this.state.takeHome
      })
+
+     this.props.editTakeHome(this.state.currentTakeHome)
+
      alert('Monthly Take Home has been updated')
    }
 
@@ -179,8 +181,6 @@ class Profile extends React.Component {
        })
 
       this.props.deleteMonthly(e.currentTarget.dataset.id)
-
-      debugger
 
       fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.dataset.id}`, {
         method: 'DELETE'
@@ -474,7 +474,7 @@ const mapStateToProps = (state, props) => {
     user: state.usersReducer,
     purchases: state.purchaseReducer.purchases,
     currentMonthlies: state.monthlyReducer.monthlies,
-    
+    takeHome: state.takeHomeReducer.takeHome
   }
 }
 
@@ -514,6 +514,12 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch({
         type: 'MONTHLY_DELETED',
         id: id
+      })
+    },
+    editTakeHome: (takeHome) => {
+      dispatch({
+        type: 'TAKE_HOME_EDITED',
+        takeHome: takeHome
       })
     }
   }
