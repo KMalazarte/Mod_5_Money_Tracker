@@ -9,7 +9,7 @@ const takeHomeReducer = (state = initialState, action) => {
     case TAKE_HOME_EDITED:
       return {
         ...state,
-        takeHome: localStorage.monthly_take_home
+        takeHome: action.takeHome
       }
       default:
         return state;

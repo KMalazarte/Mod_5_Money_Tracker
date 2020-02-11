@@ -118,9 +118,9 @@ class Profile extends React.Component {
 
    handleTakeHomeSubmit = (e) => {
      e.preventDefault()
-     let newTakeHome={
-       monthly_take_home: this.state.takeHome
-     }
+     // let newTakeHome={
+     //   monthly_take_home: this.state.takeHome
+     // }
      fetch(`http://localhost:3000/profile/${localStorage.user_id}`, {
        method: 'PATCH',
        headers: {
@@ -145,7 +145,7 @@ class Profile extends React.Component {
        currentTakeHome:this.state.takeHome
      })
 
-     this.props.editTakeHome(this.state.currentTakeHome)
+     this.props.editTakeHome(this.state.takeHome)
 
      alert('Monthly Take Home has been updated')
    }
@@ -474,7 +474,7 @@ const mapStateToProps = (state, props) => {
     user: state.usersReducer,
     purchases: state.purchaseReducer.purchases,
     currentMonthlies: state.monthlyReducer.monthlies,
-    takeHome: state.takeHomeReducer.takeHome
+    userTakeHome: state.takeHomeReducer.takeHome
   }
 }
 
