@@ -6,7 +6,6 @@ import UserForm from './userForm'
 
 const UserStats = (props) => {
 
-
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
   const renderMonthlies = () => {
@@ -16,25 +15,19 @@ const UserStats = (props) => {
         monthly => monthliesArr.push( parseFloat(monthly.amount) )
       )
       return parseFloat(monthliesArr.reduce(reducer, 0)).toFixed(2)
-      }
     }
-
+  }
 
   let spent = () => {
-    if (props.total) {
-      return (parseFloat(props.total).toFixed(2))
-    } else { return 0 }
+    if (props.total) return (parseFloat(props.total).toFixed(2))
+    return 0
   }
 
   let amtLeft = () => {
-    if (props.total) {
-      return parseFloat((localStorage.monthly_take_home) - (parseFloat(renderMonthlies()) + parseFloat(props.total))).toFixed(2)
-    } else { return parseFloat( (localStorage.monthly_take_home) - ( parseFloat(renderMonthlies() )) ) }
+    if (props.total) return parseFloat((props.currentTakeHome) - (parseFloat(renderMonthlies()) + parseFloat(props.total))).toFixed(2)
+    return parseFloat( (props.currentTakeHome) - ( parseFloat(renderMonthlies() )) )
   }
 
-  // useEffect(() => {
-  //   amtLeft()
-  // },[props.currentTakeHome])
 
   return(
     <Fragment>

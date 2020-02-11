@@ -11,6 +11,7 @@ export const PURCHASE_DELETED = "PURCHASE_DELETED"
 export const MONTHLY_SUBMITTED = "MONTHLY_SUBMITTED"
 export const MONTHLY_EDITED = "MONTHLY_EDITED"
 export const MONTHLY_DELETED = "MONTHLY_DELETED"
+export const TAKE_HOME_EDITED = "TAKE_HOME_EDITED"
 
 
 // NOTE: ACTIONS CAN ALSO HAVE PAYLOADS
@@ -97,5 +98,12 @@ const monthlyDeleted = (id) => {
   return {
     type: MONTHLY_DELETED,
     id: id
+  }
+}
+
+const takeHomeEdited = (takeHome) => {
+  return {
+    type: TAKE_HOME_EDITED,
+    takeHome: takeHome
   }
 }

@@ -118,9 +118,9 @@ class Profile extends React.Component {
 
    handleTakeHomeSubmit = (e) => {
      e.preventDefault()
-     let newTakeHome={
-       monthly_take_home: this.state.takeHome
-     }
+     // let newTakeHome={
+     //   monthly_take_home: this.state.takeHome
+     // }
      fetch(`http://localhost:3000/profile/${localStorage.user_id}`, {
        method: 'PATCH',
        headers: {
@@ -138,13 +138,15 @@ class Profile extends React.Component {
        }
      })
      .then(JSONResponse => {
-       console.log(JSONResponse);
        localStorage.setItem('monthly_take_home', JSONResponse.monthly_take_home)
      })
      this.setState({
        userClicked:!this.state.userClicked,
        currentTakeHome:this.state.takeHome
      })
+
+     this.props.editTakeHome(this.state.takeHome)
+
      alert('Monthly Take Home has been updated')
    }
 
@@ -179,8 +181,6 @@ class Profile extends React.Component {
        })
 
       this.props.deleteMonthly(e.currentTarget.dataset.id)
-
-      debugger
 
       fetch(`http://localhost:3000/${localStorage.user_id}/monthlies/${e.currentTarget.dataset.id}`, {
         method: 'DELETE'
@@ -251,7 +251,7 @@ class Profile extends React.Component {
                    actual_paid: this.state.actualPaid,
                    payment_method: this.state.paymentMethod,
                    user_id: localStorage.user_id
-                 }
+    }
 
       if (this.state.editClicked) {
 
@@ -473,7 +473,8 @@ const mapStateToProps = (state, props) => {
   return {
     user: state.usersReducer,
     purchases: state.purchaseReducer.purchases,
-    currentMonthlies: state.monthlyReducer.monthlies
+    currentMonthlies: state.monthlyReducer.monthlies,
+    userTakeHome: state.takeHomeReducer.takeHome
   }
 }
 
@@ -513,6 +514,12 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch({
         type: 'MONTHLY_DELETED',
         id: id
+      })
+    },
+    editTakeHome: (takeHome) => {
+      dispatch({
+        type: 'TAKE_HOME_EDITED',
+        takeHome: takeHome
       })
     }
   }
