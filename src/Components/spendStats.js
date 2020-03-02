@@ -17,9 +17,9 @@ const SpendStats = (props) => {
         return parseFloat(eatingOutMap.reduce(reducer, 0)).toFixed(2)
       }
     }
-    
+
     let eatOut = () => {
-      if(eatingOutAdd()==false)return "No eating out purchases yet"
+      if(eatingOutAdd()==false)return "No eating out purchases this month"
       return `Eating Out: $${eatingOutAdd()} / ${parseFloat((parseFloat(eatingOutAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
@@ -29,10 +29,20 @@ const SpendStats = (props) => {
       return parseFloat(groceriesMap.reduce(reducer, 0)).toFixed(2)
     }
 
+    let grocery = () => {
+      if(groceriesAdd()==false)return "No grocery purchases this month"
+      return `Groceries: $${groceriesAdd()} / ${parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
+    }
+
     let entertainmentAdd = () => {
       const entertainmentFilter = props.shownPurchases.filter(purchase => purchase.category === "Entertainment")
       const entertainmentMap = entertainmentFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(entertainmentMap.reduce(reducer, 0)).toFixed(2)
+    }
+
+    let entertainment = () => {
+      if(entertainmentAdd()==false)return "No entertainment purchases this month"
+      return `Groceries: $${entertainmentAdd()} / ${parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
     let giftsAdd = () => {
@@ -84,10 +94,10 @@ const SpendStats = (props) => {
               <p>{eatOut()}</p>
             </Grid.Row>
             <Grid.Row color="teal">
-              <p>Groceries: ${groceriesAdd()} / {parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.total)))*100).toFixed(2)}%  </p>
+              <p>{grocery()}</p>
             </Grid.Row>
             <Grid.Row color="green">
-              <p>Entertainment: ${entertainmentAdd()} / {parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.total)))*100).toFixed(2)}% </p>
+              <p>{entertainment()}</p>
             </Grid.Row>
             <Grid.Row color="red">
               <p>Clothes/Accessories: ${clothesAdd()} / {parseFloat((parseFloat(clothesAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
