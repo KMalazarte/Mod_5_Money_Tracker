@@ -73,8 +73,8 @@ const UserStats = (props) => {
         </Header>
           <UserForm
           handleTakeHomeSubmit={props.handleTakeHomeSubmit}
-          handleChange= {props.handleChange}
-          takeHome = {props.takeHome}
+          handleChange={props.handleChange}
+          takeHome={props.takeHome}
           />
         <Table color="purple">
          <Table.Header>
