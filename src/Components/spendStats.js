@@ -51,7 +51,7 @@ const SpendStats = (props) => {
 
     let entertainment = () => {
       if(entertainmentAdd()==false)return "No entertainment purchases this month"
-      return `Groceries: $${entertainmentAdd()} / ${parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
+      return `Entertainment: $${entertainmentAdd()} / ${parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
     let giftsAdd = () => {
@@ -64,9 +64,9 @@ const SpendStats = (props) => {
       }
     }
 
-    let gifts = () => {
-      if(giftsAdd()==false)return "No gifts purchases this month"
-      return `Groceries: $${giftsAdd()} / ${parseFloat((parseFloat(giftsAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
+    let gift = () => {
+      if(giftsAdd()==false)return "No gift purchases this month"
+      return `Gifts: $${giftsAdd()} / ${parseFloat((parseFloat(giftsAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
     let boozeAdd = () => {
@@ -79,9 +79,9 @@ const SpendStats = (props) => {
       }
     }
 
-    let entertainment = () => {
-      if(entertainmentAdd()==false)return "No entertainment purchases this month"
-      return `Groceries: $${entertainmentAdd()} / ${parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
+    let booze = () => {
+      if(boozeAdd()==false)return "No booze purchases this month"
+      return `Booze: $${boozeAdd()} / ${parseFloat((parseFloat(boozeAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
     let transportAdd = () => {
@@ -94,10 +94,20 @@ const SpendStats = (props) => {
       }
     }
 
+    let transport = () => {
+      if(transportAdd()==false)return "No transportation purchases this month"
+      return `Transportation/Gas: $${transportAdd()} / ${parseFloat((parseFloat(transportAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
+    }
+
     let clothesAdd = () => {
       const clothesFilter = props.shownPurchases.filter(purchase => purchase.category === "Clothes/Accessories")
       const clothesMap = clothesFilter.map(purchase => parseFloat(purchase.actual_paid))
       return parseFloat(clothesMap.reduce(reducer, 0)).toFixed(2)
+    }
+
+    let clothes = () => {
+      if(clothesAdd()==false)return "No clothes purchases this month"
+      return `Clothes: $${clothesAdd()} / ${parseFloat((parseFloat(clothesAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
     let travelAdd = () => {
@@ -110,6 +120,11 @@ const SpendStats = (props) => {
       }
     }
 
+    let travel = () => {
+      if(travelAdd()==false)return "No flight or hotel purchases this month"
+      return `Flights/Hotels: $${travelAdd()} / ${parseFloat((parseFloat(travelAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
+    }
+
     let miscAdd = () => {
       const miscFilter = props.shownPurchases.filter(purchase => purchase.category === "Misc.")
       const miscMap = miscFilter.map(purchase => parseFloat(purchase.actual_paid))
@@ -118,6 +133,11 @@ const SpendStats = (props) => {
       } else {
         return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
       }
+    }
+
+    let misc = () => {
+      if(miscAdd()==false)return "No miscellaneous purchases this month"
+      return `Miscellaneous: $${miscAdd()} / ${parseFloat((parseFloat(miscAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
 
@@ -136,22 +156,22 @@ const SpendStats = (props) => {
               <p>{entertainment()}</p>
             </Grid.Row>
             <Grid.Row color="red">
-              <p>Clothes/Accessories: ${clothesAdd()} / {parseFloat((parseFloat(clothesAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
+              <p>{clothes()}</p>
             </Grid.Row>
             <Grid.Row color="yellow">
-              <p>Booze/Night Out: ${boozeAdd()} / {parseFloat((parseFloat(boozeAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
+              <p>{booze()}</p>
             </Grid.Row>
             <Grid.Row color="purple">
-              <p>Transportation/ Gas: ${transportAdd()} / {parseFloat((parseFloat(transportAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
+              <p>{transport()}</p>
             </Grid.Row>
             <Grid.Row color="orange">
-              <p>Flights/ Hotels: ${travelAdd()} / {parseFloat((parseFloat(travelAdd())/(parseFloat(props.total)))*100).toFixed(2)}% </p>
+              <p>{travel()}</p>
             </Grid.Row>
             <Grid.Row color="brown">
-              <p>Misc: ${miscAdd()} / {parseFloat((parseFloat(miscAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
+              <p>{misc()}</p>
             </Grid.Row>
             <Grid.Row color="pink">
-              <p>Gifts: ${giftsAdd()} / {parseFloat((parseFloat(giftsAdd())/(parseFloat(props.total)))*100).toFixed(2)}%</p>
+              <p>{gift()}</p>
             </Grid.Row>
           </Grid>
         </div>
