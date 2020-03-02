@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Header } from 'semantic-ui-react'
 import PieChart  from 'react-minimal-pie-chart';
 
 const SpendStats = (props) => {
@@ -12,7 +12,7 @@ const SpendStats = (props) => {
       const eatingOutFilter = props.shownPurchases.filter(purchase => purchase.category === "Eating Out")
       const eatingOutMap = eatingOutFilter.map(purchase => parseFloat(purchase.actual_paid))
       if (eatingOutMap == 0 ){
-        return false
+        return 0
       } else {
         return parseFloat(eatingOutMap.reduce(reducer, 0)).toFixed(2)
       }
@@ -27,7 +27,7 @@ const SpendStats = (props) => {
       const groceriesFilter = props.shownPurchases.filter(purchase => purchase.category === "Groceries")
       const groceriesMap = groceriesFilter.map(purchase => parseFloat(purchase.actual_paid))
       if (groceriesMap == 0 ){
-        return false
+        return 0
       } else {
         return parseFloat(groceriesMap.reduce(reducer, 0)).toFixed(2)
       }
@@ -42,7 +42,7 @@ const SpendStats = (props) => {
       const entertainmentFilter = props.shownPurchases.filter(purchase => purchase.category === "Entertainment")
       const entertainmentMap = entertainmentFilter.map(purchase => parseFloat(purchase.actual_paid))
       if (entertainmentMap == 0 ){
-        return false
+        return 0
       } else {
         return parseFloat(entertainmentMap.reduce(reducer, 0)).toFixed(2)
       }
@@ -58,7 +58,7 @@ const SpendStats = (props) => {
       const giftsFilter = props.shownPurchases.filter(purchase => purchase.category === "Gifts")
       const giftsMap = giftsFilter.map(purchase => parseFloat(purchase.actual_paid))
       if (giftsMap == 0 ){
-        return false
+        return 0
       } else {
         return parseFloat(giftsMap.reduce(reducer, 0)).toFixed(2)
       }
@@ -73,7 +73,7 @@ const SpendStats = (props) => {
       const boozeFilter = props.shownPurchases.filter(purchase => purchase.category === "Booze/Night Out")
       const boozeMap = boozeFilter.map(purchase => parseFloat(purchase.actual_paid))
       if (boozeMap == 0 ){
-        return false
+        return 0
       } else {
         return parseFloat(boozeMap.reduce(reducer, 0)).toFixed(2)
       }
@@ -88,7 +88,7 @@ const SpendStats = (props) => {
       const transportFilter = props.shownPurchases.filter(purchase => purchase.category === "Transportation/ Gas")
       const transportMap = transportFilter.map(purchase => parseFloat(purchase.actual_paid))
       if (transportMap == 0 ){
-        return false
+        return 0
       } else {
         return parseFloat(transportMap.reduce(reducer, 0)).toFixed(2)
       }
@@ -102,7 +102,11 @@ const SpendStats = (props) => {
     let clothesAdd = () => {
       const clothesFilter = props.shownPurchases.filter(purchase => purchase.category === "Clothes/Accessories")
       const clothesMap = clothesFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(clothesMap.reduce(reducer, 0)).toFixed(2)
+      if (clothesMap == 0 ){
+        return 0
+      } else {
+        return parseFloat(clothesMap.reduce(reducer, 0)).toFixed(2)
+      }
     }
 
     let clothes = () => {
@@ -114,7 +118,7 @@ const SpendStats = (props) => {
       const travelFilter = props.shownPurchases.filter(purchase => purchase.category === "Flights/ Hotels")
       const travelMap = travelFilter.map(purchase => parseFloat(purchase.actual_paid))
       if (travelMap == 0 ){
-        return false
+        return 0
       } else {
         return parseFloat(travelMap.reduce(reducer, 0)).toFixed(2)
       }
@@ -129,7 +133,7 @@ const SpendStats = (props) => {
       const miscFilter = props.shownPurchases.filter(purchase => purchase.category === "Misc.")
       const miscMap = miscFilter.map(purchase => parseFloat(purchase.actual_paid))
       if (miscMap == 0 ){
-        return false
+        return 0
       } else {
         return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
       }
@@ -140,11 +144,11 @@ const SpendStats = (props) => {
       return `Miscellaneous: $${miscAdd()} / ${parseFloat((parseFloat(miscAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
-
     return(
     <Fragment>
       {clicked ? (
         <div centered onClick={() => setClicked(!clicked)} className='color'>
+          <Header as='h5' textAlign='center'>Amount Spent/ % of purchases</Header>
           <Grid textAlign='center' className='color-container'>
             <Grid.Row color="blue">
               <p>{eatOut()}</p>
