@@ -26,7 +26,11 @@ const SpendStats = (props) => {
     let groceriesAdd = () => {
       const groceriesFilter = props.shownPurchases.filter(purchase => purchase.category === "Groceries")
       const groceriesMap = groceriesFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(groceriesMap.reduce(reducer, 0)).toFixed(2)
+      if (groceriesMap == 0 ){
+        return false
+      } else {
+        return parseFloat(groceriesMap.reduce(reducer, 0)).toFixed(2)
+      }
     }
 
     let grocery = () => {
@@ -37,7 +41,12 @@ const SpendStats = (props) => {
     let entertainmentAdd = () => {
       const entertainmentFilter = props.shownPurchases.filter(purchase => purchase.category === "Entertainment")
       const entertainmentMap = entertainmentFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(entertainmentMap.reduce(reducer, 0)).toFixed(2)
+      if (entertainmentMap == 0 ){
+        return false
+      } else {
+        return parseFloat(entertainmentMap.reduce(reducer, 0)).toFixed(2)
+      }
+
     }
 
     let entertainment = () => {
@@ -48,19 +57,41 @@ const SpendStats = (props) => {
     let giftsAdd = () => {
       const giftsFilter = props.shownPurchases.filter(purchase => purchase.category === "Gifts")
       const giftsMap = giftsFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(giftsMap.reduce(reducer, 0)).toFixed(2)
+      if (giftsMap == 0 ){
+        return false
+      } else {
+        return parseFloat(giftsMap.reduce(reducer, 0)).toFixed(2)
+      }
+    }
+
+    let gifts = () => {
+      if(giftsAdd()==false)return "No gifts purchases this month"
+      return `Groceries: $${giftsAdd()} / ${parseFloat((parseFloat(giftsAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
     let boozeAdd = () => {
       const boozeFilter = props.shownPurchases.filter(purchase => purchase.category === "Booze/Night Out")
       const boozeMap = boozeFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(boozeMap.reduce(reducer, 0)).toFixed(2)
+      if (boozeMap == 0 ){
+        return false
+      } else {
+        return parseFloat(boozeMap.reduce(reducer, 0)).toFixed(2)
+      }
+    }
+
+    let entertainment = () => {
+      if(entertainmentAdd()==false)return "No entertainment purchases this month"
+      return `Groceries: $${entertainmentAdd()} / ${parseFloat((parseFloat(entertainmentAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
     let transportAdd = () => {
       const transportFilter = props.shownPurchases.filter(purchase => purchase.category === "Transportation/ Gas")
       const transportMap = transportFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(transportMap.reduce(reducer, 0)).toFixed(2)
+      if (transportMap == 0 ){
+        return false
+      } else {
+        return parseFloat(transportMap.reduce(reducer, 0)).toFixed(2)
+      }
     }
 
     let clothesAdd = () => {
@@ -72,18 +103,23 @@ const SpendStats = (props) => {
     let travelAdd = () => {
       const travelFilter = props.shownPurchases.filter(purchase => purchase.category === "Flights/ Hotels")
       const travelMap = travelFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(travelMap.reduce(reducer, 0)).toFixed(2)
+      if (travelMap == 0 ){
+        return false
+      } else {
+        return parseFloat(travelMap.reduce(reducer, 0)).toFixed(2)
+      }
     }
 
     let miscAdd = () => {
       const miscFilter = props.shownPurchases.filter(purchase => purchase.category === "Misc.")
       const miscMap = miscFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
+      if (miscMap == 0 ){
+        return false
+      } else {
+        return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
+      }
     }
 
-
-
-    console.log(eatOut());
 
     return(
     <Fragment>
