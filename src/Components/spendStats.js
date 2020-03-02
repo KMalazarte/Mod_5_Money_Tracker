@@ -11,7 +11,16 @@ const SpendStats = (props) => {
     let eatingOutAdd = () => {
       const eatingOutFilter = props.shownPurchases.filter(purchase => purchase.category === "Eating Out")
       const eatingOutMap = eatingOutFilter.map(purchase => parseFloat(purchase.actual_paid))
-      return parseFloat(eatingOutMap.reduce(reducer, 0)).toFixed(2)
+      if (eatingOutMap == 0 ){
+        return false
+      } else {
+        return parseFloat(eatingOutMap.reduce(reducer, 0)).toFixed(2)
+      }
+    }
+    
+    let eatOut = () => {
+      if(eatingOutAdd()==false)return "No eating out purchases yet"
+      return `Eating Out: $${eatingOutAdd()} / ${parseFloat((parseFloat(eatingOutAdd())/(parseFloat(props.total)))*100).toFixed(2)}%`
     }
 
     let groceriesAdd = () => {
@@ -62,14 +71,17 @@ const SpendStats = (props) => {
       return parseFloat(miscMap.reduce(reducer, 0)).toFixed(2)
     }
 
-    // console.log("spend Stats", parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.total)))*100).toFixed(4)   )
+
+
+    console.log(eatOut());
+
     return(
     <Fragment>
       {clicked ? (
         <div centered onClick={() => setClicked(!clicked)} className='color'>
           <Grid textAlign='center' className='color-container'>
             <Grid.Row color="blue">
-              <p>Eating Out: ${eatingOutAdd()} / {parseFloat((parseFloat(eatingOutAdd())/(parseFloat(props.total)))*100).toFixed(2)}% </p>
+              <p>{eatOut()}</p>
             </Grid.Row>
             <Grid.Row color="teal">
               <p>Groceries: ${groceriesAdd()} / {parseFloat((parseFloat(groceriesAdd())/(parseFloat(props.total)))*100).toFixed(2)}%  </p>
