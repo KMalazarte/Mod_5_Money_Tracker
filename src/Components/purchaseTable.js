@@ -68,7 +68,7 @@ class PurchaseTable extends React.Component {
       case 'Flights/ Hotels':
         return color = '#f2711c'
         break
-      case 'Misc':
+      case 'Misc.':
         return color = "#86512f"
         break
       case 'Gifts':

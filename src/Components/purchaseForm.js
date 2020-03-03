@@ -75,7 +75,7 @@ const PurchaseForm = (props) => {
     <Fragment>
       <Form onSubmit={props.handleSubmit} size={"small"} key={"small"}>
         <Form.Group widths='equal'>
-        <Form.Field>
+          <Form.Field>
             <DatePicker
               selected={props.date}
               onChange={props.dateHandler}
