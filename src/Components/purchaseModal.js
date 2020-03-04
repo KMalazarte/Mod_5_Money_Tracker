@@ -1,29 +1,43 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import { Header, Image, Button, Modal } from 'semantic-ui-react'
 
 const PurchaseModal = (props) => {
 
   const [image, setImage] = useState('')
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
+  //
+  // const uploadImage = async e => {
+  //   const files = e.target.files
+  //   const data = new FormData()
+  //   data.append('file', files[0])
+  //   data.append('upload preset', 'kevincloud89')
+  //   setLoading(true)
+  //   const res = await fetch(
+  //     'https://api.cloudinary.com/v1_1/kevinscloud11/image/upload',
+  //     {
+  //       method: 'POST',
+  //       body: data
+  //     }
+  //   )
+  //   const file = await res.json()
+  //
+  //   setImage(file.secure_url)
+  //   setLoading(false)
+  // }
 
-  const uploadImage = async e => {
-    const files = e.target.files
-    const data = new FormData()
-    data.append('file', files[0])
-    data.append('upload preset', 'kevincloud89')
-    setLoading(true)
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/kevinscloud11/image/upload',
+  const openWidget = useCallback(() => {
+     window.cloudinary.createUploadWidget(
       {
-        method: 'POST',
-        body: data
-      }
-    )
-    const file = await res.json()
-
-    setImage(file.secure_url)
-    setLoading(false)
-  }
+        cloudName: 'kevinscloud11',
+        uploadPreset: "kevincloud89"
+      },
+      (error, result) => {
+        if (result && result.event === "success") {
+          setImage(`https://res.cloudinary.com/kevinscloud11/image/upload/${result.info.path}, uploaded: true`)
+          }
+        }
+    ).open()
+  })
 
   return(
     <Modal trigger={<Button>Details</Button>}>
@@ -37,7 +51,7 @@ const PurchaseModal = (props) => {
           <p>Place of Purchase: {props.place_of_purchase}</p>
           <p>Payment Method: {props.payment_method}</p>
         </Modal.Description>
-        <Button>Click Here to Upload Image</Button>
+        <Button onClick={openWidget}>Click Here to Upload Image</Button>
       </Modal.Content>
     </Modal>
   )
