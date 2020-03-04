@@ -37,18 +37,7 @@ const PurchaseModal = (props) => {
           <p>Place of Purchase: {props.place_of_purchase}</p>
           <p>Payment Method: {props.payment_method}</p>
         </Modal.Description>
-        <Header as="h1">Upload Image</Header>
-        <input
-          type="file"
-          name="file"
-          placeholder="Upload an image"
-          onChange={uploadImage}
-        />
-        {loading ? (
-          <Header as='h3'>Loading...</Header>
-        ): (
-          <Image size='medium' src='https://support.checkout51.com/hc/en-us/article_attachments/200464383/receipt_examples_perfect_sm.jpg' />
-        )}
+        <Button>Click Here to Upload Image</Button>
       </Modal.Content>
     </Modal>
   )
