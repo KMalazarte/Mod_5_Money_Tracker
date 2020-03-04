@@ -1,7 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Header, Image, Button, Modal } from 'semantic-ui-react'
 
 const PurchaseModal = (props) => {
+
+  const [image, setImage] = useState('')
+  const [loading, setLoading] = useState(false)
+
   return(
     <Modal trigger={<Button>Details</Button>}>
       <Modal.Header>{props.date}: {props.name}</Modal.Header>
