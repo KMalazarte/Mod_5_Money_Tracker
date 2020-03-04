@@ -33,7 +33,7 @@ const PurchaseModal = (props) => {
       },
       (error, result) => {
         if (result && result.event === "success") {
-          setImage(`https://res.cloudinary.com/kevinscloud11/image/upload/${result.info.path}, uploaded: true`)
+          setImage(`https://res.cloudinary.com/kevinscloud11/image/upload/${result.info.path}`)
           }
         }
     ).open()
@@ -52,6 +52,7 @@ const PurchaseModal = (props) => {
           <p>Payment Method: {props.payment_method}</p>
         </Modal.Description>
         <Button onClick={openWidget}>Click Here to Upload Image</Button>
+        <Image src={image}/>
       </Modal.Content>
     </Modal>
   )
