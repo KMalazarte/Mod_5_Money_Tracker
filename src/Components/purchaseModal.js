@@ -1,7 +1,44 @@
-import React from 'react'
+import React, {useCallback, useState} from 'react'
 import { Header, Image, Button, Modal } from 'semantic-ui-react'
 
 const PurchaseModal = (props) => {
+
+  const [image, setImage] = useState('')
+  // const [loading, setLoading] = useState(false)
+  //
+  // const uploadImage = async e => {
+  //   const files = e.target.files
+  //   const data = new FormData()
+  //   data.append('file', files[0])
+  //   data.append('upload preset', 'kevincloud89')
+  //   setLoading(true)
+  //   const res = await fetch(
+  //     'https://api.cloudinary.com/v1_1/kevinscloud11/image/upload',
+  //     {
+  //       method: 'POST',
+  //       body: data
+  //     }
+  //   )
+  //   const file = await res.json()
+  //
+  //   setImage(file.secure_url)
+  //   setLoading(false)
+  // }
+
+  const openWidget = useCallback(() => {
+     window.cloudinary.createUploadWidget(
+      {
+        cloudName: 'kevinscloud11',
+        uploadPreset: "kevincloud89"
+      },
+      (error, result) => {
+        if (result && result.event === "success") {
+          setImage(`https://res.cloudinary.com/kevinscloud11/image/upload/${result.info.path}`)
+          }
+        }
+    ).open()
+  })
+
   return(
     <Modal trigger={<Button>Details</Button>}>
       <Modal.Header>{props.date}: {props.name}</Modal.Header>
@@ -14,8 +51,8 @@ const PurchaseModal = (props) => {
           <p>Place of Purchase: {props.place_of_purchase}</p>
           <p>Payment Method: {props.payment_method}</p>
         </Modal.Description>
-        <Image size='medium' src='https://support.checkout51.com/hc/en-us/article_attachments/200464383/receipt_examples_perfect_sm.jpg' />
-        <Image size='medium' src="" />
+        <Button onClick={openWidget}>Click Here to Upload Image</Button>
+        <Image src={image}/>
       </Modal.Content>
     </Modal>
   )

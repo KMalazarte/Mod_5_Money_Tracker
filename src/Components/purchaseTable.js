@@ -5,7 +5,6 @@ import moment from 'moment'
 import _ from 'lodash'
 import { withRouter  } from 'react-router-dom'
 import PurchaseModal from './purchaseModal'
-// import { useSelector } from 'react-redux'
 
 class PurchaseTable extends React.Component {
 
@@ -68,7 +67,7 @@ class PurchaseTable extends React.Component {
       case 'Flights/ Hotels':
         return color = '#f2711c'
         break
-      case 'Misc':
+      case 'Misc.':
         return color = "#86512f"
         break
       case 'Gifts':

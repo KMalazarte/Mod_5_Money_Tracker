@@ -148,7 +148,7 @@ const SpendStats = (props) => {
     <Fragment>
       {clicked ? (
         <div centered onClick={() => setClicked(!clicked)} className='color'>
-          <Header as='h5' textAlign='center'>Amount Spent/ % of purchases</Header>
+          <Header as='h5' textAlign='center'>Amount Spent/ Percentage of purchases</Header>
           <Grid textAlign='center' className='color-container'>
             <Grid.Row color="blue">
               <p>{eatOut()}</p>

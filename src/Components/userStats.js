@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { Header, Table, Button } from 'semantic-ui-react'
 
 import UserForm from './userForm'
